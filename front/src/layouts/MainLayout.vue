@@ -1,6 +1,6 @@
 <template>
   <q-layout view="lHh Lpr lFf">
-    <q-header elevated>
+    <q-header class="header" elevated>
       <q-toolbar>
         <q-btn
           flat
@@ -12,10 +12,8 @@
         />
 
         <q-toolbar-title>
-          Quasar App
+          My App
         </q-toolbar-title>
-
-        <div>Quasar v{{ $q.version }}</div>
       </q-toolbar>
     </q-header>
 
@@ -23,49 +21,78 @@
       v-model="leftDrawerOpen"
       show-if-above
       bordered
-      content-class="bg-grey-1"
+      content-class="menu"
     >
       <q-list>
-        <q-item-label
-          header
-          class="text-grey-8"
-        >
-          Essential Links
-        </q-item-label>
         <EssentialLink
           v-for="link in essentialLinks"
           :key="link.title"
           v-bind="link"
+          :view="view"
         />
       </q-list>
     </q-drawer>
 
     <q-page-container>
       <!-- THIS IS FOR ALL COMPONENTS -->
+      <users-component v-if="view === 'users'"></users-component>
     </q-page-container>
   </q-layout>
 </template>
 
 <script>
 import EssentialLink from 'components/EssentialLink.vue'
+import UsersComponent from 'components/UsersComponent.vue'
+import { functions } from '../functions.js'
 
 const linksData = [
   {
-    title: 'Home',
-    caption: 'quasar.dev',
-    icon: 'school',
+    title: 'Inicio',
+    icon: 'home',
     link: 'home'
+  },
+  {
+    title: 'Usuarios',
+    icon: 'business',
+    link: 'users'
+  },
+  {
+    title: 'Proyectos',
+    icon: 'library_books',
+    link: 'proyects'
+  },
+  {
+    title: 'Variables',
+    icon: 'description',
+    link: 'vars'
+  },
+  {
+    title: 'Informes',
+    icon: 'article',
+    link: 'reports'
+  },
+  {
+    title: 'Graficas',
+    icon: 'analytics',
+    link: 'graphis'
+  },
+  {
+    title: 'Formulas',
+    icon: 'calculate',
+    link: 'calculate'
   }
 ]
 
 export default {
   name: 'MainLayout',
-  components: { EssentialLink },
+  components: { EssentialLink, UsersComponent },
+  mixins: [functions],
   data () {
     return {
       leftDrawerOpen: false,
       essentialLinks: linksData
     }
-  }
+  },
+  props: ['view']
 }
 </script>

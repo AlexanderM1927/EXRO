@@ -2,10 +2,37 @@
 const routes = [
   {
     path: '/',
-    component: () => import('layouts/MainLayout.vue'),
+    component: () => import('layouts/LoginLayout.vue'),
     children: [
       { path: '', component: () => import('pages/Index.vue') }
     ]
+  },
+  {
+    path: '/login',
+    component: () => import('layouts/LoginLayout.vue'),
+    children: [
+      { path: '', component: () => import('pages/Index.vue') }
+    ]
+  },
+  {
+    path: '/home',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [
+      { path: '', component: () => import('pages/Index.vue') }
+    ],
+    props: {
+      view: 'home'
+    }
+  },
+  {
+    path: '/users',
+    component: () => import('layouts/MainLayout.vue'),
+    children: [
+      { path: '', component: () => import('pages/Index.vue') }
+    ],
+    props: {
+      view: 'users'
+    }
   },
 
   // Always leave this as last one,
