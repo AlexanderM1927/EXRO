@@ -7,14 +7,15 @@
                 <div class="title">
                     <div class="text-h6">
                         Usuarios
-                        <q-btn round color="positive" @click="createUser" size="sm" icon="add">
+                        <div class="right">
+                          <q-btn round color="positive" @click="createUser" size="sm" icon="add">
                             <q-tooltip>
                                 Agregar
                             </q-tooltip>
-                        </q-btn>
+                          </q-btn>
+                        </div>
                     </div>
                 </div>
-                <q-separator />
                 <br>
                 <div class="row">
                     <q-table
@@ -39,7 +40,12 @@
                                     {{ getRankById(props.row.rank) }}
                                 </q-td>
                                 <q-td key="ops" :props="props">
-                                    <q-btn >
+                                  <a class="text-blue" style="cursor: pointer; padding: 5px;" @click="goTo('user/' + props.row.id)"> <q-icon size="md" name="edit"/>
+                                    <q-tooltip :delay="1000" :offset="[0, 10]">editar</q-tooltip>
+                                  </a>
+                                  <a class="text-red" style="cursor: pointer; padding: 5px;" @click="del(props.row.id)"> <q-icon size="md" name="delete"/>
+                                    <q-tooltip :delay="1000" :offset="[0, 10]">eliminar</q-tooltip>
+                                  </a>
                                 </q-td>
                             </q-tr>
                         </template>
@@ -91,7 +97,16 @@ export default {
         parent: this,
         text: 'Hola'
       }).onOk(async (data) => {
-        // console.log(data)
+        data.token = localStorage.getItem('token')
+        try {
+          const p = await UserService.register(data)
+          console.log(p)
+          if (p.status === 201) {
+            this.alert('positive', 'Usuario agregado correctamente')
+          }
+        } catch (error) {
+          this.alert('negative', 'Se ha presentado un error al crear el usuario')
+        }
       }).onCancel(() => {
         console.log('Cancel')
       }).onDismiss(() => {
@@ -101,3 +116,8 @@ export default {
   }
 }
 </script>
+<style lang="scss" scoped>
+.right {
+  float: right;
+}
+</style>

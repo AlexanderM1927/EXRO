@@ -47,7 +47,7 @@ class UserController extends Controller
 
         } catch (\Exception $e) {
             //return error message
-            return response()->json(['message' => 'User Registration Failed!'], 409);
+            return response()->json(['message' => $e], 409);
         }
     }
 

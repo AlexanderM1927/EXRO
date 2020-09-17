@@ -4,13 +4,13 @@
         <div class="row">
             <div class="login col-md-4 col-xs-10">
                 <q-form @submit="login">
-                    <q-input color="grey-3" bg-color="white" label-color="black" filled v-model="email" label="Correo" required :rules="[val => !!val || 'Este campo es necesario']">
+                    <q-input color="grey-3" bg-color="white" label-color="primary" filled v-model="email" label="Correo" required :rules="[val => !!val || 'Este campo es necesario']">
                         <template v-slot:append>
                         <q-icon name="mail" color="primary" />
                         </template>
                     </q-input>
                     <br>
-                    <q-input color="grey-3" bg-color="white" label-color="black" v-model="password" filled :type="isPwd ? 'password' : 'text'" label="Clave" required :rules="[val => !!val || 'Este campo es necesario']">
+                    <q-input color="grey-3" bg-color="white" label-color="primary" v-model="password" filled :type="isPwd ? 'password' : 'text'" label="Clave" required :rules="[val => !!val || 'Este campo es necesario']">
                         <template v-slot:append>
                             <q-icon color="primary" :name="isPwd ? 'visibility_off' : 'visibility'" @click="isPwd = !isPwd"/>
                         </template>

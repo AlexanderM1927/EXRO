@@ -14,6 +14,7 @@
         <q-toolbar-title>
           My App
         </q-toolbar-title>
+        <q-btn flat round dense icon="login" @click="goTo('logout')" />
       </q-toolbar>
     </q-header>
 
@@ -83,11 +84,6 @@ const linksData = [
     title: 'Formulas',
     icon: 'calculate',
     link: 'calculate'
-  },
-  {
-    title: 'Salir',
-    icon: '',
-    link: 'logout'
   }
 ]
 

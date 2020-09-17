@@ -31,6 +31,17 @@ export const functions = {
         r = 'Administrador'
       }
       return r
+    },
+    getRankByName (name) {
+      let r = 0
+      if (name === 'Cliente') {
+        r = 1
+      } else if (name === 'Ingeniero') {
+        r = 2
+      } else if (name === 'Administrador') {
+        r = 3
+      }
+      return r
     }
   }
 }

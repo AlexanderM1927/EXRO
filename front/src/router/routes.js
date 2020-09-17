@@ -33,7 +33,7 @@ const routes = [
       view: 'users'
     },
     meta: {
-      title: 'users', requireSession: true
+      title: 'Usuarios', requireSession: true
     }
   },
   {
@@ -43,7 +43,7 @@ const routes = [
       view: 'proyects'
     },
     meta: {
-      title: 'proyectos', requireSession: true
+      title: 'Proyectos', requireSession: true
     }
   },
   {
