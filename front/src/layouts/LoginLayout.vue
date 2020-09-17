@@ -2,7 +2,7 @@
   <q-layout view="lHh Lpr lFf">
     <q-page-container>
         <div class="row">
-            <div class="login col-md-4 col-xs-10">
+            <div class="login box col-md-4 col-xs-10">
                 <q-form @submit="login">
                     <q-input color="grey-3" bg-color="white" label-color="primary" filled v-model="email" label="Correo" required :rules="[val => !!val || 'Este campo es necesario']">
                         <template v-slot:append>
