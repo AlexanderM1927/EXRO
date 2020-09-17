@@ -20,6 +20,17 @@ export const functions = {
     getToken (user) {
       const token = user.token_type + ' ' + user.token
       return token
+    },
+    getRankById (id) {
+      let r = 'Usuario'
+      if (id === 1) {
+        r = 'Cliente'
+      } else if (id === 2) {
+        r = 'Ingeniero'
+      } else if (id === 3) {
+        r = 'Administrador'
+      }
+      return r
     }
   }
 }

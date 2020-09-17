@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -52,6 +53,11 @@ class UserController extends Controller
 
     public function getUser () {
         return Auth::user();
+    }
+
+    public function getUsers () {
+        $users = DB::table('users')->get();
+        return response()->json(['users' => $users]);
     }
 
     public function logout () {

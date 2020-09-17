@@ -106,8 +106,7 @@ export default {
   methods: {
     async verifySession () {
       try {
-        const u = await UserService.getUser({ token: localStorage.getItem('token') })
-        console.log(u)
+        await UserService.getUser({ token: localStorage.getItem('token') })
       } catch (error) {
         this.goTo('login')
       }
