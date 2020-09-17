@@ -26,18 +26,21 @@
                     >
                         <template v-slot:body="props">
                             <q-tr :props="props">
-                            <q-td key="id" :props="props">
-                                {{ props.row.id }}
-                            </q-td>
-                            <q-td key="name" :props="props">
-                                {{ props.row.name }}
-                            </q-td>
-                            <q-td key="email" :props="props">
-                                <div class="text-pre-wrap">{{ props.row.email }}</div>
-                            </q-td>
-                            <q-td key="rank" :props="props">
-                                {{ getRankById(props.row.rank) }}
-                            </q-td>
+                                <q-td key="id" :props="props">
+                                    {{ props.row.id }}
+                                </q-td>
+                                <q-td key="name" :props="props">
+                                    {{ props.row.name }}
+                                </q-td>
+                                <q-td key="email" :props="props">
+                                    <div class="text-pre-wrap">{{ props.row.email }}</div>
+                                </q-td>
+                                <q-td key="rank" :props="props">
+                                    {{ getRankById(props.row.rank) }}
+                                </q-td>
+                                <q-td key="ops" :props="props">
+                                    <q-btn >
+                                </q-td>
                             </q-tr>
                         </template>
                     </q-table>
@@ -63,7 +66,8 @@ export default {
         { name: 'id', align: 'center', label: 'id', field: 'id', sortable: true },
         { name: 'name', align: 'center', label: 'Nombre', field: 'name', sortable: true },
         { name: 'email', align: 'center', label: 'Email', field: 'email', sortable: true },
-        { name: 'rank', align: 'center', label: 'Tipo', field: 'rank', sortable: true }
+        { name: 'rank', align: 'center', label: 'Tipo', field: 'rank', sortable: true },
+        { name: 'ops', align: 'center', label: 'Opciones', field: 'ops', sortable: true }
       ],
       data: []
     }
