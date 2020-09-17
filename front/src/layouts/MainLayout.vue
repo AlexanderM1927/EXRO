@@ -36,6 +36,7 @@
     <q-page-container>
       <!-- THIS IS FOR ALL COMPONENTS -->
       <users-component v-if="view === 'users'"></users-component>
+      <proyects-component v-if="view === 'proyects'"></proyects-component>
     </q-page-container>
   </q-layout>
 </template>
@@ -43,6 +44,7 @@
 <script>
 import EssentialLink from 'components/EssentialLink.vue'
 import UsersComponent from 'components/UsersComponent.vue'
+import ProyectsComponent from 'components/ProyectsComponent.vue'
 import { functions } from '../functions.js'
 import UserService from '../services/UserService'
 
@@ -91,7 +93,7 @@ const linksData = [
 
 export default {
   name: 'MainLayout',
-  components: { EssentialLink, UsersComponent },
+  components: { EssentialLink, UsersComponent, ProyectsComponent },
   mixins: [functions],
   data () {
     return {
