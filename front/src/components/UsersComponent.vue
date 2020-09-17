@@ -100,7 +100,6 @@ export default {
         data.token = localStorage.getItem('token')
         try {
           const p = await UserService.register(data)
-          console.log(p)
           if (p.status === 201) {
             this.alert('positive', 'Usuario agregado correctamente')
           }
@@ -108,9 +107,9 @@ export default {
           this.alert('negative', 'Se ha presentado un error al crear el usuario')
         }
       }).onCancel(() => {
-        console.log('Cancel')
+        // console.log('Cancel')
       }).onDismiss(() => {
-        console.log('Called on OK or Cancel')
+        // console.log('Called on OK or Cancel')
       })
     }
   }
