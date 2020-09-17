@@ -1,37 +1,43 @@
 
 const routes = [
   {
+    name: 'login',
     path: '/',
     component: () => import('layouts/LoginLayout.vue'),
-    children: [
-      { path: '', component: () => import('pages/Index.vue') }
-    ]
+    meta: {
+      title: 'Login'
+    }
   },
   {
     path: '/login',
     component: () => import('layouts/LoginLayout.vue'),
-    children: [
-      { path: '', component: () => import('pages/Index.vue') }
-    ]
+    meta: {
+      title: 'Login'
+    }
   },
   {
+    name: 'home',
     path: '/home',
     component: () => import('layouts/MainLayout.vue'),
-    children: [
-      { path: '', component: () => import('pages/Index.vue') }
-    ],
     props: {
       view: 'home'
+    },
+    meta: {
+      title: 'Home', requireSession: true
     }
   },
   {
     path: '/users',
     component: () => import('layouts/MainLayout.vue'),
-    children: [
-      { path: '', component: () => import('pages/Index.vue') }
-    ],
     props: {
       view: 'users'
+    }
+  },
+  {
+    name: 'logout',
+    path: '/logout',
+    meta: {
+      title: 'logout', requireSession: true
     }
   },
 

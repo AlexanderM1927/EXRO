@@ -50,6 +50,10 @@ class UserController extends Controller
         }
     }
 
+    public function getUser () {
+        return Auth::user();
+    }
+
     public function logout () {
         Auth::logout();
         return response()->json(['message' => 'Successfully logged out']);

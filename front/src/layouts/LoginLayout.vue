@@ -26,6 +26,7 @@
 
 <script>
 import { functions } from '../functions.js'
+import UserService from '../services/UserService'
 
 export default {
   name: 'MainLayout',
@@ -39,7 +40,20 @@ export default {
   },
   methods: {
     async login () {
-      console.log('x')
+      try {
+        const u = await UserService.login({ email: this.email, password: this.password })
+        console.log(u)
+        const user = u.data
+        if (u.status === 200) {
+          localStorage.setItem('token', this.getToken(user))
+          localStorage.setItem('user', user.user.id)
+          this.goTo('home')
+        } else {
+          this.alert('negative', 'Credenciales invalidas')
+        }
+      } catch (error) {
+        this.alert('negative', 'Credenciales invalidas')
+      }
     }
   }
 }

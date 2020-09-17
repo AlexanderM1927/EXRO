@@ -10,6 +10,16 @@ export const functions = {
           // console.log('it is in page')
         }
       })
+    },
+    alert (type, msg) {
+      this.$q.notify({
+        message: msg,
+        color: type
+      })
+    },
+    getToken (user) {
+      const token = user.token_type + ' ' + user.token
+      return token
     }
   }
 }

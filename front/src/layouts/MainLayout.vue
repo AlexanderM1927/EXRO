@@ -44,6 +44,7 @@
 import EssentialLink from 'components/EssentialLink.vue'
 import UsersComponent from 'components/UsersComponent.vue'
 import { functions } from '../functions.js'
+import UserService from '../services/UserService'
 
 const linksData = [
   {
@@ -80,6 +81,11 @@ const linksData = [
     title: 'Formulas',
     icon: 'calculate',
     link: 'calculate'
+  },
+  {
+    title: 'Salir',
+    icon: '',
+    link: 'logout'
   }
 ]
 
@@ -93,6 +99,19 @@ export default {
       essentialLinks: linksData
     }
   },
-  props: ['view']
+  props: ['view'],
+  mounted () {
+    this.verifySession()
+  },
+  methods: {
+    async verifySession () {
+      try {
+        const u = await UserService.getUser({ token: localStorage.getItem('token') })
+        console.log(u)
+      } catch (error) {
+        this.goTo('login')
+      }
+    }
+  }
 }
 </script>
