@@ -42,7 +42,6 @@ export default {
     async login () {
       try {
         const u = await UserService.login({ email: this.email, password: this.password })
-        console.log(u)
         const user = u.data
         if (u.status === 200) {
           localStorage.setItem('token', this.getToken(user))
