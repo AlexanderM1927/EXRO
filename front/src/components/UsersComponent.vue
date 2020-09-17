@@ -7,7 +7,7 @@
                 <div class="title">
                     <div class="text-h6">
                         Usuarios
-                        <q-btn round color="positive" size="sm" icon="add">
+                        <q-btn round color="positive" @click="createUser" size="sm" icon="add">
                             <q-tooltip>
                                 Agregar
                             </q-tooltip>
@@ -50,6 +50,7 @@
 
 <script>
 import UserService from '../services/UserService'
+import AddUser from './Dialogs/AddUser.vue'
 import { functions } from '../functions.js'
 
 export default {
@@ -75,11 +76,23 @@ export default {
       try {
         const us = await UserService.getUsers({ token: localStorage.getItem('token') })
         const users = us.data.users
-        console.log(users)
         this.data = users
       } catch (error) {
         console.log(error)
       }
+    },
+    createUser () {
+      this.$q.dialog({
+        component: AddUser,
+        parent: this,
+        text: 'Hola'
+      }).onOk(async (data) => {
+        // console.log(data)
+      }).onCancel(() => {
+        console.log('Cancel')
+      }).onDismiss(() => {
+        console.log('Called on OK or Cancel')
+      })
     }
   }
 }
