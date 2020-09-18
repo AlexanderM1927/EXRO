@@ -14,7 +14,8 @@ $router->post('/login', "AuthController@login");
 $router->post('/logout', "UserController@logout");
 
 $router->group(['middleware' => 'auth'], function () use ($router) {
-    $router->get('/user', "UserController@getUser");
+    $router->get('/my-user', "UserController@getUser");
+    $router->get('/user/{id}', "UserController@getUserById");
     $router->get('/users', "UserController@getUsers");
     $router->post('/register', "UserController@register");
 });

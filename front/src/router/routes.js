@@ -37,6 +37,16 @@ const routes = [
     }
   },
   {
+    path: '/user/:id',
+    component: () => import('layouts/MainLayout.vue'),
+    props: {
+      view: 'user'
+    },
+    meta: {
+      title: 'Usuario', requireSession: true
+    }
+  },
+  {
     path: '/proyects',
     component: () => import('layouts/MainLayout.vue'),
     props: {

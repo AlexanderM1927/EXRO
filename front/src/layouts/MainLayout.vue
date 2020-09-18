@@ -24,6 +24,10 @@
       bordered
       content-class="menu"
     >
+      <div class="box profile" id="v-step-0">
+        <q-img src="../assets/profile.png" style="height: 100px; width: 100px;" /><br>
+        {{user.name}}
+      </div>
       <q-list>
         <EssentialLink
           v-for="link in essentialLinks"
@@ -36,8 +40,11 @@
 
     <q-page-container>
       <!-- THIS IS FOR ALL COMPONENTS -->
+      <home-component :user="user" v-if="view === 'home'" @tour="activateTour"></home-component>
       <users-component v-if="view === 'users'"></users-component>
+      <user-component v-if="view === 'user'"></user-component>
       <proyects-component v-if="view === 'proyects'"></proyects-component>
+      <v-tour name="myTour" :steps="steps"></v-tour>
     </q-page-container>
   </q-layout>
 </template>
@@ -45,7 +52,9 @@
 <script>
 import EssentialLink from 'components/EssentialLink.vue'
 import UsersComponent from 'components/UsersComponent.vue'
+import UserComponent from 'components/UserComponent.vue'
 import ProyectsComponent from 'components/ProyectsComponent.vue'
+import HomeComponent from 'components/HomeComponent.vue'
 import { functions } from '../functions.js'
 import UserService from '../services/UserService'
 
@@ -89,12 +98,32 @@ const linksData = [
 
 export default {
   name: 'MainLayout',
-  components: { EssentialLink, UsersComponent, ProyectsComponent },
+  components: { EssentialLink, UsersComponent, UserComponent, ProyectsComponent, HomeComponent },
   mixins: [functions],
   data () {
     return {
       leftDrawerOpen: false,
-      essentialLinks: linksData
+      essentialLinks: linksData,
+      user: {},
+      steps: [
+        {
+          target: '#home', // We're using document.querySelector() under the hood
+          header: {
+            title: 'Hola!'
+          },
+          content: 'Acá es dónde te encuentras actualmente, normalmente, se va demarcar con fondo blanco la sección activa.'
+        },
+        {
+          target: '#users',
+          header: {
+            title: 'Sección de Usuarios'
+          },
+          content: 'En este apartado puedes agregar clientes, ingenieros y administradores.',
+          params: {
+            placement: 'bottom' // Any valid Popper.js placement. See https://popper.js.org/popper-documentation.html#Popper.placements
+          }
+        }
+      ]
     }
   },
   props: ['view'],
@@ -104,11 +133,31 @@ export default {
   methods: {
     async verifySession () {
       try {
-        await UserService.getUser({ token: localStorage.getItem('token') })
+        const u = await UserService.getMyUser({ token: localStorage.getItem('token') })
+        this.user = u.data
       } catch (error) {
         this.goTo('login')
       }
+    },
+    activateTour () {
+      if (this.leftDrawerOpen === false) this.leftDrawerOpen = true
+      this.$tours.myTour.start()
     }
   }
 }
 </script>
+<style lang="scss" scoped>
+.profile {
+  cursor: pointer;
+  background: white;
+  color: black;
+  width: 95%;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 5px;
+  text-align: center;
+  margin-top: 9px;
+  margin-bottom: 10px;
+  word-wrap: break-word;
+}
+</style>

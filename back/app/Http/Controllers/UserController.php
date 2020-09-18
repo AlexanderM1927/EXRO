@@ -59,6 +59,14 @@ class UserController extends Controller
         $users = DB::table('users')->get();
         return response()->json(['users' => $users]);
     }
+    
+    public function getUserById ($id) {
+        $user = DB::table('users')
+        ->where('id', '=', $id)
+        ->get()
+        ->first();
+        return response()->json(['user' => $user]);
+    }
 
     public function logout () {
         Auth::logout();
