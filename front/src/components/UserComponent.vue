@@ -51,7 +51,9 @@ export default {
   methods: {
     async getUserInfo () {
       try {
+        this.activateLoading('Cargando')
         const p = await UserService.getUser({ id: this.id, token: localStorage.getItem('token') })
+        this.disableLoading()
         this.user = p.data.user
         this.user.rank = this.getRankById(p.data.user.rank)
       } catch (error) {
@@ -62,7 +64,9 @@ export default {
       try {
         const data = this.user
         data.token = localStorage.getItem('token')
+        this.activateLoading('Cargando')
         const p = await UserService.modifyUser(data)
+        this.disableLoading()
         if (p.status === 200) {
           this.alert('positive', 'Guardado correctamente')
         }

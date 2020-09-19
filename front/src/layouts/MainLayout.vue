@@ -115,13 +115,12 @@ export default {
         },
         {
           target: '#users',
+          overlay: '#users',
           header: {
             title: 'Sección de Usuarios'
           },
           content: 'En este apartado puedes agregar clientes, ingenieros y administradores.',
-          params: {
-            placement: 'bottom' // Any valid Popper.js placement. See https://popper.js.org/popper-documentation.html#Popper.placements
-          }
+          params: { placement: 'bottom' }
         }
       ]
     }
@@ -133,7 +132,9 @@ export default {
   methods: {
     async verifySession () {
       try {
+        this.activateLoading('Cargando')
         const u = await UserService.getMyUser({ token: localStorage.getItem('token') })
+        this.disableLoading()
         this.user = u.data
       } catch (error) {
         this.goTo('login')

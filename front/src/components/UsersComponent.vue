@@ -84,7 +84,9 @@ export default {
   methods: {
     async getUsers () {
       try {
+        this.activateLoading('Cargando')
         const us = await UserService.getUsers({ token: localStorage.getItem('token') })
+        this.disableLoading()
         const users = us.data.users
         this.data = users
       } catch (error) {
@@ -99,7 +101,9 @@ export default {
       }).onOk(async (data) => {
         data.token = localStorage.getItem('token')
         try {
+          this.activateLoading('Cargando')
           const p = await UserService.register(data)
+          this.disableLoading()
           this.getUsers()
           if (p.status === 201) {
             this.alert('positive', 'Usuario agregado correctamente')
@@ -115,7 +119,9 @@ export default {
     },
     async del (id) {
       try {
+        this.activateLoading('Cargando')
         const p = await UserService.deleteUser({ id: id, token: localStorage.getItem('token') })
+        this.disableLoading()
         if (p.status === 200) {
           this.getUsers()
           this.alert('positive', 'Eliminado correctamente')

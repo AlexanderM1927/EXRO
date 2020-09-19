@@ -1,3 +1,5 @@
+import { QSpinnerGears, QSpinnerAudio } from 'quasar'
+
 export const functions = {
   data () {
     return {
@@ -42,6 +44,21 @@ export const functions = {
         r = 3
       }
       return r
+    },
+    activateLoading (message, spinner = 0) {
+      var show = {
+        message: message
+      }
+
+      if (spinner === 1) {
+        show.spinner = QSpinnerGears
+      } else if (spinner === 2) {
+        show.spinner = QSpinnerAudio
+      }
+      this.$q.loading.show(show)
+    },
+    disableLoading () {
+      this.$q.loading.hide()
     }
   }
 }
