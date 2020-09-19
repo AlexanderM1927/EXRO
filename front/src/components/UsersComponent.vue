@@ -86,12 +86,12 @@ export default {
       try {
         this.activateLoading('Cargando')
         const us = await UserService.getUsers({ token: localStorage.getItem('token') })
-        this.disableLoading()
         const users = us.data.users
         this.data = users
       } catch (error) {
         console.log(error)
       }
+      this.disableLoading()
     },
     createUser () {
       this.$q.dialog({
@@ -103,7 +103,6 @@ export default {
         try {
           this.activateLoading('Cargando')
           const p = await UserService.register(data)
-          this.disableLoading()
           this.getUsers()
           if (p.status === 201) {
             this.alert('positive', 'Usuario agregado correctamente')
@@ -111,6 +110,7 @@ export default {
         } catch (error) {
           this.alert('negative', 'Se ha presentado un error al crear el usuario')
         }
+        this.disableLoading()
       }).onCancel(() => {
         // console.log('Cancel')
       }).onDismiss(() => {
@@ -121,7 +121,6 @@ export default {
       try {
         this.activateLoading('Cargando')
         const p = await UserService.deleteUser({ id: id, token: localStorage.getItem('token') })
-        this.disableLoading()
         if (p.status === 200) {
           this.getUsers()
           this.alert('positive', 'Eliminado correctamente')
@@ -129,6 +128,7 @@ export default {
       } catch (error) {
         this.alert('negative', 'Se presentó un error')
       }
+      this.disableLoading()
     }
   }
 }

@@ -53,12 +53,12 @@ export default {
       try {
         this.activateLoading('Cargando')
         const p = await UserService.getUser({ id: this.id, token: localStorage.getItem('token') })
-        this.disableLoading()
         this.user = p.data.user
         this.user.rank = this.getRankById(p.data.user.rank)
       } catch (error) {
         console.log(error)
       }
+      this.disableLoading()
     },
     async save () {
       try {
@@ -66,13 +66,13 @@ export default {
         data.token = localStorage.getItem('token')
         this.activateLoading('Cargando')
         const p = await UserService.modifyUser(data)
-        this.disableLoading()
         if (p.status === 200) {
           this.alert('positive', 'Guardado correctamente')
         }
       } catch (error) {
         this.alert('negative', 'Se registro un fallo al guardar')
       }
+      this.disableLoading()
     }
   }
 }

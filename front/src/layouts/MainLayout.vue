@@ -134,11 +134,11 @@ export default {
       try {
         this.activateLoading('Cargando')
         const u = await UserService.getMyUser({ token: localStorage.getItem('token') })
-        this.disableLoading()
         this.user = u.data
       } catch (error) {
         this.goTo('login')
       }
+      this.disableLoading()
     },
     activateTour () {
       if (this.leftDrawerOpen === false) this.leftDrawerOpen = true
