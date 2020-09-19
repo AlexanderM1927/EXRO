@@ -20,7 +20,7 @@
                     </template>
                 </q-select>
                 <center>
-                    <q-btn label="Guardar" color="primary"></q-btn>
+                    <q-btn label="Guardar" @click="save" color="primary"></q-btn>
                 </center>
             </div>
             <div class="col-1"></div>
@@ -56,6 +56,18 @@ export default {
         this.user.rank = this.getRankById(p.data.user.rank)
       } catch (error) {
         console.log(error)
+      }
+    },
+    async save () {
+      try {
+        const data = this.user
+        data.token = localStorage.getItem('token')
+        const p = await UserService.modifyUser(data)
+        if (p.status === 200) {
+          this.alert('positive', 'Guardado correctamente')
+        }
+      } catch (error) {
+        this.alert('negative', 'Se registro un fallo al guardar')
       }
     }
   }

@@ -100,6 +100,7 @@ export default {
         data.token = localStorage.getItem('token')
         try {
           const p = await UserService.register(data)
+          this.getUsers()
           if (p.status === 201) {
             this.alert('positive', 'Usuario agregado correctamente')
           }
@@ -111,6 +112,17 @@ export default {
       }).onDismiss(() => {
         // console.log('Called on OK or Cancel')
       })
+    },
+    async del (id) {
+      try {
+        const p = await UserService.deleteUser({ id: id, token: localStorage.getItem('token') })
+        if (p.status === 200) {
+          this.getUsers()
+          this.alert('positive', 'Eliminado correctamente')
+        }
+      } catch (error) {
+        this.alert('negative', 'Se presentó un error')
+      }
     }
   }
 }

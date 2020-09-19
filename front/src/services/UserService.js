@@ -10,6 +10,12 @@ export default {
   getUser (params) {
     return Api().get('user/' + params.id, { headers: { Authorization: params.token } })
   },
+  modifyUser (params) {
+    return Api().post('user/' + params.id, params, { headers: { Authorization: params.token } })
+  },
+  deleteUser (params) {
+    return Api().delete('user/' + params.id, { headers: { Authorization: params.token } })
+  },
   getMyUser (params) {
     return Api().get('my-user', { headers: { Authorization: params.token } })
   },

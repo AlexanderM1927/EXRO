@@ -74,7 +74,6 @@ export default {
 
     onOKClick () {
       if (this.user.password === this.user.passwordconfirm) {
-        this.user.rank = this.getRankByName(this.user.rank)
         // on OK, it is REQUIRED to
         // emit "ok" event (with optional payload)
         // before hiding the QDialog
