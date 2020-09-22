@@ -16,7 +16,7 @@
                 <q-separator />
                 <br>
                 <div class="row">
-                    <div v-for="(item, id) in proyects" :key="id"  class="col-6">
+                    <div v-for="(item, id) in proyects" :key="id"  class="col-md-6 col-xs-12">
                         <div v-if="proyects.length==0">
                             Ningun proyecto hasta el momento
                         </div>
