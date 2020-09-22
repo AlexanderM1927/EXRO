@@ -1,14 +1,14 @@
 <template>
   <q-dialog ref="dialog" @hide="onDialogHide">
     <q-card class="q-dialog-plugin container">
-      <div class="text-h6">Crear Nuevo Proyecto</div>
+      <div class="text-h6">Crear Nuevo Projecto</div>
       <q-separator />
-      <q-input color="grey-3" bg-color="white" label-color="primary" filled v-model="proyect.name" label="Nombre" required :rules="[val => !!val || 'Este campo es necesario']">
+      <q-input color="grey-3" bg-color="white" label-color="primary" filled v-model="project.name" label="Nombre" required :rules="[val => !!val || 'Este campo es necesario']">
         <template v-slot:append>
           <q-icon name="description" color="primary" />
         </template>
       </q-input>
-      <q-input color="grey-3" bg-color="white" label-color="primary" filled v-model="proyect.descripcion" type="textarea" label="Descripcion" required :rules="[val => !!val || 'Este campo es necesario']">
+      <q-input color="grey-3" bg-color="white" label-color="primary" filled v-model="project.descripcion" type="textarea" label="Descripcion" required :rules="[val => !!val || 'Este campo es necesario']">
         <template v-slot:append>
           <q-icon name="topic" color="primary" />
         </template>
@@ -28,13 +28,11 @@ export default {
   mixins: [functions],
   data () {
     return {
-      proyect: {}
+      project: {}
     }
   },
-  props: ['proyectToEdit'],
-  mounted () {
-    this.proyect = this.proyectToEdit
-  },
+  props: ['text'],
+
   methods: {
     // following method is REQUIRED
     // (don't change its name --> "show")
@@ -58,7 +56,7 @@ export default {
     // on OK, it is REQUIRED to
     // emit "ok" event (with optional payload)
     // before hiding the QDialog
-      this.$emit('ok', this.proyect)
+      this.$emit('ok', this.project)
       // or with payload: this.$emit('ok', { ... })
 
       // then hiding dialog

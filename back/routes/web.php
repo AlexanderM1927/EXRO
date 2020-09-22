@@ -28,11 +28,11 @@ $router->group(['middleware' => 'auth'], function () use ($router) {
     $router->delete('/var/{id}', "VariableController@deleteVarById");
     $router->post('/var/{id}', "VariableController@modifyVarById");
 
-    //Proyectos routes
-    $router->get('/proyects', "ProyectController@getProyects");
-    $router->post('/proyects', "ProyectController@newProyect");
-    $router->delete('/proyect/{id}', "ProyectController@deleteProyectById");
-    $router->post('/proyect/{id}', "ProyectController@modifyProyectById");
+    //Projectos routes
+    $router->get('/projects', "ProjectController@getProjects");
+    $router->post('/projects', "ProjectController@newProject");
+    $router->delete('/project/{id}', "ProjectController@deleteProjectById");
+    $router->post('/project/{id}', "ProjectController@modifyProjectById");
 
     $router->post('/register', "UserController@register");
 });

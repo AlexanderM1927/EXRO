@@ -47,13 +47,13 @@ const routes = [
     }
   },
   {
-    path: '/proyects',
+    path: '/projects',
     component: () => import('layouts/MainLayout.vue'),
     props: {
-      view: 'proyects'
+      view: 'projects'
     },
     meta: {
-      title: 'Proyectos', requireSession: true
+      title: 'Projectos', requireSession: true
     }
   },
   {

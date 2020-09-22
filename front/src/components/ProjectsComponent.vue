@@ -4,9 +4,9 @@
             <div class="col-1"></div>
             <div class="col-10">
                 <div class="text-h3 q-pa-md">
-                    Proyectos
+                    Projectos
                     <div class="right">
-                        <q-btn color="secondary" label="Crear Proyecto" @click="createProyect"></q-btn>
+                        <q-btn color="secondary" label="Crear Projecto" @click="createProject"></q-btn>
                     </div>
                 </div>
             </div>
@@ -16,9 +16,9 @@
                 <q-separator />
                 <br>
                 <div class="row">
-                    <div v-for="(item, id) in proyects" :key="id"  class="col-6">
-                        <div v-if="proyects.length==0">
-                            Ningun proyecto hasta el momento
+                    <div v-for="(item, id) in projects" :key="id"  class="col-6">
+                        <div v-if="projects.length==0">
+                            Ningun projecto hasta el momento
                         </div>
                         <q-card v-else class="my-card" flat bordered>
                             <q-card-section horizontal>
@@ -38,7 +38,7 @@
                                 <q-btn flat color="primary">
                                 Ver
                                 </q-btn>
-                                <q-btn flat color="primary" @click="editProyect(item)">
+                                <q-btn flat color="primary" @click="editProject(item)">
                                 Editar
                                 </q-btn>
                                 <q-btn flat color="negative" @click="eliminar(item.id)">
@@ -55,23 +55,23 @@
 </template>
 
 <script>
-import ProyectService from '../services/ProyectService'
-import AddProyect from './Dialogs/AddProyect.vue'
-import EditProyect from './Dialogs/EditProyect.vue'
+import ProjectService from '../services/ProjectService'
+import AddProject from './Dialogs/AddProject.vue'
+import EditProject from './Dialogs/EditProject.vue'
 import { functions } from '../functions.js'
 
 export default {
-  name: 'proyects-component',
+  name: 'projects-component',
   mixins: [functions],
   props: [],
   data () {
     return {
-      proyects: []
+      projects: []
     }
   },
   mounted () {
     this.organizarCards()
-    this.getProyects()
+    this.getProjects()
   },
   methods: {
     async organizarCards () {
@@ -88,33 +88,33 @@ export default {
         document.getElementsByClassName('cards')[i].style.minWidth = widthSize + 'px'
       }
     },
-    async getProyects () {
+    async getProjects () {
       try {
         this.activateLoading('Cargando')
-        const us = await ProyectService.getProyects({ token: localStorage.getItem('token') })
-        const proyects = us.data.proyects
-        this.proyects = proyects
+        const us = await ProjectService.getProjects({ token: localStorage.getItem('token') })
+        const projects = us.data.projects
+        this.projects = projects
       } catch (error) {
         console.log(error)
       }
       this.disableLoading()
     },
-    createProyect () {
+    createProject () {
       this.$q.dialog({
-        component: AddProyect,
+        component: AddProject,
         parent: this,
         text: 'Hola'
       }).onOk(async (data) => {
         data.token = localStorage.getItem('token')
         try {
           this.activateLoading('Cargando')
-          const p = await ProyectService.newProyect(data)
-          this.getProyects()
+          const p = await ProjectService.newProject(data)
+          this.getProjects()
           if (p.status === 201) {
-            this.alert('positive', 'Proyecto creado exitosamente')
+            this.alert('positive', 'Projecto creado exitosamente')
           }
         } catch (error) {
-          this.alert('negative', 'Se ha presentado un error al crear el Proyecto')
+          this.alert('negative', 'Se ha presentado un error al crear el Projecto')
         }
         this.disableLoading()
       }).onCancel(() => {
@@ -126,9 +126,9 @@ export default {
     async eliminar (id) {
       try {
         this.activateLoading('Cargando')
-        const p = await ProyectService.deleteProyect({ id: id, token: localStorage.getItem('token') })
+        const p = await ProjectService.deleteProject({ id: id, token: localStorage.getItem('token') })
         if (p.status === 200) {
-          this.getProyects()
+          this.getProjects()
           this.alert('positive', 'Eliminado correctamente')
         }
       } catch (error) {
@@ -136,22 +136,22 @@ export default {
       }
       this.disableLoading()
     },
-    editProyect (params) {
+    editProject (params) {
       this.$q.dialog({
-        component: EditProyect,
+        component: EditProject,
         parent: this,
-        proyectToEdit: params
+        projectToEdit: params
       }).onOk(async (data) => {
         data.token = localStorage.getItem('token')
         try {
           this.activateLoading('Cargando')
-          const p = await ProyectService.modifyProyect(data)
-          this.getProyects()
+          const p = await ProjectService.modifyProject(data)
+          this.getProjects()
           if (p.status === 200) {
-            this.alert('positive', 'Proyecto editado exitosamente')
+            this.alert('positive', 'Projecto editado exitosamente')
           }
         } catch (error) {
-          this.alert('negative', 'Se ha presentado un error al editar el Proyecto')
+          this.alert('negative', 'Se ha presentado un error al editar el Projecto')
         }
         this.disableLoading()
       }).onCancel(() => {

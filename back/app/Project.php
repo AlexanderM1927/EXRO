@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Proyect extends Model
+class Project extends Model
 {
 
     /**
@@ -12,7 +12,7 @@ class Proyect extends Model
      *
      * @var array
      */
-    protected $table = 'proyects';
+    protected $table = 'projects';
     
     protected $fillable = [
         'name', 'descripcion', 'idCliente'
