@@ -44,7 +44,7 @@
                                 {{ getRankById(props.row.rank) }}
                             </q-td>
                             <q-td key="ops" :props="props">
-                                <a class="text-blue" style="cursor: pointer; padding: 5px;" @click="goTo('user/' + props.row.id)"> <q-icon size="md" name="edit"/>
+                                <a class="text-blue" style="cursor: pointer; padding: 5px;" @click="goTo('var/' + props.row.id)"> <q-icon size="md" name="edit"/>
                                 <q-tooltip :delay="1000" :offset="[0, 10]">editar</q-tooltip>
                                 </a>
                                 <a class="text-red" style="cursor: pointer; padding: 5px;" @click="del(props.row.id)"> <q-icon size="md" name="delete"/>
@@ -61,12 +61,13 @@
 </template>
 
 <script>
+import VarService from '../services/VarService'
 import { functions } from '../functions.js'
 
 export default {
   name: 'vars-component',
   mixins: [functions],
-  props: [],
+  props: ['mode'],
   data () {
     return {
       variable: {},
@@ -79,8 +80,43 @@ export default {
     }
   },
   mounted () {
+    this.getVars()
   },
   methods: {
+    async save () {
+      try {
+        this.variable.token = localStorage.getItem('token')
+        this.activateLoading('Cargando')
+        const p = await VarService.addVar(this.variable)
+        if (p.status === 201) {
+          this.variable = {}
+          this.alert('positive', 'Variable agregada correctamente')
+          this.getVars()
+        }
+      } catch (error) {
+        this.alert('negative', 'Error al agregar una variable')
+      }
+      this.disableLoading()
+    },
+    async getVars () {
+      this.activateLoading('Cargando')
+      const p = await VarService.getVars({ token: localStorage.getItem('token') })
+      this.data = p.data.vars
+      this.disableLoading()
+    },
+    async del (id) {
+      try {
+        this.activateLoading('Cargando')
+        const p = await VarService.deleteVar({ id: id, token: localStorage.getItem('token') })
+        if (p.status === 200) {
+          this.getVars()
+          this.alert('positive', 'Eliminado correctamente')
+        }
+      } catch (error) {
+        this.alert('negative', 'Se presentó un error')
+      }
+      this.disableLoading()
+    }
   }
 }
 </script>
