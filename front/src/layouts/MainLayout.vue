@@ -44,6 +44,7 @@
       <users-component v-if="view === 'users'"></users-component>
       <user-component v-if="view === 'user'"></user-component>
       <proyects-component v-if="view === 'proyects'"></proyects-component>
+      <vars-component v-if="view === 'vars'"></vars-component>
       <v-tour name="myTour" :steps="steps"></v-tour>
     </q-page-container>
   </q-layout>
@@ -54,6 +55,7 @@ import EssentialLink from 'components/EssentialLink.vue'
 import UsersComponent from 'components/UsersComponent.vue'
 import UserComponent from 'components/UserComponent.vue'
 import ProyectsComponent from 'components/ProyectsComponent.vue'
+import VarsComponent from 'components/VarsComponent.vue'
 import HomeComponent from 'components/HomeComponent.vue'
 import { functions } from '../functions.js'
 import UserService from '../services/UserService'
@@ -98,7 +100,7 @@ const linksData = [
 
 export default {
   name: 'MainLayout',
-  components: { EssentialLink, UsersComponent, UserComponent, ProyectsComponent, HomeComponent },
+  components: { EssentialLink, UsersComponent, UserComponent, ProyectsComponent, HomeComponent, VarsComponent },
   mixins: [functions],
   data () {
     return {

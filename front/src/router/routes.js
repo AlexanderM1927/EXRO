@@ -57,6 +57,16 @@ const routes = [
     }
   },
   {
+    path: '/vars',
+    component: () => import('layouts/MainLayout.vue'),
+    props: {
+      view: 'vars'
+    },
+    meta: {
+      title: 'Variables', requireSession: true
+    }
+  },
+  {
     name: 'logout',
     path: '/logout',
     meta: {
