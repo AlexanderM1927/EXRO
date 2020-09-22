@@ -13,7 +13,7 @@
           <q-icon name="topic" color="primary" />
         </template>
       </q-input>
-      <q-btn color="positive" class="full-width" label="Agregar cliente" icon="add" @click="addClient" />
+      <q-btn color="primary" outline class="full-width" label="Agregar cliente" icon="add" @click="addClient" />
       <q-card-actions align="right">
         <q-btn color="primary" label="OK" @click="onOKClick" />
         <q-btn color="primary" label="Cancel" @click="onCancelClick" />
