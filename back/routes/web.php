@@ -14,10 +14,19 @@ $router->post('/login', "AuthController@login");
 $router->post('/logout', "UserController@logout");
 
 $router->group(['middleware' => 'auth'], function () use ($router) {
+    // Users routes
     $router->get('/my-user', "UserController@getUser");
     $router->get('/user/{id}', "UserController@getUserById");
     $router->post('/user/{id}', "UserController@modifyUserById");
     $router->delete('/user/{id}', "UserController@deleteUserById");
     $router->get('/users', "UserController@getUsers");
+
+    // Variables routes
+    $router->get('/vars', "VariableController@getVars");
+    $router->get('/var/{id}', "VariableController@getVarById");
+    $router->post('/var', "VariableController@newVar");
+    $router->delete('/var/{id}', "VariableController@deleteVarById");
+    $router->post('/var/{id}', "VariableController@modifyVarById");
+
     $router->post('/register', "UserController@register");
 });
