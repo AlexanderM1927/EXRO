@@ -13,8 +13,6 @@
             <div class="col-1"></div>
             <div class="col-1"></div>
             <div class="col-10 container">
-                <q-separator />
-                <br>
                 <div class="row">
                     <div v-for="(item, id) in proyects" :key="id"  class="col-md-6 col-xs-12">
                         <div v-if="proyects.length==0">
@@ -166,5 +164,8 @@ export default {
 <style lang="scss" scoped>
 .right {
   float: right;
+}
+.cards {
+  min-width: 58.5%;
 }
 </style>
