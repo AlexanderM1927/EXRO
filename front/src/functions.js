@@ -15,6 +15,7 @@ export const functions = {
     },
     alert (type, msg) {
       this.$q.notify({
+        position: 'top',
         message: msg,
         color: type
       })
