@@ -5,7 +5,7 @@
           <div class="col-10" style="padding: 10px;">
               <div class="text-h4" :style="`float: left;`">Proyectos</div>
               <div class="right" :style="`${ $q.screen.xs ? 'width: 40%;' : ''}`">
-                <q-btn color="secondary" label="Crear Proyecto" @click="createProyect"></q-btn>
+                <q-btn color="secondary" label="Crear Proyecto" @click="createProject"></q-btn>
               </div>
           </div>
           <div class="col-1"></div>
@@ -14,8 +14,8 @@
             <div class="col-1"></div>
             <div class="col-10 container">
                 <div class="row">
-                    <div v-for="(item, id) in proyects" :key="id"  class="col-md-6 col-xs-12">
-                        <div v-if="proyects.length==0">
+                    <div v-for="(item, id) in projects" :key="id"  class="col-md-6 col-xs-12">
+                        <div v-if="projects.length==0">
                             Ningun proyecto hasta el momento
                         </div>
                         <q-card v-else class="my-card" flat bordered>
