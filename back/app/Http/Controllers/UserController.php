@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -37,7 +38,7 @@ class UserController extends Controller
             $user->email = $request->input('email');
             $plainPassword = $request->input('password');
             $user->password = app('hash')->make($plainPassword);
-            $user->rank = $request->input('rank');
+            $user->rank = $this->getRankByName($request->input('rank'));
 
             $user->save();
 
@@ -46,12 +47,47 @@ class UserController extends Controller
 
         } catch (\Exception $e) {
             //return error message
-            return response()->json(['message' => 'User Registration Failed!'], 409);
+            return response()->json(['message' => $e], 409);
         }
     }
 
     public function getUser () {
         return Auth::user();
+    }
+
+    public function getUsers () {
+        $users = DB::table('users')->get();
+        return response()->json(['users' => $users]);
+    }
+    
+    public function getUserById ($id) {
+        $user = DB::table('users')
+        ->where('id', '=', $id)
+        ->get()
+        ->first();
+        return response()->json(['user' => $user]);
+    }
+
+    public function modifyUserById ($id, Request $request) {
+        $user = DB::table('users')->where('id', '=', $id)->update([
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
+            'rank' => $this->getRankByName($request->input('rank'))
+        ]);
+        return response()->json(['user' => $user]);
+    }
+
+    public function deleteUserById ($id) {
+        $user = DB::table('users')->where('id', '=', $id)->delete();
+        return response()->json(['user' => $user]);
+    }
+
+    public function getRankByName ($name) {
+        $r = 0;
+        if ($name == 'Administrador') $r = 3;
+        elseif ($name == 'Ingeniero') $r = 2;
+        elseif ($name == 'Cliente') $r = 1;
+        return $r;
     }
 
     public function logout () {

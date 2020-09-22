@@ -14,6 +14,7 @@
         <q-toolbar-title>
           My App
         </q-toolbar-title>
+        <q-btn flat round dense icon="login" @click="goTo('logout')" />
       </q-toolbar>
     </q-header>
 
@@ -23,6 +24,10 @@
       bordered
       content-class="menu"
     >
+      <div class="box profile" id="v-step-0">
+        <q-img src="../assets/profile.png" style="height: 100px; width: 100px;" /><br>
+        {{user.name}}
+      </div>
       <q-list>
         <EssentialLink
           v-for="link in essentialLinks"
@@ -35,8 +40,11 @@
 
     <q-page-container>
       <!-- THIS IS FOR ALL COMPONENTS -->
+      <home-component :user="user" v-if="view === 'home'" @tour="activateTour"></home-component>
       <users-component v-if="view === 'users'"></users-component>
+      <user-component v-if="view === 'user'"></user-component>
       <proyects-component v-if="view === 'proyects'"></proyects-component>
+      <v-tour name="myTour" :steps="steps"></v-tour>
     </q-page-container>
   </q-layout>
 </template>
@@ -44,7 +52,9 @@
 <script>
 import EssentialLink from 'components/EssentialLink.vue'
 import UsersComponent from 'components/UsersComponent.vue'
+import UserComponent from 'components/UserComponent.vue'
 import ProyectsComponent from 'components/ProyectsComponent.vue'
+import HomeComponent from 'components/HomeComponent.vue'
 import { functions } from '../functions.js'
 import UserService from '../services/UserService'
 
@@ -83,22 +93,36 @@ const linksData = [
     title: 'Formulas',
     icon: 'calculate',
     link: 'calculate'
-  },
-  {
-    title: 'Salir',
-    icon: '',
-    link: 'logout'
   }
 ]
 
 export default {
   name: 'MainLayout',
-  components: { EssentialLink, UsersComponent, ProyectsComponent },
+  components: { EssentialLink, UsersComponent, UserComponent, ProyectsComponent, HomeComponent },
   mixins: [functions],
   data () {
     return {
       leftDrawerOpen: false,
-      essentialLinks: linksData
+      essentialLinks: linksData,
+      user: {},
+      steps: [
+        {
+          target: '#home', // We're using document.querySelector() under the hood
+          header: {
+            title: 'Hola!'
+          },
+          content: 'Acá es dónde te encuentras actualmente, normalmente, se va demarcar con fondo blanco la sección activa.'
+        },
+        {
+          target: '#users',
+          overlay: '#users',
+          header: {
+            title: 'Sección de Usuarios'
+          },
+          content: 'En este apartado puedes agregar clientes, ingenieros y administradores.',
+          params: { placement: 'bottom' }
+        }
+      ]
     }
   },
   props: ['view'],
@@ -108,12 +132,33 @@ export default {
   methods: {
     async verifySession () {
       try {
-        const u = await UserService.getUser({ token: localStorage.getItem('token') })
-        console.log(u)
+        this.activateLoading('Cargando')
+        const u = await UserService.getMyUser({ token: localStorage.getItem('token') })
+        this.user = u.data
       } catch (error) {
         this.goTo('login')
       }
+      this.disableLoading()
+    },
+    activateTour () {
+      if (this.leftDrawerOpen === false) this.leftDrawerOpen = true
+      this.$tours.myTour.start()
     }
   }
 }
 </script>
+<style lang="scss" scoped>
+.profile {
+  cursor: pointer;
+  background: white;
+  color: black;
+  width: 95%;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 5px;
+  text-align: center;
+  margin-top: 9px;
+  margin-bottom: 10px;
+  word-wrap: break-word;
+}
+</style>

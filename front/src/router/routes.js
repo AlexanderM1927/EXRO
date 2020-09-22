@@ -33,7 +33,17 @@ const routes = [
       view: 'users'
     },
     meta: {
-      title: 'users', requireSession: true
+      title: 'Usuarios', requireSession: true
+    }
+  },
+  {
+    path: '/user/:id',
+    component: () => import('layouts/MainLayout.vue'),
+    props: {
+      view: 'user'
+    },
+    meta: {
+      title: 'Usuario', requireSession: true
     }
   },
   {
@@ -43,7 +53,7 @@ const routes = [
       view: 'proyects'
     },
     meta: {
-      title: 'proyectos', requireSession: true
+      title: 'Proyectos', requireSession: true
     }
   },
   {

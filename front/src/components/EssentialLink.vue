@@ -1,6 +1,7 @@
 <template>
   <q-item
     clickable
+    :id="link"
     tag="a"
     target="_blank"
     @click="goTo(link)"
