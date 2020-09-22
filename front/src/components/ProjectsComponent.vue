@@ -1,24 +1,22 @@
 <template>
     <div class="q-pa-md">
         <div class="row">
-            <div class="col-1"></div>
-            <div class="col-10">
-                <div class="text-h3 q-pa-md">
-                    Projectos
-                    <div class="right">
-                        <q-btn color="secondary" label="Crear Projecto" @click="createProject"></q-btn>
-                    </div>
-                </div>
-            </div>
-            <div class="col-1"></div>
+          <div class="col-1"></div>
+          <div class="col-10" style="padding: 10px;">
+              <div class="text-h4" :style="`float: left;`">Proyectos</div>
+              <div class="right" :style="`${ $q.screen.xs ? 'width: 40%;' : ''}`">
+                <q-btn color="secondary" label="Crear Proyecto" @click="createProyect"></q-btn>
+              </div>
+          </div>
+          <div class="col-1"></div>
+        </div>
+        <div class="row">
             <div class="col-1"></div>
             <div class="col-10 container">
-                <q-separator />
-                <br>
                 <div class="row">
-                    <div v-for="(item, id) in projects" :key="id"  class="col-6">
-                        <div v-if="projects.length==0">
-                            Ningun projecto hasta el momento
+                    <div v-for="(item, id) in proyects" :key="id"  class="col-md-6 col-xs-12">
+                        <div v-if="proyects.length==0">
+                            Ningun proyecto hasta el momento
                         </div>
                         <q-card v-else class="my-card" flat bordered>
                             <q-card-section horizontal>
@@ -166,5 +164,8 @@ export default {
 <style lang="scss" scoped>
 .right {
   float: right;
+}
+.cards {
+  min-width: 58.5%;
 }
 </style>
