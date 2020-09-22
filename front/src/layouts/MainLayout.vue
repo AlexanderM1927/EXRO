@@ -44,6 +44,7 @@
       <users-component v-if="view === 'users'"></users-component>
       <user-component v-if="view === 'user'"></user-component>
       <projects-component v-if="view === 'projects'"></projects-component>
+      <project-component v-if="view === 'project'"></project-component>
       <vars-component v-if="view === 'vars'"></vars-component>
       <var-component v-if="view === 'var'"></var-component>
       <v-tour name="myTour" :steps="steps"></v-tour>
@@ -56,6 +57,7 @@ import EssentialLink from 'components/EssentialLink.vue'
 import UsersComponent from 'components/UsersComponent.vue'
 import UserComponent from 'components/UserComponent.vue'
 import ProjectsComponent from 'components/ProjectsComponent.vue'
+import ProjectComponent from 'components/ProjectComponent.vue'
 import VarsComponent from 'components/VarsComponent.vue'
 import VarComponent from 'components/VarComponent.vue'
 import HomeComponent from 'components/HomeComponent.vue'
@@ -74,7 +76,7 @@ const linksData = [
     link: 'users'
   },
   {
-    title: 'Projectos',
+    title: 'Proyectos',
     icon: 'library_books',
     link: 'projects'
   },
@@ -102,7 +104,7 @@ const linksData = [
 
 export default {
   name: 'MainLayout',
-  components: { EssentialLink, UsersComponent, UserComponent, ProjectsComponent, HomeComponent, VarsComponent, VarComponent },
+  components: { EssentialLink, UsersComponent, UserComponent, ProjectsComponent, ProjectComponent, HomeComponent, VarsComponent, VarComponent },
   mixins: [functions],
   data () {
     return {

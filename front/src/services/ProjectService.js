@@ -1,8 +1,8 @@
 import Api from '../boot/axios'
 
 export default {
-  getMyUser (params) {
-    return Api().get('my-user', { headers: { Authorization: params.token } })
+  getProject (params) {
+    return Api().get('project/' + params.id, { headers: { Authorization: params.token } })
   },
   getProjects (params) {
     return Api().get('projects', { headers: { Authorization: params.token } })

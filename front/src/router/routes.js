@@ -53,7 +53,17 @@ const routes = [
       view: 'projects'
     },
     meta: {
-      title: 'Projectos', requireSession: true
+      title: 'Proyectos', requireSession: true
+    }
+  },
+  {
+    path: '/project/:id',
+    component: () => import('layouts/MainLayout.vue'),
+    props: {
+      view: 'project'
+    },
+    meta: {
+      title: 'Proyecto', requireSession: true
     }
   },
   {

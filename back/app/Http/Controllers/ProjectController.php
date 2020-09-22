@@ -30,7 +30,7 @@ class ProjectController extends Controller
             $project = new Project;
             $project->name = $request->input('name');
             $project->descripcion = $request->input('descripcion');
-            $project->idCliente = auth()->id();
+            $project->idCliente = $request->input('idcliente');
 
             $project->save();
 
@@ -53,7 +53,7 @@ class ProjectController extends Controller
         ->where('id', '=', $id)
         ->get()
         ->first();
-        return response()->json(['projects' => $project]);
+        return response()->json(['project' => $project]);
     }
 
     public function modifyProjectById ($id, Request $request) {

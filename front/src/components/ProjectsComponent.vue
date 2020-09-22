@@ -33,7 +33,7 @@
                             <q-separator/>
 
                             <q-card-actions>
-                                <q-btn flat color="primary">
+                                <q-btn flat color="primary" @click="goTo('project/' + item.id)">
                                 Ver
                                 </q-btn>
                                 <q-btn flat color="primary" @click="editProject(item)">
@@ -109,10 +109,10 @@ export default {
           const p = await ProjectService.newProject(data)
           this.getProjects()
           if (p.status === 201) {
-            this.alert('positive', 'Projecto creado exitosamente')
+            this.alert('positive', 'Proyecto creado exitosamente')
           }
         } catch (error) {
-          this.alert('negative', 'Se ha presentado un error al crear el Projecto')
+          this.alert('negative', 'Se ha presentado un error al crear el Proyecto')
         }
         this.disableLoading()
       }).onCancel(() => {
@@ -146,10 +146,10 @@ export default {
           const p = await ProjectService.modifyProject(data)
           this.getProjects()
           if (p.status === 200) {
-            this.alert('positive', 'Projecto editado exitosamente')
+            this.alert('positive', 'Proyecto editado exitosamente')
           }
         } catch (error) {
-          this.alert('negative', 'Se ha presentado un error al editar el Projecto')
+          this.alert('negative', 'Se ha presentado un error al editar el Proyecto')
         }
         this.disableLoading()
       }).onCancel(() => {

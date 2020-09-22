@@ -39,7 +39,12 @@
                                 <q-td key="rank" :props="props">
                                     {{ getRankById(props.row.rank) }}
                                 </q-td>
-                                <q-td key="ops" :props="props">
+                                <q-td key="ops" v-if="mode === 'project'" :props="props">
+                                  <a class="text-blue" style="cursor: pointer; padding: 5px;" @click="$emit('add', props.row)"> <q-icon size="md" name="add"/>
+                                    <q-tooltip :delay="1000" :offset="[0, 10]">agregar</q-tooltip>
+                                  </a>
+                                </q-td>
+                                <q-td key="ops" v-else :props="props">
                                   <a class="text-blue" style="cursor: pointer; padding: 5px;" @click="goTo('user/' + props.row.id)"> <q-icon size="md" name="edit"/>
                                     <q-tooltip :delay="1000" :offset="[0, 10]">editar</q-tooltip>
                                   </a>
@@ -65,7 +70,7 @@ import { functions } from '../functions.js'
 export default {
   name: 'users-component',
   mixins: [functions],
-  props: [],
+  props: ['mode'],
   data () {
     return {
       columns: [

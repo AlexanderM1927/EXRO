@@ -1,7 +1,7 @@
 <template>
   <q-dialog ref="dialog" @hide="onDialogHide">
     <q-card class="q-dialog-plugin container">
-      <div class="text-h6">Crear Nuevo Projecto</div>
+      <div class="text-h6">Crear Nuevo Proyecto</div>
       <q-separator />
       <q-input color="grey-3" bg-color="white" label-color="primary" filled v-model="project.name" label="Nombre" required :rules="[val => !!val || 'Este campo es necesario']">
         <template v-slot:append>
@@ -13,27 +13,51 @@
           <q-icon name="topic" color="primary" />
         </template>
       </q-input>
+      <q-btn color="positive" class="full-width" label="Agregar cliente" icon="add" @click="addClient" />
       <q-card-actions align="right">
         <q-btn color="primary" label="OK" @click="onOKClick" />
         <q-btn color="primary" label="Cancel" @click="onCancelClick" />
       </q-card-actions>
+      <q-dialog
+        v-model="dialog"
+        persistent
+        transition-show="slide-up"
+        transition-hide="slide-down"
+      >
+        <q-card style="width: 800px; max-width: 80vw;">
+        <q-card-section>
+            <users-component mode="project" @add="add"></users-component>
+        </q-card-section>
+        </q-card>
+      </q-dialog>
     </q-card>
   </q-dialog>
 </template>
 
 <script>
+import UsersComponent from '../UsersComponent'
 import { functions } from '../../functions.js'
 
 export default {
   mixins: [functions],
+  components: { UsersComponent },
   data () {
     return {
-      project: {}
+      project: {},
+      options: [],
+      dialog: false
     }
   },
   props: ['text'],
-
   methods: {
+    add (params) {
+      this.project.idcliente = params.id
+      this.dialog = false
+    },
+
+    addClient () {
+      this.dialog = true
+    },
     // following method is REQUIRED
     // (don't change its name --> "show")
     show () {
@@ -53,14 +77,12 @@ export default {
     },
 
     onOKClick () {
-    // on OK, it is REQUIRED to
-    // emit "ok" event (with optional payload)
-    // before hiding the QDialog
-      this.$emit('ok', this.project)
-      // or with payload: this.$emit('ok', { ... })
-
-      // then hiding dialog
-      this.hide()
+      if (this.project.idcliente !== undefined && this.project.idcliente !== null && this.project.idcliente > 0) {
+        this.$emit('ok', this.project)
+        this.hide()
+      } else {
+        this.alert('negative', 'Debes agregar un cliente antes de crear el proyecto')
+      }
     },
 
     onCancelClick () {
