@@ -68,7 +68,6 @@ export default {
     }
   },
   mounted () {
-    this.organizarCards()
     this.getProjects()
   },
   methods: {
@@ -78,8 +77,8 @@ export default {
       let heightSize = 0
 
       for (let i = 0; i < cards.length; i++) {
-        if (widthSize <= cards[i].clientHeight) widthSize = cards[i].clientWidth
-        if (heightSize <= cards[i].clientWidth) heightSize = cards[i].clientHeight
+        if (widthSize <= cards[i].clientWidth) widthSize = cards[i].clientWidth
+        if (heightSize <= cards[i].clientHeight) heightSize = cards[i].clientHeight
       }
       for (let i = 0; i < cards.length; i++) {
         document.getElementsByClassName('cards')[i].style.minHeight = heightSize + 'px'
@@ -92,6 +91,7 @@ export default {
         const us = await ProjectService.getProjects({ token: localStorage.getItem('token') })
         const projects = us.data.projects
         this.projects = projects
+        this.organizarCards()
       } catch (error) {
         console.log(error)
       }
