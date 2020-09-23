@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateProjectsTable extends Migration
+class CreateVariablesprojectsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,12 @@ class CreateProjectsTable extends Migration
      */
     public function up()
     {
-        Schema::create('projects', function (Blueprint $table) {
+        Schema::create('variablesprojects', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
-            $table->text('descripcion');
-            $table->integer('idcliente')->references('id')->on('users');
-            $table->string('urlimg')->nullable();
+            $table->integer('idProject');
+            $table->integer('idVariable');
+            $table->integer('max');
+            $table->integer('min');
             $table->timestamps();
         });
     }
@@ -30,6 +30,6 @@ class CreateProjectsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('projects');
+        Schema::dropIfExists('variablesprojects');
     }
 }

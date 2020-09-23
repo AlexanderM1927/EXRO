@@ -82,6 +82,7 @@
 <script>
 // import VarService from '../services/VarService'
 import ProjectService from '../services/ProjectService'
+import VariablesprojectsService from '../services/VariablesprojectsService'
 import VarsComponent from 'components/VarsComponent.vue'
 import MaxMinVar from './Dialogs/MaxMinVar.vue'
 import { functions } from '../functions.js'
@@ -115,6 +116,8 @@ export default {
         this.activateLoading('Cargando')
         const p = await ProjectService.getProject({ id: this.id, token: localStorage.getItem('token') })
         this.project = p.data.project
+        const q = await VariablesprojectsService.getVariablesByProject({ id: this.id, token: localStorage.getItem('token') })
+        this.data = q.data
       } catch (error) {
         console.log(error)
       }
@@ -130,9 +133,18 @@ export default {
         parent: this
       }).onOk(async (data) => {
         data.token = localStorage.getItem('token')
-        data.idproyecto = this.id
-        data.idvariable = params.id
-        console.log(data)
+        data.idProject = this.id
+        data.idVariable = params.id
+        try {
+          this.activateLoading('Cargando')
+          const p = await VariablesprojectsService.newVariablesprojects(data)
+          if (p.status === 201) {
+            this.alert('positive', 'Variables agregadas exitosamente')
+          }
+        } catch (error) {
+          this.alert('negative', 'Se ha presentado un error al agregar las variables')
+        }
+        this.disableLoading()
       }).onCancel(() => {
         // console.log('Cancel')
       }).onDismiss(() => {

@@ -1,7 +1,7 @@
 <template>
   <q-dialog ref="dialog" @hide="onDialogHide">
     <q-card class="q-dialog-plugin container">
-      <div class="text-h6">Crear Nuevo Proyecto</div>
+      <div class="text-h6">Editar Proyecto</div>
       <q-separator />
       <q-input color="grey-3" bg-color="white" label-color="primary" filled v-model="project.name" label="Nombre" required :rules="[val => !!val || 'Este campo es necesario']">
         <template v-slot:append>
@@ -9,6 +9,11 @@
         </template>
       </q-input>
       <q-input color="grey-3" bg-color="white" label-color="primary" filled v-model="project.descripcion" type="textarea" label="Descripcion" required :rules="[val => !!val || 'Este campo es necesario']">
+        <template v-slot:append>
+          <q-icon name="topic" color="primary" />
+        </template>
+      </q-input>
+      <q-input color="grey-3" bg-color="white" label-color="primary" filled v-model="project.urlimg" label="Url img">
         <template v-slot:append>
           <q-icon name="topic" color="primary" />
         </template>

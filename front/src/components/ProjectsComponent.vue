@@ -27,7 +27,7 @@
 
                                 <q-img
                                 class="col-5"
-                                :src="item.urlimg"
+                                :srcset="item.urlimg"
                                 />
                             </q-card-section>
                             <q-separator/>

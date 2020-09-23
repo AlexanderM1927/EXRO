@@ -13,7 +13,7 @@
           <q-icon name="topic" color="primary" />
         </template>
       </q-input>
-      <q-input color="grey-3" bg-color="white" label-color="primary" filled v-model="project.urlimg" label="Url img" required :rules="[val => !!val || 'Este campo es necesario']">
+      <q-input color="grey-3" bg-color="white" label-color="primary" filled v-model="project.urlimg" label="Url img">
         <template v-slot:append>
           <q-icon name="topic" color="primary" />
         </template>

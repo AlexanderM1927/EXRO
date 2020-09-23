@@ -60,7 +60,8 @@ class ProjectController extends Controller
     public function modifyProjectById ($id, Request $request) {
         $project = DB::table('projects')->where('id', '=', $id)->update([
             'name' => $request->input('name'),
-            'descripcion' => $request->input('descripcion')
+            'descripcion' => $request->input('descripcion'),
+            'urlimg' => $request->input('urlimg')
         ]);
         return response()->json(['project' => $project]);
     }
