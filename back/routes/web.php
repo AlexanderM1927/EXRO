@@ -20,6 +20,7 @@ $router->group(['middleware' => 'auth'], function () use ($router) {
     $router->post('/user/{id}', "UserController@modifyUserById");
     $router->delete('/user/{id}', "UserController@deleteUserById");
     $router->get('/users', "UserController@getUsers");
+    $router->get('/clients', "UserController@getClients");
 
     // Variables routes
     $router->get('/vars', "VariableController@getVars");

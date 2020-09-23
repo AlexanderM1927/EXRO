@@ -21,5 +21,8 @@ export default {
   },
   getUsers (params) {
     return Api().get('users', { headers: { Authorization: params.token } })
+  },
+  getClients (params) {
+    return Api().get('clients', { headers: { Authorization: params.token } })
   }
 }

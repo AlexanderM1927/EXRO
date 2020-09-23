@@ -100,8 +100,7 @@ export default {
     createProject () {
       this.$q.dialog({
         component: AddProject,
-        parent: this,
-        text: 'Hola'
+        parent: this
       }).onOk(async (data) => {
         data.token = localStorage.getItem('token')
         try {

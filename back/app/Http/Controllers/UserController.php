@@ -59,6 +59,11 @@ class UserController extends Controller
         $users = DB::table('users')->get();
         return response()->json(['users' => $users]);
     }
+
+    public function getClients () {
+        $clients = DB::table('users')->where('rank','=','1')->get();
+        return response()->json(['users' => $clients]);
+    }
     
     public function getUserById ($id) {
         $user = DB::table('users')

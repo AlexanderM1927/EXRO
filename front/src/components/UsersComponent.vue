@@ -90,7 +90,9 @@ export default {
     async getUsers () {
       try {
         this.activateLoading('Cargando')
-        const us = await UserService.getUsers({ token: localStorage.getItem('token') })
+        let us = {}
+        if (this.mode === 'project') us = await UserService.getClients({ token: localStorage.getItem('token') })
+        else us = await UserService.getUsers({ token: localStorage.getItem('token') })
         const users = us.data.users
         this.data = users
       } catch (error) {
