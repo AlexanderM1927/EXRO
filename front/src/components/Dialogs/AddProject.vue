@@ -13,6 +13,11 @@
           <q-icon name="topic" color="primary" />
         </template>
       </q-input>
+      <q-input color="grey-3" bg-color="white" label-color="primary" filled v-model="project.urlimg" label="Url img" required :rules="[val => !!val || 'Este campo es necesario']">
+        <template v-slot:append>
+          <q-icon name="topic" color="primary" />
+        </template>
+      </q-input>
       <q-btn color="primary" outline class="full-width" v-if="project.idcliente === undefined || project.idcliente === ''" label="Agregar cliente" icon="add" @click="addClient" />
       <q-card-actions align="right">
         <q-btn color="primary" label="OK" @click="onOKClick" />

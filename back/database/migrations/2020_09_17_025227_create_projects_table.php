@@ -18,6 +18,7 @@ class CreateProjectsTable extends Migration
             $table->string('name');
             $table->text('descripcion');
             $table->integer('idcliente')->references('id')->on('users');
+            $table->string('urlimg');
             $table->timestamps();
         });
     }

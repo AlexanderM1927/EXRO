@@ -27,7 +27,7 @@
 
                                 <q-img
                                 class="col-5"
-                                src="https://cdn.quasar.dev/img/parallax2.jpg"
+                                :src="item.urlimg"
                                 />
                             </q-card-section>
                             <q-separator/>

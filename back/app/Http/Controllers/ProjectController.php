@@ -30,7 +30,8 @@ class ProjectController extends Controller
             $project = new Project;
             $project->name = $request->input('name');
             $project->descripcion = $request->input('descripcion');
-            $project->idCliente = $request->input('idcliente');
+            $project->urlimg = $request->input('urlimg');
+            $project->idcliente = $request->input('idcliente');
 
             $project->save();
 
