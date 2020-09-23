@@ -7,7 +7,7 @@ use App\variablesprojects;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
-class VariablesprojectsController extends Controller
+class VariablesProjectsController extends Controller
 {
     /**
      * Store a new user.
@@ -24,9 +24,9 @@ class VariablesprojectsController extends Controller
     public function newVariablesprojects(Request $request)
     {
         try {
-            $variablesprojects = new Variablesprojects;
-            $variablesprojects->idProject = $request->input('idProject');
-            $variablesprojects->idVariable = $request->input('idVariable');
+            $variablesprojects = new VariablesProjects;
+            $variablesprojects->idproyecto = $request->input('idproyecto');
+            $variablesprojects->idvariable = $request->input('idvariable');
             $variablesprojects->max = $request->input('max');
             $variablesprojects->min = $request->input('min');
 
@@ -46,8 +46,18 @@ class VariablesprojectsController extends Controller
         return response()->json(['projects' => $projects]);
     }
 
+    public function deleteVariableProjectById ($id) {
+        $variablesprojects = DB::table('variablesprojects')->where('id', '=', $id)->delete();
+        return response()->json(['variablesprojects' => $variablesprojects]);
+    }
+
     public function getVariablesByProject ($id) {
-        
+        $variablesprojects = DB::table('variablesprojects')
+        ->join('vars', 'vars.id', '=', 'variablesprojects.idvariable')
+        ->where('variablesprojects.idproyecto','=',$id)
+        ->select('vars.name','variablesprojects.id','variablesprojects.idvariable','variablesprojects.idproyecto','variablesprojects.max','variablesprojects.min')
+        ->get();
+        return response()->json(['variablesprojects' => $variablesprojects]);
     }
 
 }

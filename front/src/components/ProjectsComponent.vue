@@ -15,7 +15,7 @@
             <div class="col-10 container">
                 <div class="row">
                     <div v-for="(item, id) in projects" :key="id"  class="col-md-6 col-xs-12">
-                        <div v-if="projects.length==0">
+                        <div v-if="projects.length === 0">
                             Ningun proyecto hasta el momento
                         </div>
                         <q-card v-else class="my-card" flat bordered>
@@ -27,7 +27,7 @@
 
                                 <q-img
                                 class="col-5"
-                                :srcset="item.urlimg"
+                                :src="item.urlimg"
                                 />
                             </q-card-section>
                             <q-separator/>

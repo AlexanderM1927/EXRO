@@ -39,6 +39,7 @@ $router->group(['middleware' => 'auth'], function () use ($router) {
     //Variablesprojects routes
     $router->post('/variablesprojects', "VariablesprojectsController@newVariablesprojects");
     $router->get('/variablesprojects/{id}', "VariablesprojectsController@getVariablesByProject");
+    $router->delete('/variablesprojects/{id}', "VariablesprojectsController@deleteVariableProjectById");
 
 
 

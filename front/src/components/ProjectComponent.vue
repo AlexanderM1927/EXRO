@@ -39,23 +39,15 @@
                       <q-td key="name" :props="props">
                           {{ props.row.name }}
                       </q-td>
-                      <q-td key="email" :props="props">
-                          <div class="text-pre-wrap">{{ props.row.email }}</div>
+                      <q-td key="max" :props="props">
+                          {{ props.row.max }}
                       </q-td>
-                      <q-td key="rank" :props="props">
-                          {{ getRankById(props.row.rank) }}
+                      <q-td key="min" :props="props">
+                          {{ props.row.min }}
                       </q-td>
-                      <q-td key="ops" v-if="mode === 'project'" :props="props">
-                        <a class="text-blue" style="cursor: pointer; padding: 5px;" @click="$emit('add', props.row)"> <q-icon size="md" name="add"/>
-                          <q-tooltip :delay="1000" :offset="[0, 10]">agregar</q-tooltip>
-                        </a>
-                      </q-td>
-                      <q-td key="ops" v-else :props="props">
-                        <a class="text-blue" style="cursor: pointer; padding: 5px;" @click="goTo('user/' + props.row.id)"> <q-icon size="md" name="edit"/>
-                          <q-tooltip :delay="1000" :offset="[0, 10]">editar</q-tooltip>
-                        </a>
+                      <q-td key="ops" :props="props">
                         <a class="text-red" style="cursor: pointer; padding: 5px;" @click="del(props.row.id)"> <q-icon size="md" name="delete"/>
-                          <q-tooltip :delay="1000" :offset="[0, 10]">eliminar</q-tooltip>
+                          <q-tooltip :delay="1000" :offset="[0, 10]">desasociar</q-tooltip>
                         </a>
                       </q-td>
                   </q-tr>
@@ -117,7 +109,7 @@ export default {
         const p = await ProjectService.getProject({ id: this.id, token: localStorage.getItem('token') })
         this.project = p.data.project
         const q = await VariablesprojectsService.getVariablesByProject({ id: this.id, token: localStorage.getItem('token') })
-        this.data = q.data
+        this.data = q.data.variablesprojects
       } catch (error) {
         console.log(error)
       }
@@ -133,12 +125,13 @@ export default {
         parent: this
       }).onOk(async (data) => {
         data.token = localStorage.getItem('token')
-        data.idProject = this.id
-        data.idVariable = params.id
+        data.idproyecto = this.id
+        data.idvariable = params.id
         try {
           this.activateLoading('Cargando')
           const p = await VariablesprojectsService.newVariablesprojects(data)
           if (p.status === 201) {
+            this.getVarInfo()
             this.alert('positive', 'Variables agregadas exitosamente')
           }
         } catch (error) {
@@ -150,6 +143,19 @@ export default {
       }).onDismiss(() => {
         // console.log('Called on OK or Cancel')
       })
+    },
+    async del (id) {
+      try {
+        this.activateLoading('Cargando')
+        const p = await VariablesprojectsService.deleteVarProject({ id: id, token: localStorage.getItem('token') })
+        if (p.status === 200) {
+          this.getVarInfo()
+          this.alert('positive', 'Eliminado correctamente')
+        }
+      } catch (error) {
+        this.alert('negative', 'Se presentó un error')
+      }
+      this.disableLoading()
     }
   }
 }

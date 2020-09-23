@@ -6,5 +6,8 @@ export default {
   },
   newVariablesprojects (params) {
     return Api().post('variablesprojects', params, { headers: { Authorization: params.token } })
+  },
+  deleteVarProject (params) {
+    return Api().delete('variablesprojects/' + params.id, { headers: { Authorization: params.token } })
   }
 }

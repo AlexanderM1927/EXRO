@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Variablesprojects extends Model
+class VariablesProjects extends Model
 {
 
     /**
