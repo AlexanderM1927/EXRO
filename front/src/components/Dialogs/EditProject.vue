@@ -13,11 +13,11 @@
           <q-icon name="topic" color="primary" />
         </template>
       </q-input>
-      <q-input color="grey-3" bg-color="white" label-color="primary" filled v-model="project.urlimg" label="Url img">
-        <template v-slot:append>
-          <q-icon name="topic" color="primary" />
+      <q-file color="grey-3" bg-color="white" label-color="primary" filled v-model="project.photo" label="Img" required :rules="[val => !!val || 'Este campo es necesario']">
+        <template v-slot:prepend>
+          <q-icon name="attach_file" color="primary" />
         </template>
-      </q-input>
+      </q-file><br>
       <q-card-actions align="right">
         <q-btn color="primary" label="OK" @click="onOKClick" />
         <q-btn color="primary" label="Cancel" @click="onCancelClick" />
@@ -63,7 +63,11 @@ export default {
     // on OK, it is REQUIRED to
     // emit "ok" event (with optional payload)
     // before hiding the QDialog
-      this.$emit('ok', this.project)
+      var data = new FormData()
+      data.append('name', this.project.name)
+      data.append('descripcion', this.project.descripcion)
+      data.append('photo', this.project.photo)
+      this.$emit('ok', data)
       // or with payload: this.$emit('ok', { ... })
 
       // then hiding dialog

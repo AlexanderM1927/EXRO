@@ -6,6 +6,9 @@ export const functions = {
     }
   },
   methods: {
+    getImgUrl (imgurl) {
+      return process.env.API_URL + imgurl
+    },
     goTo (location) {
       this.$router.push('/' + location).catch(err => {
         if (err._name === 'NavigationDuplicated') {

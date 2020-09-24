@@ -13,12 +13,13 @@
           <q-icon name="topic" color="primary" />
         </template>
       </q-input>
-      <q-input color="grey-3" bg-color="white" label-color="primary" filled v-model="project.urlimg" label="Url img">
-        <template v-slot:append>
-          <q-icon name="topic" color="primary" />
+      <q-file color="grey-3" bg-color="white" label-color="primary" filled v-model="project.photo" label="Img" required :rules="[val => !!val || 'Este campo es necesario']">
+        <template v-slot:prepend>
+          <q-icon name="attach_file" color="primary" />
         </template>
-      </q-input>
+      </q-file><br>
       <q-btn color="primary" outline class="full-width" v-if="project.idcliente === undefined || project.idcliente === ''" label="Agregar cliente" icon="add" @click="addClient" />
+      <br>
       <q-card-actions align="right">
         <q-btn color="primary" label="OK" @click="onOKClick" />
         <q-btn color="primary" label="Cancel" @click="onCancelClick" />
@@ -82,7 +83,12 @@ export default {
 
     onOKClick () {
       if (this.project.idcliente !== undefined && this.project.idcliente !== null && this.project.idcliente > 0) {
-        this.$emit('ok', this.project)
+        var data = new FormData()
+        data.append('name', this.project.name)
+        data.append('descripcion', this.project.descripcion)
+        data.append('idcliente', this.project.idcliente)
+        data.append('photo', this.project.photo)
+        this.$emit('ok', data)
         this.hide()
       } else {
         this.alert('negative', 'Debes agregar un cliente antes de crear el proyecto')

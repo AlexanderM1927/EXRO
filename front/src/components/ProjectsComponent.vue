@@ -19,15 +19,15 @@
                             Ningun proyecto hasta el momento
                         </div>
                         <q-card v-else class="my-card" flat bordered>
-                            <q-card-section horizontal>
-                                <q-card-section class="cards">
+                            <q-card-section horizontal class="cards">
+                                <q-card-section style="width: 58.5%;">
                                     <div class="text-h6">{{item.name}}</div>
                                     {{item.descripcion}}
                                 </q-card-section>
 
                                 <q-img
                                 class="col-5"
-                                :src="item.urlimg"
+                                :src="getImgUrl(item.urlimg)"
                                 />
                             </q-card-section>
                             <q-separator/>
@@ -73,16 +73,17 @@ export default {
   methods: {
     async organizarCards () {
       const cards = await document.getElementsByClassName('cards')
-      let widthSize = 0
+      // let widthSize = 0
       let heightSize = 0
 
       for (let i = 0; i < cards.length; i++) {
-        if (widthSize <= cards[i].clientWidth) widthSize = cards[i].clientWidth
+        console.log(cards[i].clientHeight)
+        // if (widthSize <= cards[i].clientWidth) widthSize = cards[i].clientWidth
         if (heightSize <= cards[i].clientHeight) heightSize = cards[i].clientHeight
       }
       for (let i = 0; i < cards.length; i++) {
         document.getElementsByClassName('cards')[i].style.minHeight = heightSize + 'px'
-        document.getElementsByClassName('cards')[i].style.minWidth = widthSize + 'px'
+        // document.getElementsByClassName('cards')[i].style.minWidth = widthSize + 'px'
       }
     },
     async getProjects () {
@@ -139,6 +140,7 @@ export default {
         parent: this,
         projectToEdit: params
       }).onOk(async (data) => {
+        data.id = params.id
         data.token = localStorage.getItem('token')
         try {
           this.activateLoading('Cargando')
@@ -163,8 +165,5 @@ export default {
 <style lang="scss" scoped>
 .right {
   float: right;
-}
-.cards {
-  min-width: 58.5%;
 }
 </style>
