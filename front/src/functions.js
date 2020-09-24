@@ -6,6 +6,18 @@ export const functions = {
     }
   },
   methods: {
+    validateForm (array, fun) {
+      let isComplete = true
+      for (let i = 0; i < array.length; i++) {
+        if (array[i] === undefined || array[i] === null || array[i] === '') isComplete = false
+      }
+      if (!isComplete) {
+        this.alert('warning', 'Faltan campos por rellenar')
+      } else {
+        fun()
+      }
+      return isComplete
+    },
     getImgUrl (imgurl) {
       return process.env.API_URL + imgurl
     },

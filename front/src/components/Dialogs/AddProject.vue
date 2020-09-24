@@ -14,14 +14,15 @@
         </template>
       </q-input>
       <q-file color="grey-3" bg-color="white" label-color="primary" filled v-model="project.photo" label="Img" required :rules="[val => !!val || 'Este campo es necesario']">
-        <template v-slot:prepend>
+        <template v-slot:append>
           <q-icon name="attach_file" color="primary" />
         </template>
-      </q-file><br>
-      <q-btn color="primary" outline class="full-width" v-if="project.idcliente === undefined || project.idcliente === ''" label="Agregar cliente" icon="add" @click="addClient" />
+      </q-file>
+      <q-btn color="primary" class="full-width" v-if="project.idcliente === undefined || project.idcliente === ''" label="Agregar cliente" icon="add" @click="addClient" />
+      <q-btn color="primary" outline class="full-width" v-else label="Cambiar cliente" icon="edit" @click="addClient" />
       <br>
       <q-card-actions align="right">
-        <q-btn color="primary" label="OK" @click="onOKClick" />
+        <q-btn color="primary" label="OK" @click="validateForm([project.name, project.photo, project.descripcion], onOKClick)" />
         <q-btn color="primary" label="Cancel" @click="onCancelClick" />
       </q-card-actions>
       <q-dialog
@@ -91,7 +92,7 @@ export default {
         this.$emit('ok', data)
         this.hide()
       } else {
-        this.alert('negative', 'Debes agregar un cliente antes de crear el proyecto')
+        this.alert('warning', 'Debes agregar un cliente antes de crear el proyecto')
       }
     },
 
