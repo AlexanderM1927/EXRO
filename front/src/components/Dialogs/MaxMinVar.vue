@@ -14,7 +14,7 @@
         </template>
       </q-input>
       <q-card-actions align="right">
-        <q-btn color="primary" label="OK" @click="onOKClick" />
+        <q-btn color="primary" label="OK" @click="validateForm([variable.max, variable.min], onOKClick)" />
         <q-btn color="primary" label="Cancel" @click="onCancelClick" />
       </q-card-actions>
     </q-card>

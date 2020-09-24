@@ -19,7 +19,7 @@
         </template>
       </q-file><br>
       <q-card-actions align="right">
-        <q-btn color="primary" label="OK" @click="onOKClick" />
+        <q-btn color="primary" label="OK" @click="validateForm([project.name, project.descripcion], onOKClick)" />
         <q-btn color="primary" label="Cancel" @click="onCancelClick" />
       </q-card-actions>
     </q-card>

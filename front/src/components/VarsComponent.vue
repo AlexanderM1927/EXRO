@@ -9,7 +9,7 @@
                     <div class="col-md-4"></div>
                     <div class="col-md-4 container col-xs-12">
                         <center>
-                        <q-form @submit="save">
+                        <q-form @submit="validateForm([variable.name], save)">
                             <q-input v-model="variable.name" label="Nombre de la variable" color="grey-3" bg-color="white" label-color="primary">
                                 <template v-slot:append>
                                     <q-icon name="title" color="primary" />

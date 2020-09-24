@@ -29,7 +29,7 @@
         </template>
       </q-select>
       <q-card-actions align="right">
-        <q-btn color="primary" label="OK" @click="onOKClick" />
+        <q-btn color="primary" label="OK" @click="validateForm([user.name, user.email, user.password, user.rank], onOKClick)" />
         <q-btn color="primary" label="Cancel" @click="onCancelClick" />
       </q-card-actions>
     </q-card>
