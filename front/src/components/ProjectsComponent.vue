@@ -77,7 +77,6 @@ export default {
       let heightSize = 0
 
       for (let i = 0; i < cards.length; i++) {
-        console.log(cards[i].clientHeight)
         // if (widthSize <= cards[i].clientWidth) widthSize = cards[i].clientWidth
         if (heightSize <= cards[i].clientHeight) heightSize = cards[i].clientHeight
       }
