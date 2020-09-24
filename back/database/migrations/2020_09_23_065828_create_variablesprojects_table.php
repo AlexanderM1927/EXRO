@@ -17,8 +17,8 @@ class CreateVariablesProjectsTable extends Migration
             $table->bigIncrements('id');
             $table->integer('idproyecto');
             $table->integer('idvariable');
-            $table->integer('max');
-            $table->integer('min');
+            $table->float('max');
+            $table->float('min');
             $table->timestamps();
         });
     }
