@@ -14,8 +14,8 @@ class UsersSeeder extends Seeder
     {
         // first user
         $user = new User;
-        $user->name = 'Alexander';
-        $user->email = 'jhon71937@gmail.com';
+        $user->name = 'Admin';
+        $user->email = 'admin@gmail.com';
         $plainPassword = 'adm';
         $user->password = app('hash')->make($plainPassword);
         $user->rank = '3';

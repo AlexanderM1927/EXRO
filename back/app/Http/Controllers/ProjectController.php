@@ -63,14 +63,21 @@ class ProjectController extends Controller
 
     public function modifyProjectById ($id, Request $request) {
         $file = $request->file('photo');
-        $imageName = time().'.'.$file->getClientOriginalExtension();
-        $destination_path = 'images';
-        $path = $file->move($destination_path, $imageName);
-        $project = DB::table('projects')->where('id', '=', $id)->update([
-            'name' => $request->input('name'),
-            'descripcion' => $request->input('descripcion'),
-            'urlimg' => $path
-        ]);
+        if ($file != null) {
+            $imageName = time().'.'.$file->getClientOriginalExtension();
+            $destination_path = 'images';
+            $path = $file->move($destination_path, $imageName);
+            $project = DB::table('projects')->where('id', '=', $id)->update([
+                'name' => $request->input('name'),
+                'descripcion' => $request->input('descripcion'),
+                'urlimg' => $path
+            ]);
+        } else {
+            $project = DB::table('projects')->where('id', '=', $id)->update([
+                'name' => $request->input('name'),
+                'descripcion' => $request->input('descripcion')
+            ]);
+        }
         return response()->json(['project' => $project]);
     }
 
