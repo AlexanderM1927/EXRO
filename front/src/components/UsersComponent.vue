@@ -44,6 +44,11 @@
                                     <q-tooltip :delay="1000" :offset="[0, 10]">agregar</q-tooltip>
                                   </a>
                                 </q-td>
+                                <q-td key="ops" v-if="mode === 'engineer'" :props="props">
+                                  <a class="text-blue" style="cursor: pointer; padding: 5px;" @click="$emit('addengineer', props.row)"> <q-icon size="md" name="add"/>
+                                    <q-tooltip :delay="1000" :offset="[0, 10]">agregar</q-tooltip>
+                                  </a>
+                                </q-td>
                                 <q-td key="ops" v-else :props="props">
                                   <a class="text-blue" style="cursor: pointer; padding: 5px;" @click="goTo('user/' + props.row.id)"> <q-icon size="md" name="edit"/>
                                     <q-tooltip :delay="1000" :offset="[0, 10]">editar</q-tooltip>
@@ -92,7 +97,10 @@ export default {
         this.activateLoading('Cargando')
         let us = {}
         if (this.mode === 'project') us = await UserService.getClients({ token: localStorage.getItem('token') })
-        else us = await UserService.getUsers({ token: localStorage.getItem('token') })
+        else {
+          if (this.mode === 'engineer') us = await UserService.getEngineers({ token: localStorage.getItem('token') })
+          else us = await UserService.getUsers({ token: localStorage.getItem('token') })
+        }
         const users = us.data.users
         this.data = users
       } catch (error) {

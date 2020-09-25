@@ -41,11 +41,6 @@ class VariablesProjectsController extends Controller
         }
     }
 
-    public function getProjects () {
-        $projects = DB::table('projects')->get();
-        return response()->json(['projects' => $projects]);
-    }
-
     public function deleteVariableProjectById ($id) {
         $variablesprojects = DB::table('variablesprojects')->where('id', '=', $id)->delete();
         return response()->json(['variablesprojects' => $variablesprojects]);

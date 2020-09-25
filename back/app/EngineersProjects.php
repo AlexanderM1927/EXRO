@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class VariablesProjects extends Model
+class EngineersProjects extends Model
 {
 
     /**
@@ -12,10 +12,10 @@ class VariablesProjects extends Model
      *
      * @var array
      */
-    protected $table = 'variablesprojects';
+    protected $table = 'engineers_projects';
     
     protected $fillable = [
-        'idproyecto', 'idVariable', 'max', 'min'
+        'idingeniero', 'idproyecto'
     ];
 
     /**
