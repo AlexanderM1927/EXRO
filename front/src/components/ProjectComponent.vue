@@ -52,7 +52,8 @@
                       </q-td>
                   </q-tr>
                 </template>
-              </q-table>
+              </q-table><br>
+              <q-separator /><br>
               <div class="title">
                 <div class="text-h6">
                   Ingenieros asociados
@@ -207,13 +208,12 @@ export default {
     },
     async addengineer (params) {
       this.dialogEngineers = false
-      const data = []
+      const data = {}
       data.token = localStorage.getItem('token')
       data.idproyecto = this.id
       data.idingeniero = params.id
       try {
         this.activateLoading('Cargando')
-        console.log(data)
         const p = await EngineersPojectsService.newEngineerProject(data)
         if (p.status === 201) {
           this.getVarInfo()
