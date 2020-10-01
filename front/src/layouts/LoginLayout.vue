@@ -1,59 +1,29 @@
 <template>
   <q-layout view="lHh Lpr lFf">
     <q-page-container>
-        <div class="row">
-            <div class="login box col-md-4 col-xs-10">
-                <q-form @submit="login">
-                    <q-input color="grey-3" bg-color="white" label-color="primary" filled v-model="email" label="Correo" required :rules="[val => !!val || 'Este campo es necesario']">
-                        <template v-slot:append>
-                        <q-icon name="mail" color="primary" />
-                        </template>
-                    </q-input>
-                    <br>
-                    <q-input color="grey-3" bg-color="white" label-color="primary" v-model="password" filled :type="isPwd ? 'password' : 'text'" label="Clave" required :rules="[val => !!val || 'Este campo es necesario']">
-                        <template v-slot:append>
-                            <q-icon color="primary" :name="isPwd ? 'visibility_off' : 'visibility'" @click="isPwd = !isPwd"/>
-                        </template>
-                    </q-input>
-                    <br>
-                    <q-btn color="primary" type="submit" class="full-width" label="Login"></q-btn>
-                </q-form>
-            </div>
-        </div>
+      <login-component v-if="view === 'login'"></login-component>
+      <recovery-component v-if="view === 'recovery'"></recovery-component>
+      <change-password-component v-if="view === 'changepassword'"></change-password-component>
     </q-page-container>
   </q-layout>
 </template>
 
 <script>
+import RecoveryComponent from '../components/RecoveryComponent.vue'
+import LoginComponent from '../components/LoginComponent.vue'
+import ChangePasswordComponent from '../components/ChangePasswordComponent.vue'
 import { functions } from '../functions.js'
-import UserService from '../services/UserService'
 
 export default {
   name: 'MainLayout',
   mixins: [functions],
+  components: { LoginComponent, RecoveryComponent, ChangePasswordComponent },
   data () {
     return {
-      email: '',
-      password: '',
-      isPwd: true
     }
   },
+  props: ['view'],
   methods: {
-    async login () {
-      try {
-        const u = await UserService.login({ email: this.email, password: this.password })
-        const user = u.data
-        if (u.status === 200) {
-          localStorage.setItem('token', this.getToken(user))
-          localStorage.setItem('user', user.user.id)
-          this.goTo('home')
-        } else {
-          this.alert('negative', 'Credenciales invalidas')
-        }
-      } catch (error) {
-        this.alert('negative', 'Credenciales invalidas')
-      }
-    }
   }
 }
 </script>
