@@ -34,6 +34,7 @@
           :key="link.title"
           v-bind="link"
           :view="view"
+          :rank="user.rank"
         />
       </q-list>
     </q-drawer>
@@ -68,37 +69,44 @@ const linksData = [
   {
     title: 'Inicio',
     icon: 'home',
-    link: 'home'
+    link: 'home',
+    minRank: 1
   },
   {
     title: 'Usuarios',
     icon: 'business',
-    link: 'users'
+    link: 'users',
+    minRank: 3
   },
   {
     title: 'Proyectos',
     icon: 'library_books',
-    link: 'projects'
+    link: 'projects',
+    minRank: 3
   },
   {
     title: 'Variables',
     icon: 'description',
-    link: 'vars'
+    link: 'vars',
+    minRank: 3
   },
   {
     title: 'Informes',
     icon: 'article',
-    link: 'reports'
+    link: 'reports',
+    minRank: 1
   },
   {
     title: 'Graficas',
     icon: 'analytics',
-    link: 'graphis'
+    link: 'graphis',
+    minRank: 1
   },
   {
     title: 'Formulas',
     icon: 'calculate',
-    link: 'calculate'
+    link: 'calculate',
+    minRank: 2
   }
 ]
 

@@ -47,6 +47,7 @@ export default {
         this.disableLoading()
         if (p.status === 200) {
           this.alert('positive', 'Correo enviado correctamente')
+          this.goTo('login')
         } else {
           this.alert('negative', 'No se encontró el correo')
         }
