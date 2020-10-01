@@ -46,7 +46,7 @@ export default {
         const p = await UserService.recovery({ email: this.email })
         this.disableLoading()
         if (p.status === 200) {
-          this.alert('positive', 'Correo enviado correctamente')
+          this.alert('positive', 'Correo enviado correctamente, revise su correo electronico')
           this.goTo('login')
         } else {
           this.alert('negative', 'No se encontró el correo')

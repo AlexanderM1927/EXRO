@@ -5,7 +5,7 @@
           <div class="col-10" style="padding: 10px;">
               <div class="text-h4" :style="`float: left;`">Proyectos</div>
               <div class="right" :style="`${ $q.screen.xs ? 'width: 40%;' : ''}`">
-                <q-btn color="secondary" label="Crear Proyecto" @click="createProject"></q-btn>
+                <q-btn color="positive" round icon="add" @click="createProject"></q-btn>
               </div>
           </div>
           <div class="col-1"></div>

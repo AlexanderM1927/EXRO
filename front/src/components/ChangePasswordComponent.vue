@@ -52,6 +52,7 @@ export default {
         const p = await UserService.changePassword(data)
         if (p.status === 200) {
           this.alert('positive', 'Clave actualizada correctamente')
+          this.goTo('login')
         } else {
           this.alert('negative', 'No se encontró el token')
         }
