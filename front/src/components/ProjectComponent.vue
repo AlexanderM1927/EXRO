@@ -207,7 +207,7 @@ export default {
     },
     async addengineer (params) {
       this.dialogEngineers = false
-      const data = []
+      const data = {}
       data.token = localStorage.getItem('token')
       data.idproyecto = this.id
       data.idingeniero = params.id
