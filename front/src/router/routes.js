@@ -85,6 +85,16 @@ const routes = [
     }
   },
   {
+    path: '/instagram',
+    component: () => import('layouts/MainLayout.vue'),
+    props: {
+      view: 'instagram'
+    },
+    meta: {
+      title: 'Proyectos', requireSession: true
+    }
+  },
+  {
     path: '/project/:id',
     component: () => import('layouts/MainLayout.vue'),
     props: {

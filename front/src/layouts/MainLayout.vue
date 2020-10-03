@@ -48,6 +48,7 @@
       <project-component v-if="view === 'project'"></project-component>
       <vars-component v-if="view === 'vars'"></vars-component>
       <var-component v-if="view === 'var'"></var-component>
+      <instagram-component v-if="view === 'instagram'"></instagram-component>
       <v-tour name="myTour" :steps="steps"></v-tour>
     </q-page-container>
   </q-layout>
@@ -62,6 +63,7 @@ import ProjectComponent from 'components/ProjectComponent.vue'
 import VarsComponent from 'components/VarsComponent.vue'
 import VarComponent from 'components/VarComponent.vue'
 import HomeComponent from 'components/HomeComponent.vue'
+import InstagramComponent from 'components/InstagramComponent.vue'
 import { functions } from '../functions.js'
 import UserService from '../services/UserService'
 
@@ -112,7 +114,7 @@ const linksData = [
 
 export default {
   name: 'MainLayout',
-  components: { EssentialLink, UsersComponent, UserComponent, ProjectsComponent, ProjectComponent, HomeComponent, VarsComponent, VarComponent },
+  components: { EssentialLink, UsersComponent, UserComponent, ProjectsComponent, InstagramComponent, ProjectComponent, HomeComponent, VarsComponent, VarComponent },
   mixins: [functions],
   data () {
     return {
