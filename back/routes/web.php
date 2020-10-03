@@ -11,6 +11,8 @@
 |
 */
 $router->post('/login', "AuthController@login");
+$router->post('/recovery', "AuthController@recoveryPassword");
+$router->post('/changepassword', "AuthController@updatePassword");
 $router->post('/logout', "UserController@logout");
 
 $router->group(['middleware' => 'auth'], function () use ($router) {

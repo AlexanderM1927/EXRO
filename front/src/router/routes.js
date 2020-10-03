@@ -6,6 +6,31 @@ const routes = [
     component: () => import('layouts/LoginLayout.vue'),
     meta: {
       title: 'Login'
+    },
+    props: {
+      view: 'login'
+    }
+  },
+  {
+    name: 'changepassword',
+    path: '/changepassword/:token',
+    component: () => import('layouts/LoginLayout.vue'),
+    meta: {
+      title: 'Cambiar clave'
+    },
+    props: {
+      view: 'changepassword'
+    }
+  },
+  {
+    name: 'recovery',
+    path: '/recovery',
+    component: () => import('layouts/LoginLayout.vue'),
+    meta: {
+      title: 'Recuperar clave'
+    },
+    props: {
+      view: 'recovery'
     }
   },
   {
@@ -13,6 +38,9 @@ const routes = [
     component: () => import('layouts/LoginLayout.vue'),
     meta: {
       title: 'Login'
+    },
+    props: {
+      view: 'login'
     }
   },
   {

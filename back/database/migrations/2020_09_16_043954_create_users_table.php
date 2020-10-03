@@ -19,6 +19,7 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique()->notNullable();
             $table->string('password');
             $table->integer('rank')->default(1);
+            $table->string('token_recovery')->nullable();
             $table->timestamps();
         });
     }

@@ -4,6 +4,12 @@ export default {
   login (params) {
     return Api().post('login', params)
   },
+  recovery (params) {
+    return Api().post('recovery', params)
+  },
+  changePassword (params) {
+    return Api().post('changepassword', params)
+  },
   register (params) {
     return Api().post('register', params, { headers: { Authorization: params.token } })
   },
