@@ -24,7 +24,7 @@ class InstagramController extends Controller
     public function getPosts() {
         $access_token = 'IGQVJVSnRuVjRfRGdNaDlyMHJLbXkzYXFOMEV0YVdhMlZAXcWZAWT1VvY0wxSG9HX1YxSHZABLVVpdl9nQTJYelI3UmtzQnoycm9WZAC16cGE3a09uNkF6WXRYNng3bGszd0VUcFFYa3doc0ZAtLXBlMHljdwZDZD';
         $user_search = $this->curl_instagram('https://graph.instagram.com/me/media?fields=id,caption,media_url&access_token='. $access_token);
-        return response()->json(['ans' => $user_search]);
+        return response()->json($user_search);
     }
 
     //

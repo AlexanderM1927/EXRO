@@ -4,14 +4,9 @@
             <div class="col-1">
             </div>
             <div class="col-10 container">
-                <div class="text-h4">Bienvenido, {{user.name}}.</div><br>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit ducimus doloribus rerum necessitatibus, earum cupiditate voluptatibus eligendi architecto libero. Placeat ipsum ipsa atque minima fugit similique est a, quidem eligendi.
-                <br>
-                <q-separator />
-                <br>
-                <center>
-                    <q-btn label="Activar tour" @click="startTour" color="primary"></q-btn>
-                </center>
+              <div v-for="post in posts" v-bind:key="post.id">
+                <q-img :src="post.media_url"></q-img>
+              </div>
             </div>
             <div class="col-1"></div>
         </div>
@@ -20,20 +15,23 @@
 
 <script>
 import { functions } from '../functions.js'
+import InstagramService from '../services/InstagramService'
 
 export default {
   name: 'instagram-component',
   mixins: [functions],
-  props: ['user'],
   data () {
     return {
+      posts: []
     }
   },
   mounted () {
+    this.getPosts()
   },
   methods: {
-    startTour () {
-      this.$emit('tour')
+    async getPosts () {
+      const p = await InstagramService.getPosts()
+      this.posts = p.data.data
     }
   }
 }
