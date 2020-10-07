@@ -1,11 +1,13 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
+import FullCalendar from 'vue-full-calendar'
 import routes from './routes'
 import VueTour from 'vue-tour'
 
 require('vue-tour/dist/vue-tour.css')
 
+Vue.use(FullCalendar)
 Vue.use(VueTour)
 Vue.use(VueRouter)
 

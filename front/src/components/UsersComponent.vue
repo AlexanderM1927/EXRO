@@ -44,7 +44,7 @@
                                     <q-tooltip :delay="1000" :offset="[0, 10]">agregar</q-tooltip>
                                   </a>
                                 </q-td>
-                                <q-td key="ops" v-if="mode === 'engineer'" :props="props">
+                                <q-td key="ops" v-else-if="mode === 'engineer'" :props="props">
                                   <a class="text-blue" style="cursor: pointer; padding: 5px;" @click="$emit('addengineer', props.row)"> <q-icon size="md" name="add"/>
                                     <q-tooltip :delay="1000" :offset="[0, 10]">agregar</q-tooltip>
                                   </a>

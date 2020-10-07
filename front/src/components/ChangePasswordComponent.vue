@@ -19,7 +19,7 @@
                         </template>
                     </q-input>
                     <br>
-                    <q-btn color="primary" type="submit" class="full-width" label="Login"></q-btn>
+                    <q-btn color="primary" type="submit" class="full-width" label="Cambiar"></q-btn>
                 </q-form>
             </div>
         </div>

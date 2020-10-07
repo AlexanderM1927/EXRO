@@ -1,7 +1,6 @@
 <template>
   <q-item
     clickable
-    :id="link"
     tag="a"
     target="_blank"
     @click="goTo(link)"
@@ -15,7 +14,7 @@
       <q-icon :name="icon" />
     </q-item-section>
 
-    <q-item-section>
+    <q-item-section :id="link">
       <q-item-label>{{ title }}</q-item-label>
       <q-item-label caption>
         {{ caption }}

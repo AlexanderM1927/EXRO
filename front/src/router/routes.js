@@ -85,16 +85,6 @@ const routes = [
     }
   },
   {
-    path: '/instagram',
-    component: () => import('layouts/MainLayout.vue'),
-    props: {
-      view: 'instagram'
-    },
-    meta: {
-      title: 'Proyectos', requireSession: true
-    }
-  },
-  {
     path: '/project/:id',
     component: () => import('layouts/MainLayout.vue'),
     props: {
@@ -122,6 +112,16 @@ const routes = [
     },
     meta: {
       title: 'Variable', requireSession: true
+    }
+  },
+  {
+    path: '/reports',
+    component: () => import('layouts/MainLayout.vue'),
+    props: {
+      view: 'reports'
+    },
+    meta: {
+      title: 'Informes', requireSession: true
     }
   },
   {

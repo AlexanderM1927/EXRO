@@ -10,11 +10,16 @@
     "test": "echo \"No test specified\" && exit 0"
   },
   "dependencies": {
+    "@fullcalendar/core": "^5.3.0",
+    "@fullcalendar/daygrid": "^5.3.0",
+    "@fullcalendar/interaction": "^5.3.0",
+    "@fullcalendar/vue": "^5.3.0",
     "@quasar/extras": "^1.0.0",
     "axios": "^0.18.1",
     "core-js": "^3.6.5",
     "dotenv": "^8.2.0",
     "quasar": "^1.0.0",
+    "vue-full-calendar": "^2.8.1-0",
     "vue-tour": "^1.5.0"
   },
   "devDependencies": {

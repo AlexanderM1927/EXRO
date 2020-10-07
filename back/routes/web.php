@@ -15,9 +15,6 @@ $router->post('/recovery', "AuthController@recoveryPassword");
 $router->post('/changepassword', "AuthController@updatePassword");
 $router->post('/logout', "UserController@logout");
 
-// Testing route
-$router->get('/instagram', 'InstagramController@getPosts');
-
 $router->group(['middleware' => 'auth'], function () use ($router) {
     // Users routes
     $router->get('/my-user', "UserController@getUser");
