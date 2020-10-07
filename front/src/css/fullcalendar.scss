@@ -34,6 +34,8 @@ body .fc {
 /* Buttons (styled <button> tags, normalized to work cross-browser)
 --------------------------------------------------------------------------------------------------*/
 .fc button {
+  background: $primary;
+  color: white;
   /* force height to include the border and padding */
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
@@ -336,12 +338,12 @@ temporary rendered events).
   font-size: .85em;
   line-height: 1.3;
   border-radius: 3px;
-  border: 1px solid #3a87ad;
+  border: 1px solid $dark;
   /* default BORDER color */ }
 
 .fc-event,
 .fc-event-dot {
-  background-color: #3a87ad;
+  background-color: $dark;
   /* default BACKGROUND color */ }
 
 .fc-event,
@@ -609,11 +611,17 @@ TODO: more distinction between this file and common.css
 .fc-unthemed .fc-list-heading td {
   background: #eee; }
 
+.fc-day-header {
+  background: $primary;
+  color: white;
+  border-radius: 5px 5px;
+}
+
 .fc-unthemed .fc-popover .fc-header .fc-close {
   color: #666; }
 
 .fc-unthemed td.fc-today {
-  background: #fcf8e3; }
+  background: $secondary; }
 
 .fc-unthemed .fc-disabled-day {
   background: #d7d7d7;

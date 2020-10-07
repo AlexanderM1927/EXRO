@@ -30,7 +30,7 @@ export default {
   },
   created () {
     this.getCalendarInfo()
-    // exampleUssageEvents()
+    this.getReports()
   },
   methods: {
     getReports () {
@@ -50,6 +50,16 @@ export default {
       //   }
       //   this.events.push(event)
       // }
+      var event = {
+        title: 'hola',
+        start: '2020-10-03 19:00:00',
+        description: 'hola',
+        fase: 'hola',
+        proyecto: 'hola',
+        cliente: 'hola',
+        _id: 'hola'
+      }
+      this.events.push(event)
     },
     getCalendarInfo () {
       const _this = this
