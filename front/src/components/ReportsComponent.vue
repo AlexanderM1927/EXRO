@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import 'fullcalendar/dist/fullcalendar.css'
+import '../css/fullcalendar.scss'
 import { FullCalendar } from 'vue-full-calendar'
 import { functions } from '../functions.js'
 
