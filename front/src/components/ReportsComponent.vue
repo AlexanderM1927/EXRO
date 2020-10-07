@@ -3,9 +3,6 @@
         <div class="row">
             <div class="col-1"></div>
             <div class="col-10 container">
-                <div class="text-h6">
-                    Informes
-                </div>
                 <FullCalendar ref="calendar" :events="events" :config="config" />
             </div>
             <div class="col-1"></div>
