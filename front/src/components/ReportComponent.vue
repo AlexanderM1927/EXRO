@@ -8,7 +8,18 @@
                 <div class="text-h8">Cliente: {{report.cliente_name}}</div>
                 <q-separator />
                 <div v-for="variable in report.variables" v-bind:key="variable.id">
-                    <q-input type="number" color="grey-3" bg-color="white" label-color="primary" filled v-model="variable.value" :label="variable.name" required :rules="[val => !!val || 'Este campo es necesario']"></q-input>
+                    <q-input
+                      type="number"
+                      color="grey-3"
+                      bg-color="white"
+                      label-color="primary"
+                      filled
+                      v-model="variable.value"
+                      :label="variable.name"
+                      required
+                      :disable="(user.rank < 2) ? true : false"
+                      :rules="[val => !!val || 'Este campo es necesario']">
+                    </q-input>
                 </div>
             </div>
             <div class="col-1"></div>
@@ -23,6 +34,7 @@ import { functions } from '../functions.js'
 export default {
   name: 'report-component',
   mixins: [functions],
+  props: ['user'],
   data () {
     return {
       id: this.$route.params.id,

@@ -10,7 +10,6 @@
                 </center>
               <q-dialog
                 v-model="dialogProjects"
-                persistent
                 transition-show="slide-up"
                 transition-hide="slide-down"
               >
