@@ -4,6 +4,22 @@
             <div class="col-1"></div>
             <div class="col-10 container">
                 <FullCalendar ref="calendar" :events="events" :config="config" />
+                <br>
+                <center>
+                  <q-btn label="Crear reporte" @click="newReport" color="primary"></q-btn>
+                </center>
+              <q-dialog
+                v-model="dialogProjects"
+                persistent
+                transition-show="slide-up"
+                transition-hide="slide-down"
+              >
+                <q-card style="width: 800px; max-width: 80vw;">
+                <q-card-section>
+                    <projects-component mode='select' @selectproject="selectProject"></projects-component>
+                </q-card-section>
+                </q-card>
+              </q-dialog>
             </div>
             <div class="col-1"></div>
         </div>
@@ -12,6 +28,7 @@
 
 <script>
 import '../css/fullcalendar.scss'
+import ProjectsComponent from 'components/ProjectsComponent.vue'
 import { FullCalendar } from 'vue-full-calendar'
 import { functions } from '../functions.js'
 
@@ -19,13 +36,14 @@ export default {
   name: 'reports-component',
   mixins: [functions],
   components: {
-    FullCalendar // make the <FullCalendar> tag available
+    FullCalendar, ProjectsComponent
   },
   props: [],
   data () {
     return {
       events: [],
-      config: {}
+      config: {},
+      dialogProjects: false
     }
   },
   created () {
@@ -50,16 +68,6 @@ export default {
       //   }
       //   this.events.push(event)
       // }
-      var event = {
-        title: 'hola',
-        start: '2020-10-03 19:00:00',
-        description: 'hola',
-        fase: 'hola',
-        proyecto: 'hola',
-        cliente: 'hola',
-        _id: 'hola'
-      }
-      this.events.push(event)
     },
     getCalendarInfo () {
       const _this = this
@@ -102,6 +110,12 @@ export default {
         eventMouseover: function (event, jsEvent, view) {},
         eventMouseout: function (event, jsEvent, view) {}
       }
+    },
+    newReport () {
+      this.dialogProjects = true
+    },
+    selectProject (idProject) {
+      this.goTo('new-report/' + idProject)
     }
   }
 }

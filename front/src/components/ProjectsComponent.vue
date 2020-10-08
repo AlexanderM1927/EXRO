@@ -32,7 +32,12 @@
                             </q-card-section>
                             <q-separator/>
 
-                            <q-card-actions>
+                            <q-card-actions v-if="mode === 'select'">
+                                <q-btn flat color="primary" @click="$emit('selectproject', item.id)">
+                                Seleccionar
+                                </q-btn>
+                            </q-card-actions>
+                            <q-card-actions v-else>
                                 <q-btn flat color="primary" @click="goTo('project/' + item.id)">
                                 Ver
                                 </q-btn>
@@ -61,7 +66,7 @@ import { functions } from '../functions.js'
 export default {
   name: 'projects-component',
   mixins: [functions],
-  props: [],
+  props: ['mode'],
   data () {
     return {
       projects: []
