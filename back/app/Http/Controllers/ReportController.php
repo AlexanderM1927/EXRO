@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Project;
+use App\Report;
+use App\ValuesVariable;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Log;
@@ -26,12 +27,19 @@ class ReportController extends Controller
     {
         
         try {
-            $report = new Project;
+            $report = new Report;
             $report->idingeniero = $request->input('idingeniero');
             $report->idproyecto = $request->input('idproyecto');
             $report->fecha = $request->input('fecha');
 
             $report->save();
+
+            $valuesVariable = new ValuesVariable;
+            $valuesVariable->idreport= $request -> input('idreport');
+            $valuesVariable->idvariablesprojects= $request -> input('idvariablesprojects');
+            
+            
+
             return response()->json(['report' => $report, 'message' => 'CREATED'], 201);
 
         } catch (\Exception $e) {

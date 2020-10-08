@@ -17,6 +17,7 @@ class CreateValuesVariablesTable extends Migration
             $table->bigIncrements('id');
             $table->integer('idreport')->references('id')->on('reports');
             $table->integer('idvariablesprojects')->references('id')->on('variablesprojects');
+            $table->integer('value');
             $table->timestamps();
         });
     }
