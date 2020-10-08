@@ -135,6 +135,16 @@ const routes = [
     }
   },
   {
+    path: '/report/:id',
+    component: () => import('layouts/MainLayout.vue'),
+    props: {
+      view: 'report'
+    },
+    meta: {
+      title: 'Informe', requireSession: true
+    }
+  },
+  {
     name: 'logout',
     path: '/logout',
     meta: {

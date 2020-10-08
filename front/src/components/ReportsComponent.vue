@@ -27,6 +27,7 @@
 </template>
 
 <script>
+import ReportService from '../services/ReportService'
 import '../css/fullcalendar.scss'
 import ProjectsComponent from 'components/ProjectsComponent.vue'
 import { FullCalendar } from 'vue-full-calendar'
@@ -51,19 +52,19 @@ export default {
     this.getReports()
   },
   methods: {
-    getReports () {
+    async getReports () {
       this.activateLoading('Cargando')
-      //   const t = await ReportService.getReports({ usuario_id: localStorage.getItem('user'), token: localStorage.getItem('token') })
+      const t = await ReportService.getReports({ token: localStorage.getItem('token') })
       this.disableLoading()
-      // const events = t.data
-      // for (let i = 0; i < events.length; i++) {
-      //   var event = {
-      //     title: events[i].project_name,
-      //     start: events[i].date,
-      //     _id: events[i].id
-      //   }
-      //   this.events.push(event)
-      // }
+      const events = t.data.reports
+      for (let i = 0; i < events.length; i++) {
+        var event = {
+          title: events[i].name,
+          start: events[i].fecha,
+          _id: events[i].id
+        }
+        this.events.push(event)
+      }
     },
     getCalendarInfo () {
       const _this = this
@@ -101,7 +102,7 @@ export default {
         dayNamesShort: lang.days,
         eventTextColor: 'white',
         eventClick: function (event) {
-          _this.showEvent(event)
+          _this.goTo('report/' + event._id)
         },
         eventMouseover: function (event, jsEvent, view) {},
         eventMouseout: function (event, jsEvent, view) {}

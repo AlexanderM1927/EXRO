@@ -50,6 +50,7 @@
       <var-component v-if="view === 'var'"></var-component>
       <reports-component :user="user" v-if="view === 'reports'"></reports-component>
       <new-report-component :user="user" v-if="view === 'new-report'"></new-report-component>
+      <report-component :user="user" v-if="view === 'report'"></report-component>
       <v-tour name="myTour" :steps="steps"></v-tour>
     </q-page-container>
   </q-layout>
@@ -65,6 +66,7 @@ import VarsComponent from 'components/VarsComponent.vue'
 import VarComponent from 'components/VarComponent.vue'
 import ReportsComponent from 'components/ReportsComponent.vue'
 import NewReportComponent from 'components/NewReportComponent.vue'
+import ReportComponent from 'components/ReportComponent.vue'
 import HomeComponent from 'components/HomeComponent.vue'
 import { functions } from '../functions.js'
 import UserService from '../services/UserService'
@@ -126,7 +128,8 @@ export default {
     VarsComponent,
     VarComponent,
     ReportsComponent,
-    NewReportComponent
+    NewReportComponent,
+    ReportComponent
   },
   mixins: [functions],
   data () {
