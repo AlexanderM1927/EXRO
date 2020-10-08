@@ -48,7 +48,7 @@ export default {
       }
       this.disableLoading()
     },
-    save () {
+    async save () {
       const data = {
         variables: this.vars,
         token: localStorage.getItem('token'),

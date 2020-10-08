@@ -49,6 +49,8 @@ class ProjectController extends Controller
     }
 
     public function getProjects () {
+        $user = Auth::user();
+        Log::debug($user);
         $projects = DB::table('projects')->get();
         return response()->json(['projects' => $projects]);
     }
