@@ -6,7 +6,7 @@
                 <FullCalendar ref="calendar" :events="events" :config="config" />
                 <br>
                 <center>
-                  <q-btn label="Crear reporte" @click="newReport" color="primary"></q-btn>
+                  <q-btn v-if="user.rank > 1" label="Crear reporte" @click="newReport" color="primary"></q-btn>
                 </center>
               <q-dialog
                 v-model="dialogProjects"
@@ -38,7 +38,7 @@ export default {
   components: {
     FullCalendar, ProjectsComponent
   },
-  props: [],
+  props: ['user'],
   data () {
     return {
       events: [],

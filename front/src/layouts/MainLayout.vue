@@ -48,8 +48,8 @@
       <project-component v-if="view === 'project'"></project-component>
       <vars-component v-if="view === 'vars'"></vars-component>
       <var-component v-if="view === 'var'"></var-component>
-      <reports-component v-if="view === 'reports'"></reports-component>
-      <new-report-component v-if="view === 'new-report'"></new-report-component>
+      <reports-component :user="user" v-if="view === 'reports'"></reports-component>
+      <new-report-component :user="user" v-if="view === 'new-report'"></new-report-component>
       <v-tour name="myTour" :steps="steps"></v-tour>
     </q-page-container>
   </q-layout>
