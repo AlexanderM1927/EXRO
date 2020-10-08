@@ -13,6 +13,9 @@ export default {
   getVars (params) {
     return Api().get('vars', { headers: { Authorization: params.token } })
   },
+  getVarsByProject (params) {
+    return Api().get('vars-project/' + params.id, { headers: { Authorization: params.token } })
+  },
   getVar (params) {
     return Api().get('var/' + params.id, { headers: { Authorization: params.token } })
   }

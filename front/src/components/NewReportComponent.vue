@@ -8,6 +8,9 @@
                     Crear informe
                 </div>
                 <q-form @submit="save">
+                    <div v-for="variable in vars" v-bind:key="variable.id">
+                        <q-input color="grey-3" bg-color="white" label-color="primary" filled v-model="variable.value" type="number" :label="variable.name" required :rules="[val => !!val || 'Este campo es necesario']"></q-input>
+                    </div>
                     <q-btn class="right" round type="submit" color="primary" icon="save" />
                 </q-form>
             </div>
@@ -18,6 +21,7 @@
 
 <script>
 import { functions } from '../functions.js'
+import VariablesprojectsService from '../services/VariablesprojectsService'
 
 export default {
   name: 'user-component',
@@ -36,15 +40,15 @@ export default {
     async getVarsByProject () {
       try {
         this.activateLoading('Cargando')
-        // const p = await UserService.getUser({ id: this.id, token: localStorage.getItem('token') })
-        // this.vars = p.data
+        const p = await VariablesprojectsService.getVariablesByProject({ id: this.id, token: localStorage.getItem('token') })
+        this.vars = p.data.variablesprojects
       } catch (error) {
         console.log(error)
       }
       this.disableLoading()
     },
     save () {
-      console.log('save')
+      console.log(this.vars)
     }
   }
 }
