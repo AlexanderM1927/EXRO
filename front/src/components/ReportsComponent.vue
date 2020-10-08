@@ -53,7 +53,7 @@ export default {
   methods: {
     getReports () {
       this.activateLoading('Cargando')
-      //   const t = await TaskService.getTasksByUser({ usuario_id: localStorage.getItem('user'), token: localStorage.getItem('token') })
+      //   const t = await ReportService.getReports({ usuario_id: localStorage.getItem('user'), token: localStorage.getItem('token') })
       this.disableLoading()
       // const events = t.data
       // for (let i = 0; i < events.length; i++) {

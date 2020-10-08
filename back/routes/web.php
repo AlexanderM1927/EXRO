@@ -49,6 +49,11 @@ $router->group(['middleware' => 'auth'], function () use ($router) {
     $router->get('/engineersProjects/{id}', "EngineersProjectsController@getEngineersByProject");
     $router->delete('/engineersProjects/{id}', "EngineersProjectsController@deleteEngineerProjectById");
 
+    //Reports routes
+    $router->post('/report', "ReportsController@createReport");
+    $router->get('/reports', "ReportsController@getReports");
+    $router->get('/report/{id}', "ReportsController@getReportById");
+
 
     $router->post('/register', "UserController@register");
 });

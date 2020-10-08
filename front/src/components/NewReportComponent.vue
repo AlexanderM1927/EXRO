@@ -22,6 +22,7 @@
 <script>
 import { functions } from '../functions.js'
 import VariablesprojectsService from '../services/VariablesprojectsService'
+import ReportService from '../services/ReportService'
 
 export default {
   name: 'user-component',
@@ -54,7 +55,14 @@ export default {
         idproyecto: this.id,
         idingeniero: localStorage.getItem('user')
       }
-      console.log(data)
+      try {
+        this.activateLoading('Cargando')
+        const p = await ReportService.createReport(data)
+        this.vars = p.data.variablesprojects
+      } catch (error) {
+        console.log(error)
+      }
+      this.disableLoading()
     }
   }
 }
