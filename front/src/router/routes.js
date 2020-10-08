@@ -145,6 +145,16 @@ const routes = [
     }
   },
   {
+    path: '/graphics',
+    component: () => import('layouts/MainLayout.vue'),
+    props: {
+      view: 'graphics'
+    },
+    meta: {
+      title: 'Graficas', requireSession: true
+    }
+  },
+  {
     name: 'logout',
     path: '/logout',
     meta: {

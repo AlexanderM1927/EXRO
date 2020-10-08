@@ -51,6 +51,7 @@
       <reports-component :user="user" v-if="view === 'reports'"></reports-component>
       <new-report-component :user="user" v-if="view === 'new-report'"></new-report-component>
       <report-component :user="user" v-if="view === 'report'"></report-component>
+      <graphics-component v-if="view === 'graphics'"></graphics-component>
       <v-tour name="myTour" :steps="steps"></v-tour>
     </q-page-container>
   </q-layout>
@@ -67,6 +68,7 @@ import VarComponent from 'components/VarComponent.vue'
 import ReportsComponent from 'components/ReportsComponent.vue'
 import NewReportComponent from 'components/NewReportComponent.vue'
 import ReportComponent from 'components/ReportComponent.vue'
+import GraphicsComponent from 'components/GraphicsComponent.vue'
 import HomeComponent from 'components/HomeComponent.vue'
 import { functions } from '../functions.js'
 import UserService from '../services/UserService'
@@ -105,7 +107,7 @@ const linksData = [
   {
     title: 'Graficas',
     icon: 'analytics',
-    link: 'graphis',
+    link: 'graphics',
     minRank: 1
   },
   {
@@ -129,7 +131,8 @@ export default {
     VarComponent,
     ReportsComponent,
     NewReportComponent,
-    ReportComponent
+    ReportComponent,
+    GraphicsComponent
   },
   mixins: [functions],
   data () {
