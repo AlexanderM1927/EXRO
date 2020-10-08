@@ -49,7 +49,20 @@ class ProjectController extends Controller
     }
 
     public function getProjects () {
-        $projects = DB::table('projects')->get();
+        $user = Auth::user();
+        if ($user->rank == 3) {
+            $projects = DB::table('projects')->get();
+        } elseif ($user->rank == 2) {
+            $projects = DB::table('projects')
+            ->join('engineers_projects', 'engineers_projects.idproyecto', '=', 'projects.id')
+            ->where('engineers_projects.idingeniero', '=', $user->id)
+            ->get();
+        } else {
+            $projects = DB::table('projects')
+            ->where('idcliente', '=', $user->id)
+            ->get();
+            $projects = DB::table('projects')->get();
+        }
         return response()->json(['projects' => $projects]);
     }
 
