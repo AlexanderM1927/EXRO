@@ -26,7 +26,7 @@ class ReportController extends Controller
     {
         
         try {
-            $report = new Project;
+            $report = new Report;
             $report->idingeniero = $request->input('idingeniero');
             $report->idproyecto = $request->input('idproyecto');
             $report->fecha = $request->input('fecha');
