@@ -58,13 +58,9 @@ export default {
       // const events = t.data
       // for (let i = 0; i < events.length; i++) {
       //   var event = {
-      //     title: events[i].task_name,
+      //     title: events[i].project_name,
       //     start: events[i].date,
-      //     description: events[i].task_commentary,
-      //     fase: events[i].fase_name,
-      //     proyecto: events[i].proyecto_name,
-      //     cliente: events[i].cliente_name,
-      //     _id: events[i].task_id
+      //     _id: events[i].id
       //   }
       //   this.events.push(event)
       // }

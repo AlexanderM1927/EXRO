@@ -13,6 +13,7 @@
         <div class="row">
             <div class="col-1"></div>
             <div class="col-10 container">
+                <div class="row"></div>
                 <div class="row">
                     <div v-if="projects.length === 0">
                       Ningun proyecto hasta el momento
