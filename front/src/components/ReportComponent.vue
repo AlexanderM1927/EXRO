@@ -54,7 +54,6 @@ export default {
       this.activateLoading('Cargando')
       const t = await ReportService.getReportById({ id: this.id, token: localStorage.getItem('token') })
       this.report = t.data.report
-      console.log(this.report)
       this.disableLoading()
     },
     async deleteReport () {
