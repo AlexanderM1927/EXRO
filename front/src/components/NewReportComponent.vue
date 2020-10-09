@@ -59,11 +59,15 @@ export default {
       try {
         this.activateLoading('Cargando')
         const p = await ReportService.createReport(data)
+        console.log(p)
         if (p.status === 201) {
           this.alert('positive', 'Reporte generado exitosamente')
+          this.goTo('reports')
+        } else {
+          this.alert('warning', 'Reporte creado, correo no enviado.')
         }
       } catch (error) {
-        console.log(error)
+        this.alert('negative', 'Ha ocurrido un error')
       }
       this.disableLoading()
     }
