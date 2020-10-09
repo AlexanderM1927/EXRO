@@ -50,9 +50,9 @@ $router->group(['middleware' => 'auth'], function () use ($router) {
     $router->delete('/engineersProjects/{id}', "EngineersProjectsController@deleteEngineerProjectById");
 
     //Reports routes
-    $router->post('/report', "ReportsController@createReport");
-    $router->get('/reports', "ReportsController@getReports");
-    $router->get('/report/{id}', "ReportsController@getReportById");
+    $router->post('/report', "ReportController@createReport");
+    $router->get('/reports', "ReportController@getReports");
+    $router->get('/report/{id}', "ReportController@getReportById");
 
 
     $router->post('/register', "UserController@register");

@@ -1,15 +1,24 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-
-import FullCalendar from 'vue-full-calendar'
 import routes from './routes'
 import VueTour from 'vue-tour'
 
+// imports custom
+
+import FullCalendar from 'vue-full-calendar'
+import Highcharts from 'highcharts'
+import Treemap from 'highcharts/modules/treemap'
+import Itemseries from 'highcharts/modules/item-series'
+import HighchartsVue from 'highcharts-vue'
+
 require('vue-tour/dist/vue-tour.css')
 
-Vue.use(FullCalendar)
+Treemap(Highcharts)
+Itemseries(Highcharts)
 Vue.use(VueTour)
 Vue.use(VueRouter)
+Vue.use(Highcharts, Treemap, Itemseries, HighchartsVue)
+Vue.use(FullCalendar)
 
 /*
  * If not building with SSR mode, you can

@@ -15,8 +15,8 @@ class CreateReportsTable extends Migration
     {
         Schema::create('reports', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('idingeniero')->references('id')->on('users');
-            $table->integer('idproyecto')->references('id')->on('projects');
+            $table->integer('idingeniero');
+            $table->integer('idproyecto');
             $table->date('fecha');
             $table->timestamps();
         });

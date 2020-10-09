@@ -15,8 +15,8 @@ class CreateValuesVariablesTable extends Migration
     {
         Schema::create('values_variables', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('idreport')->references('id')->on('reports');
-            $table->integer('idvariablesprojects')->references('id')->on('variablesprojects');
+            $table->integer('idreport');
+            $table->integer('idvariablesprojects');
             $table->double('value');
             $table->timestamps();
         });
