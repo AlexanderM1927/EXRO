@@ -112,5 +112,11 @@ class ReportController extends Controller
             //return error message
             return response()->json(['message' => $e], 409);
         }
-    } 
+    }
+    
+    public function deleteReport ($id) {
+        $report = DB::table('reports')->where('id', '=', $id)->delete();
+        $valuevariable= DB::table('values_variables')->where('idreport', '=', $id)->delete();
+
+    }
 }

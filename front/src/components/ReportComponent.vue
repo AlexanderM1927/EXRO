@@ -20,6 +20,9 @@
                       :disable="(user.rank < 2) ? true : false"
                       :rules="[val => !!val || 'Este campo es necesario']">
                     </q-input>
+                    <q-btn flat color="negative" @click="deleteReport">
+                      Eliminar
+                    </q-btn>
                 </div>
             </div>
             <div class="col-1"></div>
@@ -51,6 +54,19 @@ export default {
       this.activateLoading('Cargando')
       const t = await ReportService.getReportById({ id: this.id, token: localStorage.getItem('token') })
       this.report = t.data.report
+      this.disableLoading()
+    },
+    async deleteReport () {
+      try {
+        this.activateLoading('Cargando')
+        const p = await ReportService.deleteReport({ id: this.id, token: localStorage.getItem('token') })
+        if (p.status === 200) {
+          this.alert('positive', 'Eliminado correctamente')
+          this.goTo('reports')
+        }
+      } catch (error) {
+        this.alert('negative', 'Se presentó un error')
+      }
       this.disableLoading()
     }
   }

@@ -9,5 +9,8 @@ export default {
   },
   getReports (params) {
     return Api().get('reports', { headers: { Authorization: params.token } })
+  },
+  deleteReport (params) {
+    return Api().delete('report/' + params.id, { headers: { Authorization: params.token } })
   }
 }
