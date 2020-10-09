@@ -87,7 +87,7 @@ export default {
         if (heightSize <= cards[i].clientHeight) heightSize = cards[i].clientHeight
       }
       for (let i = 0; i < cards.length; i++) {
-        document.getElementsByClassName('cards')[i].style.minHeight = heightSize + 'px'
+        document.getElementsByClassName('cards')[i].style.height = heightSize + 'px'
         // document.getElementsByClassName('cards')[i].style.minWidth = widthSize + 'px'
       }
     },
