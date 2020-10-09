@@ -27,42 +27,47 @@ class ReportController extends Controller
 
     public function createReport(Request $request)
     {
-        $report = new Report;
-        $report->idingeniero = Auth::user()->id;
-        $report->idproyecto = $request->input('idproyecto');
-        $report->fecha = $request->input('fecha');
+        try {
+            $report = new Report;
+            $report->idingeniero = Auth::user()->id;
+            $report->idproyecto = $request->input('idproyecto');
+            $report->fecha = $request->input('fecha');
 
-        $report->save();
+            $report->save();
 
-        $variables = $request->input('variables');
-        foreach($variables as $variable) {
-            $idvariableproyecto = $variable['id'];
-            $value = $variable['value'];
+            $variables = $request->input('variables');
+            foreach($variables as $variable) {
+                $idvariableproyecto = $variable['id'];
+                $value = $variable['value'];
 
-            $valuesVariable = new ValuesVariable;
-            $valuesVariable->idreport= $report->id;
-            $valuesVariable->idvariablesprojects= $idvariableproyecto;
-            $valuesVariable->value= $value;
-            $valuesVariable->save();
-        }
-        
-        $user = DB::table('users')
-        ->join('projects', 'projects.idcliente', '=', 'users.id')
-        ->join('reports', 'reports.idproyecto', '=', 'projects.id')
-        ->select('users.name as name', 'users.email as email')
-        ->get()
-        ->first();
-        $title = "Nuevo reporte | EXROStats";
-        $body = "Hola, ".$user->name."<br>";
-        $body .= "<br>";
-        $body .= "<br>";
-        $body .= "Un ingeniero ha actualizado los datos de las variables.";
-        $body .= "<br>";
-        $body .= "<a href='".env('FRONT_URL')."report/".$report->id."'>Ver reporte</a>";
-        if (Mail::to($user->email)->send(new MessageSend($title,$body,$user->email))) {
-            return response()->json(['report' => $report, 'message' => 'CREATED'], 201);
-        } else {
-            return response()->json(['report' => $report, 'message' => 'CREATED'], 202);
+                $valuesVariable = new ValuesVariable;
+                $valuesVariable->idreport= $report->id;
+                $valuesVariable->idvariablesprojects= $idvariableproyecto;
+                $valuesVariable->value= $value;
+                $valuesVariable->save();
+            }
+            
+            $user = DB::table('users')
+            ->join('projects', 'projects.idcliente', '=', 'users.id')
+            ->join('reports', 'reports.idproyecto', '=', 'projects.id')
+            ->select('users.name as name', 'users.email as email')
+            ->get()
+            ->first();
+            $title = "Nuevo reporte | EXROStats";
+            $body = "Hola, ".$user->name."<br>";
+            $body .= "<br>";
+            $body .= "<br>";
+            $body .= "Un ingeniero ha actualizado los datos de las variables.";
+            $body .= "<br>";
+            $body .= "<a href='".env('FRONT_URL')."report/".$report->id."'>Ver reporte</a>";
+            if (Mail::to($user->email)->send(new MessageSend($title,$body,$user->email))) {
+                return response()->json(['report' => $report, 'message' => 'CREATED'], 201);
+            } else {
+                return response()->json(['report' => $report, 'message' => 'CREATED'], 202);
+            }
+        } catch (\Exception $e) {
+            //return error message
+            return response()->json(['message' => $e], 409);
         }
     }
 
