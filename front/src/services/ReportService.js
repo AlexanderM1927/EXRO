@@ -12,5 +12,8 @@ export default {
   },
   deleteReport (params) {
     return Api().delete('report/' + params.id, { headers: { Authorization: params.token } })
+  },
+  editReport (params) {
+    return Api().post('report/', params, { headers: { Authorization: params.token } })
   }
 }

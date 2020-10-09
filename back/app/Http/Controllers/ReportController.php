@@ -111,6 +111,19 @@ class ReportController extends Controller
             return response()->json(['message' => $e], 409);
         }
     }
+
+    public function editReport (Request $request) {
+
+        $variables = $request->input('variables');
+        foreach($variables as $variable) {
+            DB::table('values_variables')->where('idreport', '=', $variable['idreport'], 'AND', 'idvariablesprojects', '=', $variable['idvariablesprojects'])
+            ->update([
+                'value' => $variable['value']
+            ]);
+            log::debug($variable['value']);
+        }
+       
+    }
     
     public function deleteReport ($id) {
         $report = DB::table('reports')->where('id', '=', $id)->delete();

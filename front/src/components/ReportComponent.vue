@@ -20,10 +20,13 @@
                       :disable="(user.rank < 2) ? true : false"
                       :rules="[val => !!val || 'Este campo es necesario']">
                     </q-input>
+                </div>
+                 <q-btn v-if="user.rank > 1" flat color="primary" @click="editReport">
+                      Editar
+                    </q-btn>
                     <q-btn v-if="user.rank > 1" flat color="negative" @click="deleteReport">
                       Eliminar
                     </q-btn>
-                </div>
             </div>
             <div class="col-1"></div>
         </div>
@@ -62,6 +65,21 @@ export default {
         const p = await ReportService.deleteReport({ id: this.id, token: localStorage.getItem('token') })
         if (p.status === 200) {
           this.alert('positive', 'Eliminado correctamente')
+          this.goTo('reports')
+        }
+      } catch (error) {
+        this.alert('negative', 'Se presentó un error')
+      }
+      this.disableLoading()
+    },
+    async editReport () {
+      try {
+        this.activateLoading('Cargando')
+        this.report.token = localStorage.getItem('token')
+        console.log(this.report)
+        const p = await ReportService.editReport(this.report)
+        if (p.status === 200) {
+          this.alert('positive', 'Actualizado correctamente')
           this.goTo('reports')
         }
       } catch (error) {
