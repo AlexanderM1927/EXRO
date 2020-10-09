@@ -60,7 +60,7 @@ class ReportController extends Controller
             $body .= "Un ingeniero ha actualizado los datos de las variables.";
             $body .= "<br>";
             $body .= "<a href='".env('FRONT_URL')."report/".$report->id."'>Ver reporte</a>";
-            
+            Mail::to($user->email)->send(new MessageSend($title,$body,$user->email));
             return response()->json(['report' => $report, 'message' => 'CREATED'], 201);
         } catch (\Exception $e) {
             //return error message
