@@ -50,14 +50,14 @@ class ReportController extends Controller
             $user = DB::table('users')
             ->join('projects', 'projects.idcliente', '=', 'users.id')
             ->join('reports', 'reports.idproyecto', '=', 'projects.id')
-            ->select('users.name as name', 'users.email as email')
+            ->select('users.name as name', 'projects.name as project_name', 'users.email as email')
             ->get()
             ->first();
             $title = "Nuevo reporte | EXROStats";
             $body = "Hola, ".$user->name."<br>";
             $body .= "<br>";
             $body .= "<br>";
-            $body .= "Un ingeniero ha actualizado los datos de las variables.";
+            $body .= "Un ingeniero ha actualizado los datos de las variables del proyecto <b>". $user->project_name ."</b>.";
             $body .= "<br>";
             $body .= "<a href='".env('FRONT_URL')."report/".$report->id."'>Ver reporte</a>";
             Mail::to($user->email)->send(new MessageSend($title,$body,$user->email));

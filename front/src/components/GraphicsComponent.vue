@@ -42,6 +42,28 @@ export default {
       dialog: false,
       generar: false,
       chartOptions1: {
+        exporting: {
+          buttons: {
+            contextButton: {
+              menuItems: ['viewFullscreen', 'printChart', 'separator', 'downloadPNG', 'downloadJPEG', 'downloadPDF', 'downloadSVG',
+                {
+                  text: 'Nuevo',
+                  onclick: function () {
+                    console.log('hola')
+                  }
+                }]
+            }
+          }
+        },
+        lang: {
+          downloadPDF: 'Descargar PDF',
+          downloadPNG: 'Descargar PNG',
+          downloadJPEG: 'Descargar JPEG',
+          downloadSVG: 'Descargar SVG',
+          printChart: 'Imprimir gráfica',
+          viewFullscreen: 'Ver en pantalla completa',
+          downloadXLS: 'Descargar Excel'
+        },
         chart: {
           type: 'area'
         },
