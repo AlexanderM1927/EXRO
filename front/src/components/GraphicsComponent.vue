@@ -88,7 +88,7 @@ export default {
           }
         },
         series: [{
-          name: 'Gastos',
+          name: 'Reporte',
           data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
           color: '#E9BC36'
         }]

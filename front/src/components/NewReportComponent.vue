@@ -59,7 +59,6 @@ export default {
       try {
         this.activateLoading('Cargando')
         const p = await ReportService.createReport(data)
-        console.log(p)
         if (p.status === 201) {
           this.alert('positive', 'Reporte generado exitosamente')
           this.goTo('reports')
