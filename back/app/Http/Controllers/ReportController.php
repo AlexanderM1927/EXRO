@@ -116,7 +116,7 @@ class ReportController extends Controller
 
         $variables = $request->input('variables');
         foreach($variables as $variable) {
-            DB::table('values_variables')->where('idreport', '=', $variable['idreport'], 'AND', 'idvariablesprojects', '=', $variable['idvariablesprojects'])
+            DB::table('values_variables')->where('idreport', '=', $variable['idreport'])->where('idvariablesprojects', '=', $variable['idvariablesprojects']) 
             ->update([
                 'value' => $variable['value']
             ]);
