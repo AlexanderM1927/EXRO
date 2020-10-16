@@ -106,7 +106,7 @@ export default {
           type: 'line'
         },
         title: {
-          text: 'Reportes por fecha'
+          text: 'Variable 1'
         },
         xAxis: {
           categories: ['Fecha 02/10/2020', 'Fecha 04/10/2020', 'Fecha 08/10/2020', 'Fecha 10/10/2020', 'Fecha 13/10/2020', 'Fecha 14/10/2020', 'Fecha 15/10/2020']
