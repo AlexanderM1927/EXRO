@@ -42,7 +42,6 @@ class StatisticController extends Controller
             );
             array_push($statistics[$report->var_name], $newArray);
         }
-        log::debug( $statistics);
         return response()->json(['statics' => $statistics], 200); 
     }
 }

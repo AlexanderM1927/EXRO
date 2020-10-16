@@ -76,7 +76,6 @@ export default {
       try {
         this.activateLoading('Cargando')
         this.report.token = localStorage.getItem('token')
-        console.log(this.report)
         const p = await ReportService.editReport(this.report)
         if (p.status === 200) {
           this.alert('positive', 'Actualizado correctamente')

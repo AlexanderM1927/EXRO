@@ -40,7 +40,7 @@
                       </q-icon>
                   </template>
                 </q-input>
-                <q-btn color="primary" class="full-width" label="Generar grafica" @click="generarGraficas" />
+                <q-btn color="primary" class="full-width" label="Generar grafica" @click="validateForm([idproject], generarGraficas)" />
                 <div v-for="(value, key) in graphics" v-bind:key="value.id">
                   <highcharts v-if="generar" :options="getChartOptions(key)"></highcharts>
                 </div>
