@@ -86,7 +86,7 @@ class ReportController extends Controller
             } else {
                 $reports = DB::table('reports')
                 ->join('projects', 'projects.id', '=', 'reports.idproyecto')
-                ->where('projects.idingeniero', '=', $user->id)
+                ->where('projects.idcliente', '=', $user->id)
                 ->select('reports.id', 'projects.name', 'reports.fecha')
                 ->get();
             }
