@@ -40,7 +40,7 @@
                       </q-icon>
                   </template>
                 </q-input>
-                <q-btn color="primary" class="full-width" label="Generar grafica" @click="generar = true" />
+                <q-btn color="primary" class="full-width" label="Generar grafica" @click="generarGraficas" />
                 <div v-for="(value, key) in graphics" v-bind:key="value.id">
                   <highcharts v-if="generar" :options="getChartOptions(key)"></highcharts>
                 </div>
@@ -86,15 +86,22 @@ export default {
     }
   },
   methods: {
+    async generarGraficas () {
+      this.generar = true
+      var params = {}
+      params.idproyecto = this.idproject
+      params.token = localStorage.getItem('token')
+      params.from = this.from
+      params.to = this.to
+      this.activateLoading('Cargando')
+      const p = await StaticsService.getStats(params)
+      this.disableLoading()
+      this.graphics = p.data.statics
+      this.getVars(this.graphics)
+    },
     async selectProject (id) {
       this.idproject = id
       this.dialog = false
-      var params = {}
-      params.idproyecto = id
-      params.token = localStorage.getItem('token')
-      const p = await StaticsService.getStats(params)
-      this.graphics = p.data.statics
-      this.getVars(this.graphics)
     },
 
     addProject () {

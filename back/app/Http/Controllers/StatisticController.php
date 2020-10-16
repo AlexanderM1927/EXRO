@@ -28,6 +28,7 @@ class StatisticController extends Controller
         ->join('variablesprojects', 'values_variables.idvariablesprojects', '=', 'variablesprojects.id')
         ->join('vars', 'variablesprojects.idvariable', '=', 'vars.id')
         ->where('variablesprojects.idproyecto', '=', $request->input('idproyecto')) //falta filtro de fechas
+        ->whereBetween('reports.fecha', [$request->input('from'), $request->input('to')])
         ->get();
 
         $statistics = array();
