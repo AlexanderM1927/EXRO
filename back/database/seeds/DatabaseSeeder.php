@@ -12,5 +12,12 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call('UsersSeeder');
+        $this->call('ProjectsSeeder');
+        $this->call('VariablesSeeder');
+        $this->call('VariablesprojectsSeeder');
+        $this->call('ReportsSeeder');
+        $this->call('ValuesVariablesSeeder');
+
+
     }
 }
