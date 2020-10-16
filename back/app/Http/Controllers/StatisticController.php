@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Log;
 
-class ReportController extends Controller
+class StatisticController extends Controller
 {
     /**
      * Store a new user.
@@ -21,6 +21,7 @@ class ReportController extends Controller
     }
 
     public function getStats (Request $request) {
+        
         $reports = DB::table('reports')
         ->select('reports.fecha as fecha', 'vars.name as var_name', 'values_variables.value', 'variablesprojects.max as var_max', 'variablesprojects.min as var_min')
         ->join('values_variables', 'reports.id', '=', 'values_variables.idreport')
@@ -40,7 +41,7 @@ class ReportController extends Controller
             );
             array_push($statistics[$report->var_name], $newArray);
         }
-
-        return response()->json(['statics' => $statistics], 200);
+        log::debug( $statistics);
+        return response()->json(['statics' => $statistics], 200); 
     }
 }

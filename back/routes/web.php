@@ -56,6 +56,10 @@ $router->group(['middleware' => 'auth'], function () use ($router) {
     $router->delete('/report/{id}', "ReportController@deleteReport");
     $router->post('/modify_report', "ReportController@editReport");
 
+    //statics
+    $router->post('/getstats', "StatisticController@getStats");
+
+
 
     $router->post('/register', "UserController@register");
 });

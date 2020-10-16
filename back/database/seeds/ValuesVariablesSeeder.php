@@ -151,5 +151,76 @@ class ValuesVariablesSeeder extends Seeder
         $valvar->value = 30;
 
         $valvar->save();
+
+
+        $valvar = new ValuesVariable;
+        $valvar->idreport = 21;
+        $valvar->idvariablesprojects = 3;
+        $valvar->value = 83;
+
+        $valvar->save();
+
+        $valvar = new ValuesVariable;
+        $valvar->idreport = 22;
+        $valvar->idvariablesprojects = 3;
+        $valvar->value = 89;
+
+        $valvar->save();
+
+        $valvar = new ValuesVariable;
+        $valvar->idreport = 23;
+        $valvar->idvariablesprojects = 3;
+        $valvar->value = 84;
+
+        $valvar->save();
+
+        $valvar = new ValuesVariable;
+        $valvar->idreport = 24;
+        $valvar->idvariablesprojects = 3;
+        $valvar->value = 81;
+
+        $valvar->save();
+
+        $valvar = new ValuesVariable;
+        $valvar->idreport = 25;
+        $valvar->idvariablesprojects = 3;
+        $valvar->value = 74;
+
+        $valvar->save();
+
+        $valvar = new ValuesVariable;
+        $valvar->idreport = 26;
+        $valvar->idvariablesprojects = 3;
+        $valvar->value = 80;
+
+        $valvar->save();
+
+        $valvar = new ValuesVariable;
+        $valvar->idreport = 27;
+        $valvar->idvariablesprojects = 3;
+        $valvar->value = 77;
+
+        $valvar->save();
+
+        $valvar = new ValuesVariable;
+        $valvar->idreport = 28;
+        $valvar->idvariablesprojects = 3;
+        $valvar->value = 72;
+
+        $valvar->save();
+
+        $valvar = new ValuesVariable;
+        $valvar->idreport = 29;
+        $valvar->idvariablesprojects = 3;
+        $valvar->value = 70;
+
+        $valvar->save();
+
+        $valvar = new ValuesVariable;
+        $valvar->idreport = 30;
+        $valvar->idvariablesprojects = 3;
+        $valvar->value = 65;
+
+        $valvar->save();
     }
 }

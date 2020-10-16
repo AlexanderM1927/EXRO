@@ -31,10 +31,10 @@ class VariablesprojectsSeeder extends Seeder
         $varpro->save();
 
         $varpro = new Variablesprojects;
-        $varpro->idproyecto = 1;
+        $varpro->idproyecto = 2;
         $varpro->idvariable = 3;
         $varpro->max = 90;
-        $varpro->min = 70;
+        $varpro->min = 60;
 
 
         $varpro->save();

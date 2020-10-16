@@ -136,7 +136,6 @@ class ReportController extends Controller
             ->update([
                 'value' => $variable['value']
             ]);
-            log::debug($variable['value']);
         }
        
     }
@@ -161,7 +160,6 @@ class ReportController extends Controller
             );
             array_push($statistics[$report->var_name], $newArray);
         }
-
         return response()->json(['statics' => $statistics], 200);
     }
     

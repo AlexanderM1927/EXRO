@@ -41,7 +41,9 @@
                   </template>
                 </q-input>
                 <q-btn color="primary" class="full-width" label="Generar grafica" @click="generar = true" />
-                <highcharts v-if="generar" :options="chartOptions1"></highcharts>
+                <div v-for="(value, key) in graphics" v-bind:key="value.id">
+                  <highcharts v-if="generar" :options="getChartOptions(key)"></highcharts>
+                </div>
                 <q-dialog
                     v-model="dialog"
                     transition-show="slide-up"
@@ -63,6 +65,7 @@
 import { Chart } from 'highcharts-vue'
 import { functions } from '../functions.js'
 import ProjectsComponent from 'components/ProjectsComponent.vue'
+import StaticsService from '../services/StatisticService'
 import { date } from 'quasar'
 
 export default {
@@ -79,102 +82,26 @@ export default {
       generar: false,
       from: date.formatDate(Date.now(), 'YYYY-MM-DD HH:mm:ss'),
       to: date.formatDate(Date.now(), 'YYYY-MM-DD HH:mm:ss'),
-      chartOptions1: {
-        exporting: {
-          buttons: {
-            contextButton: {
-              menuItems: ['viewFullscreen', 'printChart', 'separator', 'downloadPNG', 'downloadJPEG', 'downloadPDF', 'downloadSVG',
-                {
-                  text: 'Nuevo',
-                  onclick: function () {
-                    console.log('hola')
-                  }
-                }]
-            }
-          }
-        },
-        lang: {
-          downloadPDF: 'Descargar PDF',
-          downloadPNG: 'Descargar PNG',
-          downloadJPEG: 'Descargar JPEG',
-          downloadSVG: 'Descargar SVG',
-          printChart: 'Imprimir gráfica',
-          viewFullscreen: 'Ver en pantalla completa',
-          downloadXLS: 'Descargar Excel'
-        },
-        chart: {
-          type: 'line'
-        },
-        title: {
-          text: 'Variable 1'
-        },
-        xAxis: {
-          categories: ['Fecha 02/10/2020', 'Fecha 04/10/2020', 'Fecha 08/10/2020', 'Fecha 10/10/2020', 'Fecha 13/10/2020', 'Fecha 14/10/2020', 'Fecha 15/10/2020']
-        },
-        yAxis: {
-          title: {
-            text: 'Valor'
-          }
-        },
-        plotOptions: {
-          line: {
-            dataLabels: {
-              enabled: true
-            },
-            enableMouseTracking: false
-          },
-          area: {
-            fillColor: {
-              linearGradient: {
-                x1: 0,
-                y1: 0,
-                x2: 0,
-                y2: 1
-              },
-              stops: [
-                [0, '#E9BC36']
-              ]
-            },
-            marker: {
-              radius: 2
-            },
-            lineWidth: 1,
-            states: {
-              hover: {
-                lineWidth: 1
-              }
-            },
-            threshold: null
-          }
-        },
-        series: [{
-          name: 'Minimo',
-          data: [0, 0, 0, 0, 0, 0, 0],
-          color: '#21ba45'
-        },
-        {
-          name: 'Maximo',
-          data: [10, 10, 10, 10, 10, 10, 10],
-          color: '#0080DD'
-        },
-        {
-          name: 'Reportes',
-          data: [-1, 4, 5, 3, 5, 7, 5],
-          color: '#E9BC36'
-        }]
-      }
+      graphics: []
     }
   },
-  mounted () {
-  },
   methods: {
-    selectProject (id) {
+    async selectProject (id) {
       this.idproject = id
       this.dialog = false
+      var params = {}
+      params.idproyecto = id
+      params.token = localStorage.getItem('token')
+      const p = await StaticsService.getStats(params)
+      this.graphics = p.data.statics
+      this.getVars(this.graphics)
     },
 
     addProject () {
       this.dialog = true
+    },
+    getChartOptions (params) {
+      return this.getChar(params)
     }
   }
 }

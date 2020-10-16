@@ -18,5 +18,12 @@ class ProjectsSeeder extends Seeder
         $project->idcliente = 2;
 
         $project->save();
+
+        $project = new Project;
+        $project->name = 'Project2';
+        $project->descripcion = 'descripcion del proyecto 2';
+        $project->idcliente = 2;
+
+        $project->save();
     }
 }

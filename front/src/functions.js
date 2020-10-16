@@ -1,11 +1,14 @@
 import { QSpinnerGears, QSpinnerAudio } from 'quasar'
-
 export const functions = {
   data () {
     return {
+      graphics: {}
     }
   },
   methods: {
+    getVars (params) {
+      this.graphics = params
+    },
     validateForm (array, fun) {
       let isComplete = true
       for (let i = 0; i < array.length; i++) {
@@ -75,6 +78,121 @@ export const functions = {
     },
     disableLoading () {
       this.$q.loading.hide()
+    },
+    getChar (params) {
+      var chartOptions1 = {
+        exporting: {
+          buttons: {
+            contextButton: {
+              menuItems: ['viewFullscreen', 'printChart', 'separator', 'downloadPNG', 'downloadJPEG', 'downloadPDF', 'downloadSVG',
+                {
+                  text: 'Nuevo',
+                  onclick: function () {
+                    console.log('hola')
+                  }
+                }]
+            }
+          }
+        },
+        lang: {
+          downloadPDF: 'Descargar PDF',
+          downloadPNG: 'Descargar PNG',
+          downloadJPEG: 'Descargar JPEG',
+          downloadSVG: 'Descargar SVG',
+          printChart: 'Imprimir gráfica',
+          viewFullscreen: 'Ver en pantalla completa',
+          downloadXLS: 'Descargar Excel'
+        },
+        chart: {
+          type: 'line'
+        },
+        title: {
+          text: params
+        },
+        xAxis: {
+          categories: this.getFechas(params)
+        },
+        yAxis: {
+          title: {
+            text: 'Valor'
+          }
+        },
+        plotOptions: {
+          line: {
+            dataLabels: {
+              enabled: true
+            },
+            enableMouseTracking: false
+          },
+          area: {
+            fillColor: {
+              linearGradient: {
+                x1: 0,
+                y1: 0,
+                x2: 0,
+                y2: 1
+              },
+              stops: [
+                [0, '#E9BC36']
+              ]
+            },
+            marker: {
+              radius: 2
+            },
+            lineWidth: 1,
+            states: {
+              hover: {
+                lineWidth: 1
+              }
+            },
+            threshold: null
+          }
+        },
+        series: [{
+          name: 'Minimo',
+          data: this.getMins(params),
+          color: '#21ba45'
+        },
+        {
+          name: 'Maximo',
+          data: this.getMaxs(params),
+          color: '#0080DD'
+        },
+        {
+          name: 'Reportes',
+          data: this.getValues(params),
+          color: '#E9BC36'
+        }]
+      }
+      return chartOptions1
+    },
+    getFechas (params) {
+      var fechas = []
+      for (let index = 0; index < this.graphics[params].length; index++) {
+        fechas.push(this.graphics[params][index].fecha)
+      }
+      return fechas
+    },
+    getValues (params) {
+      var fechas = []
+      for (let index = 0; index < this.graphics[params].length; index++) {
+        fechas.push(this.graphics[params][index].value)
+      }
+      return fechas
+    },
+    getMins (params) {
+      var fechas = []
+      for (let index = 0; index < this.graphics[params].length; index++) {
+        fechas.push(this.graphics[params][index].min)
+      }
+      return fechas
+    },
+    getMaxs (params) {
+      var fechas = []
+      for (let index = 0; index < this.graphics[params].length; index++) {
+        fechas.push(this.graphics[params][index].max)
+      }
+      return fechas
     }
   }
 }
