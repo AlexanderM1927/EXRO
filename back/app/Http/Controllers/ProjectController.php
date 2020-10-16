@@ -61,7 +61,6 @@ class ProjectController extends Controller
             $projects = DB::table('projects')
             ->where('idcliente', '=', $user->id)
             ->get();
-            $projects = DB::table('projects')->get();
         }
         return response()->json(['projects' => $projects]);
     }

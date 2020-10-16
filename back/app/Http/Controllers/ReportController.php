@@ -70,10 +70,26 @@ class ReportController extends Controller
 
     public function getReports (Request $request) {
         try {
-            $reports = DB::table('reports')
-            ->join('projects', 'projects.id', '=', 'reports.idproyecto')
-            ->select('reports.id', 'projects.name', 'reports.fecha')
-            ->get();
+            $user = Auth::user();
+            if ($user->rank == 3) {
+                $reports = DB::table('reports')
+                ->join('projects', 'projects.id', '=', 'reports.idproyecto')
+                ->select('reports.id', 'projects.name', 'reports.fecha')
+                ->get();
+            } elseif ($user->rank == 2) {
+                $reports = DB::table('reports')
+                ->join('engineers_projects', 'engineers_projects.idproyecto', '=', 'reports.idproyecto')
+                ->join('projects', 'projects.id', '=', 'reports.idproyecto')
+                ->where('engineers_projects.idingeniero', '=', $user->id)
+                ->select('reports.id', 'projects.name', 'reports.fecha')
+                ->get();
+            } else {
+                $reports = DB::table('reports')
+                ->join('projects', 'projects.id', '=', 'reports.idproyecto')
+                ->where('projects.idingeniero', '=', $user->id)
+                ->select('reports.id', 'projects.name', 'reports.fecha')
+                ->get();
+            }
             return response()->json(['reports' => $reports], 200);
         } catch (\Exception $e) {
             //return error message

@@ -4,8 +4,43 @@
             <div class="col-1">
             </div>
             <div class="col-10 container">
-                <q-btn color="primary" class="full-width" v-if="idproject === undefined || idproject === ''" label="Seleccionar proyecto" icon="add" @click="addProject" />
+                <q-btn color="primary" outline class="full-width" v-if="idproject === undefined || idproject === ''" label="Seleccionar proyecto" icon="add" @click="addProject" />
                 <q-btn color="primary" outline class="full-width" v-else label="Cambiar proyecto" icon="edit" @click="addProject" />
+                <q-input color="grey-3" bg-color="white" label-color="primary" label="Desde" required :rules="[val => !!val || 'Tienes que llenar este campo']" v-model="from">
+                  <template v-slot:prepend>
+                      <q-icon color="primary" name="event" class="cursor-pointer">
+                        <q-popup-proxy transition-show="scale" transition-hide="scale">
+                          <q-date v-model="from" mask="YYYY-MM-DD HH:mm" />
+                        </q-popup-proxy>
+                      </q-icon>
+                    </template>
+
+                    <template v-slot:append>
+                      <q-icon color="primary" name="access_time" class="cursor-pointer">
+                        <q-popup-proxy transition-show="scale" transition-hide="scale">
+                          <q-time v-model="from" mask="YYYY-MM-DD HH:mm" format24h />
+                        </q-popup-proxy>
+                      </q-icon>
+                  </template>
+                </q-input>
+                <q-input color="grey-3" bg-color="white" label-color="primary" label="Hasta" required :rules="[val => !!val || 'Tienes que llenar este campo']" v-model="to">
+                  <template v-slot:prepend>
+                      <q-icon color="primary" name="event" class="cursor-pointer">
+                        <q-popup-proxy transition-show="scale" transition-hide="scale">
+                          <q-date v-model="to" mask="YYYY-MM-DD HH:mm" />
+                        </q-popup-proxy>
+                      </q-icon>
+                    </template>
+
+                    <template v-slot:append>
+                      <q-icon color="primary" name="access_time" class="cursor-pointer">
+                        <q-popup-proxy transition-show="scale" transition-hide="scale">
+                          <q-time v-model="to" mask="YYYY-MM-DD HH:mm" format24h />
+                        </q-popup-proxy>
+                      </q-icon>
+                  </template>
+                </q-input>
+                <q-btn color="primary" class="full-width" label="Generar grafica" @click="generar = true" />
                 <highcharts v-if="generar" :options="chartOptions1"></highcharts>
                 <q-dialog
                     v-model="dialog"
@@ -28,6 +63,7 @@
 import { Chart } from 'highcharts-vue'
 import { functions } from '../functions.js'
 import ProjectsComponent from 'components/ProjectsComponent.vue'
+import { date } from 'quasar'
 
 export default {
   name: 'graphics-component',
@@ -41,6 +77,8 @@ export default {
       idproject: '',
       dialog: false,
       generar: false,
+      from: date.formatDate(Date.now(), 'YYYY-MM-DD HH:mm:ss'),
+      to: date.formatDate(Date.now(), 'YYYY-MM-DD HH:mm:ss'),
       chartOptions1: {
         exporting: {
           buttons: {
@@ -65,13 +103,13 @@ export default {
           downloadXLS: 'Descargar Excel'
         },
         chart: {
-          type: 'area'
+          type: 'line'
         },
         title: {
           text: 'Reportes por fecha'
         },
         xAxis: {
-          categories: ['Fecha x', 'Fecha x', 'Fecha x', 'Fecha x', 'Fecha x', 'Fecha x', 'Fecha x', 'Fecha x', 'Fecha x', 'Fecha x', 'Fecha x', 'Fecha x', 'Fecha x', 'Fecha x', 'Fecha x', 'Fecha x', 'Fecha x', 'Fecha x', 'Fecha x', 'Fecha x', 'Fecha x', 'Fecha x', 'Fecha x', 'Fecha x', 'Fecha x', 'Fecha x', 'Fecha x', 'Fecha x', 'Fecha x', 'Fecha x', 'Fecha x']
+          categories: ['Fecha 02/10/2020', 'Fecha 04/10/2020', 'Fecha 08/10/2020', 'Fecha 10/10/2020', 'Fecha 13/10/2020', 'Fecha 14/10/2020', 'Fecha 15/10/2020']
         },
         yAxis: {
           title: {
@@ -110,8 +148,18 @@ export default {
           }
         },
         series: [{
-          name: 'Reporte',
-          data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+          name: 'Minimo',
+          data: [0, 0, 0, 0, 0, 0, 0],
+          color: '#21ba45'
+        },
+        {
+          name: 'Maximo',
+          data: [10, 10, 10, 10, 10, 10, 10],
+          color: '#0080DD'
+        },
+        {
+          name: 'Reportes',
+          data: [-1, 4, 5, 3, 5, 7, 5],
           color: '#E9BC36'
         }]
       }
@@ -123,7 +171,6 @@ export default {
     selectProject (id) {
       this.idproject = id
       this.dialog = false
-      this.generar = true
     },
 
     addProject () {
