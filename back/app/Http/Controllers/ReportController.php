@@ -140,6 +140,30 @@ class ReportController extends Controller
         }
        
     }
+
+    public function getStats (Request $request) {
+        $reports = DB::table('reports')
+        ->select('reports.fecha as fecha', 'vars.name as var_name', 'values_variables.value', 'variablesprojects.max as var_max', 'variablesprojects.min as var_min')
+        ->join('values_variables', 'reports.id', '=', 'values_variables.idreport')
+        ->join('variablesprojects', 'values_variables.idvariablesprojects', '=', 'variablesprojects.id')
+        ->join('vars', 'variablesprojects.idvariable', '=', 'vars.id')
+        ->where('variablesprojects.idproyecto', '=', $request->input('idproyecto')) //falta filtro de fechas
+        ->get();
+
+        $statistics = array();
+        foreach ($reports as $report) {
+            if (empty($statistics[$report->var_name])) $statistics[$report->var_name] = array();
+            $newArray = array(
+                'value' => $report->value,
+                'fecha' => $report->fecha,
+                'max' => $report->var_max,
+                'min' => $report->var_min
+            );
+            array_push($statistics[$report->var_name], $newArray);
+        }
+
+        return response()->json(['statics' => $statistics], 200);
+    }
     
     public function deleteReport ($id) {
         $report = DB::table('reports')->where('id', '=', $id)->delete();
