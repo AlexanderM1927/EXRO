@@ -11,12 +11,14 @@ import Treemap from 'highcharts/modules/treemap'
 import Itemseries from 'highcharts/modules/item-series'
 import HighchartsVue from 'highcharts-vue'
 import loadExporting from 'highcharts/modules/exporting'
+import loadExportingData from 'highcharts/modules/export-data'
 
 require('vue-tour/dist/vue-tour.css')
 
 Treemap(Highcharts)
 Itemseries(Highcharts)
 loadExporting(Highcharts)
+loadExportingData(Highcharts)
 Vue.use(VueTour)
 Vue.use(VueRouter)
 Vue.use(Highcharts, Treemap, Itemseries, HighchartsVue)

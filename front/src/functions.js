@@ -84,13 +84,7 @@ export const functions = {
         exporting: {
           buttons: {
             contextButton: {
-              menuItems: ['viewFullscreen', 'printChart', 'separator', 'downloadPNG', 'downloadJPEG', 'downloadPDF', 'downloadSVG',
-                {
-                  text: 'Nuevo',
-                  onclick: function () {
-                    console.log('hola')
-                  }
-                }]
+              menuItems: ['viewFullscreen', 'printChart', 'separator', 'downloadPNG', 'downloadJPEG', 'downloadPDF', 'downloadSVG', 'downloadCSV']
             }
           }
         },
@@ -99,9 +93,11 @@ export const functions = {
           downloadPNG: 'Descargar PNG',
           downloadJPEG: 'Descargar JPEG',
           downloadSVG: 'Descargar SVG',
+          downloadCSV: 'Descargar EXCEL',
           printChart: 'Imprimir gráfica',
           viewFullscreen: 'Ver en pantalla completa',
-          downloadXLS: 'Descargar Excel'
+          categories: 'Fechas',
+          category: 'Fecha'
         },
         chart: {
           type: 'line'

@@ -25,7 +25,7 @@ class VariableController extends Controller
     {
         //validate incoming request 
         $this->validate($request, [
-            'name' => 'required|string'
+            'name' => 'required|string|unique:vars,name'
         ]);
 
         try {
@@ -45,7 +45,7 @@ class VariableController extends Controller
     }
 
     public function getVars () {
-        $vars = DB::table('vars')->get();
+        $vars = DB::table('vars')->orderByDesc('id')->get();
         return response()->json(['vars' => $vars]);
     }
 

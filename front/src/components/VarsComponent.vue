@@ -28,6 +28,8 @@
                     :data="data"
                     :columns="columns"
                     row-key="name"
+                    title="Variables"
+                    :filter="filter"
                 >
                     <template v-slot:body="props">
                         <q-tr :props="props">
@@ -52,6 +54,13 @@
                             </q-td>
                         </q-tr>
                     </template>
+                    <template v-slot:top-right>
+                        <q-input borderless dense debounce="300" v-model="filter" placeholder="Buscar">
+                        <template v-slot:append>
+                            <q-icon name="search" />
+                        </template>
+                        </q-input>
+                    </template>
                 </q-table>
             </div>
             <div class="col-1"></div>
@@ -69,6 +78,7 @@ export default {
   props: ['mode'],
   data () {
     return {
+      filter: '',
       variable: {},
       columns: [
         { name: 'id', align: 'center', label: 'id', field: 'id', sortable: true },
@@ -93,7 +103,11 @@ export default {
           this.getVars()
         }
       } catch (error) {
-        this.alert('negative', 'Error al agregar una variable')
+        if (error.status === 422) {
+          this.alert('negative', 'Ya existe una variable con ese nombre')
+        } else {
+          this.alert('negative', 'Error al agregar una variable')
+        }
       }
       this.disableLoading()
     },

@@ -27,8 +27,8 @@ class VariablesProjectsController extends Controller
             $variablesprojects = new VariablesProjects;
             $variablesprojects->idproyecto = $request->input('idproyecto');
             $variablesprojects->idvariable = $request->input('idvariable');
-            $variablesprojects->max = $request->input('max');
-            $variablesprojects->min = $request->input('min');
+            if (!empty($request->input('max'))) $variablesprojects->max = $request->input('max');
+            if (!empty($request->input('min'))) $variablesprojects->min = $request->input('min');
 
             $variablesprojects->save();
 

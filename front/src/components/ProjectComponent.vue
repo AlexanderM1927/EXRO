@@ -91,7 +91,6 @@
               </q-table>
               <q-dialog
                 v-model="dialog"
-                persistent
                 transition-show="slide-up"
                 transition-hide="slide-down"
               >

@@ -24,6 +24,8 @@
                         :data="data"
                         :columns="columns"
                         row-key="name"
+                        title="Usuarios"
+                        :filter="filter"
                     >
                         <template v-slot:body="props">
                             <q-tr :props="props">
@@ -59,6 +61,13 @@
                                 </q-td>
                             </q-tr>
                         </template>
+                        <template v-slot:top-right>
+                            <q-input borderless dense debounce="300" v-model="filter" placeholder="Buscar">
+                            <template v-slot:append>
+                                <q-icon name="search" />
+                            </template>
+                            </q-input>
+                        </template>
                     </q-table>
                 </div>
             </div>
@@ -78,6 +87,7 @@ export default {
   props: ['mode'],
   data () {
     return {
+      filter: '',
       columns: [
         { name: 'id', align: 'center', label: 'id', field: 'id', sortable: true },
         { name: 'name', align: 'center', label: 'Nombre', field: 'name', sortable: true },
