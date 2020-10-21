@@ -1,16 +1,17 @@
 <template>
     <div class="q-pa-md box">
         <div class="text-h5">Analisis de gráfica</div>
-        <div class="text-h6">Fechas fuera de rango:</div>
-        <ul v-for="report in reportsOutRange" v-bind:key="report.fecha">
+        <div class="text-h6">Fechas dónde la variable estuvo fuera de rango:</div>
+        <ul v-for="(report, key) in reportsOutRange" v-bind:key="key">
           <li>Fecha: {{report.fecha}}</li>
         </ul>
-        <b>Razon:</b> <div v-html="razon_outrange" />
+        <b>Razon:</b><div v-html="razon_outrange"></div>
         <q-separator />
-        <div class="text-h6">Comentarios en los reportes:</div>
+        <div class="text-h6">Observaciones en los reportes:</div>
         <q-timeline color="orange" v-for="(message, key) in values" v-bind:key="key">
             <q-timeline-entry
-                :subtitle="message.fecha"
+                v-if="message.observacion"
+                :subtitle="message.fecha + ', ' + message.ingeniero"
                 side="left"
             >
                 <div v-html="message.observacion"></div>

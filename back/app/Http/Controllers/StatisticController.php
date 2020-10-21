@@ -23,8 +23,9 @@ class StatisticController extends Controller
     public function getStats (Request $request) {
         
         $reports = DB::table('reports')
-        ->select('reports.fecha as fecha', 'reports.observacion as observacion', 'vars.name as var_name', 'values_variables.value', 'variablesprojects.max as var_max', 'variablesprojects.min as var_min', 'variablesprojects.razon_outrange as razon_outrange')
+        ->select('reports.fecha as fecha', 'reports.observacion as observacion', 'users.name as ingeniero', 'vars.name as var_name', 'values_variables.value', 'variablesprojects.max as var_max', 'variablesprojects.min as var_min', 'variablesprojects.razon_outrange as razon_outrange')
         ->join('values_variables', 'reports.id', '=', 'values_variables.idreport')
+        ->join('users', 'users.id', '=', 'reports.idingeniero')
         ->join('variablesprojects', 'values_variables.idvariablesprojects', '=', 'variablesprojects.id')
         ->join('vars', 'variablesprojects.idvariable', '=', 'vars.id')
         ->where('variablesprojects.idproyecto', '=', $request->input('idproyecto')) //falta filtro de fechas
@@ -40,7 +41,8 @@ class StatisticController extends Controller
                 'max' => $report->var_max,
                 'min' => $report->var_min,
                 'razon_outrange' => $report->razon_outrange,
-                'observacion' => $report->observacion
+                'observacion' => $report->observacion,
+                'ingeniero' => $report->ingeniero
             );
             array_push($statistics[$report->var_name], $newArray);
         }
