@@ -29,6 +29,7 @@ class VariablesProjectsController extends Controller
             $variablesprojects->idvariable = $request->input('idvariable');
             if (!empty($request->input('max'))) $variablesprojects->max = $request->input('max');
             if (!empty($request->input('min'))) $variablesprojects->min = $request->input('min');
+            if (!empty($request->input('razon_outrange'))) $variablesprojects->razon_outrange = $request->input('razon_outrange');
 
             $variablesprojects->save();
 

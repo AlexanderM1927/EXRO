@@ -18,6 +18,7 @@ class CreateReportsTable extends Migration
             $table->integer('idingeniero');
             $table->integer('idproyecto');
             $table->date('fecha');
+            $table->string('observacion')->nullable();
             $table->timestamps();
         });
     }

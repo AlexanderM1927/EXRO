@@ -11,6 +11,9 @@
                     <div v-for="variable in vars" v-bind:key="variable.id">
                         <q-input color="grey-3" bg-color="white" label-color="primary" filled v-model="variable.value" type="number" :label="variable.name" required :rules="[val => !!val || 'Este campo es necesario']"></q-input>
                     </div>
+                    <q-separator />
+                    <div class="text-h6">Observacion:</div>
+                    <ckeditor :editor="editor" v-model="observacion" :config="editorConfig"></ckeditor>
                     <q-btn v-if="user.rank > 1" class="right" round type="submit" color="primary" icon="save" />
                 </q-form>
             </div>
@@ -23,6 +26,7 @@
 import { functions } from '../functions.js'
 import VariablesprojectsService from '../services/VariablesprojectsService'
 import ReportService from '../services/ReportService'
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
 import { date } from 'quasar'
 
 export default {
@@ -32,7 +36,12 @@ export default {
   data () {
     return {
       id: this.$route.params.id,
-      vars: []
+      vars: [],
+      editor: ClassicEditor,
+      observacion: '',
+      editorConfig: {
+        // The configuration of the editor.
+      }
     }
   },
   mounted () {
@@ -53,6 +62,7 @@ export default {
       const data = {
         variables: this.vars,
         token: localStorage.getItem('token'),
+        observacion: this.observacion,
         idproyecto: this.id,
         fecha: date.formatDate(Date.now(), 'YYYY-MM-DD HH:mm:ss')
       }

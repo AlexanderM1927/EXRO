@@ -13,6 +13,8 @@
           <q-icon name="flip_to_back" color="primary" />
         </template>
       </q-input>
+      <div class="text-h6">Razón por tomar valor fuera de rango</div>
+      <ckeditor :editor="editor" v-model="variable.razon_outrange" :config="editorConfig"></ckeditor>
       <q-card-actions align="right">
         <q-btn color="primary" label="OK" @click="onOKClick" />
         <q-btn color="primary" label="Cancel" @click="onCancelClick" />
@@ -22,13 +24,18 @@
 </template>
 
 <script>
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
 import { functions } from '../../functions.js'
 
 export default {
   mixins: [functions],
   data () {
     return {
-      variable: {}
+      variable: {},
+      editor: ClassicEditor,
+      editorConfig: {
+        // The configuration of the editor.
+      }
     }
   },
 

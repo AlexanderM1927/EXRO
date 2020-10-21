@@ -23,7 +23,7 @@ class StatisticController extends Controller
     public function getStats (Request $request) {
         
         $reports = DB::table('reports')
-        ->select('reports.fecha as fecha', 'vars.name as var_name', 'values_variables.value', 'variablesprojects.max as var_max', 'variablesprojects.min as var_min')
+        ->select('reports.fecha as fecha', 'reports.observacion as observacion', 'vars.name as var_name', 'values_variables.value', 'variablesprojects.max as var_max', 'variablesprojects.min as var_min', 'variablesprojects.razon_outrange as razon_outrange')
         ->join('values_variables', 'reports.id', '=', 'values_variables.idreport')
         ->join('variablesprojects', 'values_variables.idvariablesprojects', '=', 'variablesprojects.id')
         ->join('vars', 'variablesprojects.idvariable', '=', 'vars.id')
@@ -38,7 +38,9 @@ class StatisticController extends Controller
                 'value' => $report->value,
                 'fecha' => $report->fecha,
                 'max' => $report->var_max,
-                'min' => $report->var_min
+                'min' => $report->var_min,
+                'razon_outrange' => $report->razon_outrange,
+                'observacion' => $report->observacion
             );
             array_push($statistics[$report->var_name], $newArray);
         }

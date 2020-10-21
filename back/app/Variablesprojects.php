@@ -15,7 +15,7 @@ class VariablesProjects extends Model
     protected $table = 'variablesprojects';
     
     protected $fillable = [
-        'idproyecto', 'idVariable', 'max', 'min'
+        'idproyecto', 'idVariable', 'max', 'min', 'razon_outrange'
     ];
 
     /**

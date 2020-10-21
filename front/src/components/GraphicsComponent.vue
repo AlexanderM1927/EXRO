@@ -42,7 +42,10 @@
                 </q-input>
                 <q-btn color="primary" class="full-width" label="Generar grafica" @click="validateForm([idproject], generarGraficas)" />
                 <div v-for="(value, key) in graphics" v-bind:key="value.id">
-                  <highcharts v-if="generar" :options="getChartOptions(key)"></highcharts>
+                  <highcharts :options="getChartOptions(key)"></highcharts><br>
+                  <analisis-grafica-component :values="value"></analisis-grafica-component>
+                  <br>
+                  <q-separator />
                 </div>
                 <q-dialog
                     v-model="dialog"
@@ -65,6 +68,7 @@
 import { Chart } from 'highcharts-vue'
 import { functions } from '../functions.js'
 import ProjectsComponent from 'components/ProjectsComponent.vue'
+import AnalisisGraficaComponent from 'components/AnalisisGraficaComponent.vue'
 import StaticsService from '../services/StatisticService'
 import { date } from 'quasar'
 
@@ -73,7 +77,7 @@ export default {
   mixins: [functions],
   props: ['mode'],
   components: {
-    highcharts: Chart, ProjectsComponent
+    highcharts: Chart, ProjectsComponent, AnalisisGraficaComponent
   },
   data () {
     return {

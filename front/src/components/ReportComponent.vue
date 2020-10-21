@@ -21,12 +21,14 @@
                       :rules="[val => !!val || 'Este campo es necesario']">
                     </q-input>
                 </div>
-                 <q-btn v-if="user.rank > 1" flat color="primary" @click="editReport">
-                      Editar
-                    </q-btn>
-                    <q-btn v-if="user.rank > 1" flat color="negative" @click="deleteReport">
-                      Eliminar
-                    </q-btn>
+                <div class="text-h6">Observacion:</div>
+                <ckeditor :editor="editor" v-model="report.observacion" :config="editorConfig"></ckeditor>
+                <q-btn v-if="user.rank > 1" flat color="primary" @click="editReport">
+                  Editar
+                </q-btn>
+                <q-btn v-if="user.rank > 1" flat color="negative" @click="deleteReport">
+                  Eliminar
+                </q-btn>
             </div>
             <div class="col-1"></div>
         </div>
@@ -36,6 +38,7 @@
 <script>
 import ReportService from '../services/ReportService'
 import { functions } from '../functions.js'
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
 
 export default {
   name: 'report-component',
@@ -44,7 +47,11 @@ export default {
   data () {
     return {
       id: this.$route.params.id,
-      report: {}
+      report: {},
+      editor: ClassicEditor,
+      editorConfig: {
+        // The configuration of the editor.
+      }
     }
   },
 

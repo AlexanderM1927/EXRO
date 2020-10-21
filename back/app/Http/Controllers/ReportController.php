@@ -31,6 +31,7 @@ class ReportController extends Controller
         $report->idingeniero = Auth::user()->id;
         $report->idproyecto = $request->input('idproyecto');
         $report->fecha = $request->input('fecha');
+        $report->observacion = $request->input('observacion');
 
         $report->save();
 
@@ -98,7 +99,7 @@ class ReportController extends Controller
             ->join('projects', 'projects.id', '=', 'reports.idproyecto')
             ->join('users', 'users.id', '=', 'projects.idcliente')
             ->where('reports.id', '=', $id)
-            ->select('reports.id', 'projects.name', 'users.name as cliente_name', 'reports.fecha')
+            ->select('reports.id', 'projects.name', 'users.name as cliente_name', 'reports.fecha', 'reports.observacion')
             ->get()
             ->first();
 
@@ -113,6 +114,7 @@ class ReportController extends Controller
                 'id' => $reports->id,
                 'cliente_name' => $reports->cliente_name,
                 'fecha' => $reports->fecha,
+                'observacion' => $reports->observacion,
                 'variables' => $variables
             );
 
@@ -124,7 +126,11 @@ class ReportController extends Controller
     }
 
     public function editReport (Request $request) {
-
+        $observacion = $request->input('observacion');
+        $idreport = $request->input('id');
+        DB::table('reports')->where('id', '=', $idreport)->update([
+            'observacion' => $observacion
+        ]);
         $variables = $request->input('variables');
         foreach($variables as $variable) {
             DB::table('values_variables')->where('idreport', '=', $variable['idreport'])->where('idvariablesprojects', '=', $variable['idvariablesprojects']) 
@@ -133,29 +139,6 @@ class ReportController extends Controller
             ]);
         }
        
-    }
-
-    public function getStats (Request $request) {
-        $reports = DB::table('reports')
-        ->select('reports.fecha as fecha', 'vars.name as var_name', 'values_variables.value', 'variablesprojects.max as var_max', 'variablesprojects.min as var_min')
-        ->join('values_variables', 'reports.id', '=', 'values_variables.idreport')
-        ->join('variablesprojects', 'values_variables.idvariablesprojects', '=', 'variablesprojects.id')
-        ->join('vars', 'variablesprojects.idvariable', '=', 'vars.id')
-        ->where('variablesprojects.idproyecto', '=', $request->input('idproyecto')) //falta filtro de fechas
-        ->get();
-
-        $statistics = array();
-        foreach ($reports as $report) {
-            if (empty($statistics[$report->var_name])) $statistics[$report->var_name] = array();
-            $newArray = array(
-                'value' => $report->value,
-                'fecha' => $report->fecha,
-                'max' => $report->var_max,
-                'min' => $report->var_min
-            );
-            array_push($statistics[$report->var_name], $newArray);
-        }
-        return response()->json(['statics' => $statistics], 200);
     }
     
     public function deleteReport ($id) {

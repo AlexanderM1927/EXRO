@@ -19,6 +19,7 @@ class CreateVariablesProjectsTable extends Migration
             $table->integer('idvariable');
             $table->float('max')->nullable();
             $table->float('min')->nullable();
+            $table->string('razon_outrange')->nullable();
             $table->timestamps();
         });
     }
