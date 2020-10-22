@@ -9,7 +9,7 @@
                 </div>
                 <q-form @submit="save">
                     <div v-for="variable in vars" v-bind:key="variable.id">
-                        <q-input color="grey-3" bg-color="white" label-color="primary" filled v-model="variable.value" type="number" :label="variable.name" required :rules="[val => !!val || 'Este campo es necesario']"></q-input>
+                        <q-input color="grey-3" bg-color="white" label-color="primary" filled v-model="variable.value" type="number" :label="variable.name"></q-input>
                     </div>
                     <q-separator />
                     <div class="text-h6">Observacion:</div>

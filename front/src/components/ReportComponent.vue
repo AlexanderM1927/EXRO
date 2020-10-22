@@ -16,9 +16,7 @@
                       filled
                       v-model="variable.value"
                       :label="variable.name"
-                      required
-                      :disable="(user.rank < 2) ? true : false"
-                      :rules="[val => !!val || 'Este campo es necesario']">
+                      :disable="(user.rank < 2) ? true : false">
                     </q-input>
                 </div>
                 <div class="text-h6">Observacion:</div>

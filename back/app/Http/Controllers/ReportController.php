@@ -37,14 +37,16 @@ class ReportController extends Controller
 
         $variables = $request->input('variables');
         foreach($variables as $variable) {
-            $idvariableproyecto = $variable['id'];
-            $value = $variable['value'];
+            if (!empty($variable['value'])) {
+                $value = $variable['value'];
+                $idvariableproyecto = $variable['id'];
 
-            $valuesVariable = new ValuesVariable;
-            $valuesVariable->idreport= $report->id;
-            $valuesVariable->idvariablesprojects= $idvariableproyecto;
-            $valuesVariable->value= $value;
-            $valuesVariable->save();
+                $valuesVariable = new ValuesVariable;
+                $valuesVariable->idreport= $report->id;
+                $valuesVariable->idvariablesprojects= $idvariableproyecto;
+                $valuesVariable->value= $value;
+                $valuesVariable->save();
+            }
         }
         
         $user = DB::table('users')
