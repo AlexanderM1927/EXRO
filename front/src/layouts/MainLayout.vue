@@ -52,6 +52,7 @@
       <new-report-component :user="user" v-if="view === 'new-report'"></new-report-component>
       <report-component :user="user" v-if="view === 'report'"></report-component>
       <graphics-component v-if="view === 'graphics'"></graphics-component>
+      <calculate-component v-if="view === 'calculate'"></calculate-component>
       <v-tour name="myTour" :steps="steps"></v-tour>
     </q-page-container>
   </q-layout>
@@ -70,6 +71,7 @@ import NewReportComponent from 'components/NewReportComponent.vue'
 import ReportComponent from 'components/ReportComponent.vue'
 import GraphicsComponent from 'components/GraphicsComponent.vue'
 import HomeComponent from 'components/HomeComponent.vue'
+import CalculateComponent from 'components/CalculateComponent.vue'
 import { functions } from '../functions.js'
 import UserService from '../services/UserService'
 
@@ -127,6 +129,7 @@ export default {
     ProjectsComponent,
     ProjectComponent,
     HomeComponent,
+    CalculateComponent,
     VarsComponent,
     VarComponent,
     ReportsComponent,

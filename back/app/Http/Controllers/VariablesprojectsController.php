@@ -21,7 +21,7 @@ class VariablesProjectsController extends Controller
     }
     
 
-    public function newVariablesprojects(Request $request)
+    public function newVariablesProjects(Request $request)
     {
         try {
             $variablesprojects = new VariablesProjects;

@@ -1,9 +1,9 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Variablesprojects;
+use App\VariablesProjects;
 
-class VariablesprojectsSeeder extends Seeder
+class VariablesProjectsSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,7 +12,7 @@ class VariablesprojectsSeeder extends Seeder
      */
     public function run()
     {
-        $varpro = new Variablesprojects;
+        $varpro = new VariablesProjects;
         $varpro->idproyecto = 1;
         $varpro->idvariable = 1;
         $varpro->max = 20;
@@ -21,7 +21,7 @@ class VariablesprojectsSeeder extends Seeder
 
         $varpro->save();
 
-        $varpro = new Variablesprojects;
+        $varpro = new VariablesProjects;
         $varpro->idproyecto = 1;
         $varpro->idvariable = 2;
         $varpro->max = 30;
@@ -30,7 +30,7 @@ class VariablesprojectsSeeder extends Seeder
 
         $varpro->save();
 
-        $varpro = new Variablesprojects;
+        $varpro = new VariablesProjects;
         $varpro->idproyecto = 2;
         $varpro->idvariable = 3;
         $varpro->max = 90;

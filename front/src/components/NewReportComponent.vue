@@ -24,7 +24,7 @@
 
 <script>
 import { functions } from '../functions.js'
-import VariablesprojectsService from '../services/VariablesprojectsService'
+import VariablesProjectsService from '../services/VariablesProjectsService'
 import ReportService from '../services/ReportService'
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
 import { date } from 'quasar'
@@ -51,7 +51,7 @@ export default {
     async getVarsByProject () {
       try {
         this.activateLoading('Cargando')
-        const p = await VariablesprojectsService.getVariablesByProject({ id: this.id, token: localStorage.getItem('token') })
+        const p = await VariablesProjectsService.getVariablesByProject({ id: this.id, token: localStorage.getItem('token') })
         this.vars = p.data.variablesprojects
       } catch (error) {
         console.log(error)

@@ -14,7 +14,7 @@ class DatabaseSeeder extends Seeder
         $this->call('UsersSeeder');
         $this->call('ProjectsSeeder');
         $this->call('VariablesSeeder');
-        $this->call('VariablesprojectsSeeder');
+        $this->call('VariablesProjectsSeeder');
         $this->call('ReportsSeeder');
         $this->call('ValuesVariablesSeeder');
 

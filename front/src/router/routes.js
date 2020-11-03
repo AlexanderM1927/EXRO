@@ -155,6 +155,16 @@ const routes = [
     }
   },
   {
+    path: '/calculate',
+    component: () => import('layouts/MainLayout.vue'),
+    props: {
+      view: 'calculate'
+    },
+    meta: {
+      title: 'Formulas', requireSession: true
+    }
+  },
+  {
     name: 'logout',
     path: '/logout',
     meta: {

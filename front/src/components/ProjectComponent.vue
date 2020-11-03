@@ -121,7 +121,7 @@
 <script>
 // import VarService from '../services/VarService'
 import ProjectService from '../services/ProjectService'
-import VariablesprojectsService from '../services/VariablesprojectsService'
+import VariablesProjectsService from '../services/VariablesProjectsService'
 import EngineersPojectsService from '../services/EngineersPojectsService'
 import VarsComponent from 'components/VarsComponent.vue'
 import UsersComponent from 'components/UsersComponent.vue'
@@ -164,7 +164,7 @@ export default {
         this.activateLoading('Cargando')
         const p = await ProjectService.getProject({ id: this.id, token: localStorage.getItem('token') })
         this.project = p.data.project
-        const q = await VariablesprojectsService.getVariablesByProject({ id: this.id, token: localStorage.getItem('token') })
+        const q = await VariablesProjectsService.getVariablesByProject({ id: this.id, token: localStorage.getItem('token') })
         this.data = q.data.variablesprojects
         const r = await EngineersPojectsService.getEngineersByProject({ id: this.id, token: localStorage.getItem('token') })
         this.dataEngineers = r.data.engineerProject
@@ -190,7 +190,7 @@ export default {
         data.idvariable = params.id
         try {
           this.activateLoading('Cargando')
-          const p = await VariablesprojectsService.newVariablesprojects(data)
+          const p = await VariablesProjectsService.newVariablesProjects(data)
           if (p.status === 201) {
             this.getVarInfo()
             this.alert('positive', 'Variables agregadas exitosamente')
@@ -226,7 +226,7 @@ export default {
     async del (id) {
       try {
         this.activateLoading('Cargando')
-        const p = await VariablesprojectsService.deleteVarProject({ id: id, token: localStorage.getItem('token') })
+        const p = await VariablesProjectsService.deleteVarProject({ id: id, token: localStorage.getItem('token') })
         if (p.status === 200) {
           this.getVarInfo()
           this.alert('positive', 'Eliminado correctamente')

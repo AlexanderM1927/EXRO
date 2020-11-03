@@ -39,10 +39,10 @@ $router->group(['middleware' => 'auth'], function () use ($router) {
     $router->delete('/project/{id}', "ProjectController@deleteProjectById");
     $router->post('/project/{id}', "ProjectController@modifyProjectById");
 
-    //Variablesprojects routes
-    $router->post('/variablesprojects', "VariablesprojectsController@newVariablesprojects");
-    $router->get('/variablesprojects/{id}', "VariablesprojectsController@getVariablesByProject");
-    $router->delete('/variablesprojects/{id}', "VariablesprojectsController@deleteVariableProjectById");
+    //VariablesProjects routes
+    $router->post('/variablesprojects', "VariablesProjectsController@newVariablesProjects");
+    $router->get('/variablesprojects/{id}', "VariablesProjectsController@getVariablesByProject");
+    $router->delete('/variablesprojects/{id}', "VariablesProjectsController@deleteVariableProjectById");
 
     //EngineersProjects routes
     $router->post('/engineersProjects', "EngineersProjectsController@newEngineerProject");
