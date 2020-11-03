@@ -4,7 +4,7 @@
             <div class="col-1">
             </div>
             <div class="col-10 container">
-                <div class="text-h6">Variables</div>
+                <div class="text-h4">Variables</div>
                 <div class="row">
                     <div class="col-md-4"></div>
                     <div class="col-md-4 container col-xs-12">

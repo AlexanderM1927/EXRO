@@ -5,10 +5,10 @@
             </div>
             <div class="col-10 container">
                 <div class="title">
-                    <div class="text-h6">
+                    <div class="text-h4">
                         Usuarios
                         <div class="right">
-                          <q-btn round color="positive" @click="createUser" size="sm" icon="add">
+                          <q-btn round color="positive" @click="createUser" icon="add">
                             <q-tooltip>
                                 Agregar
                             </q-tooltip>
