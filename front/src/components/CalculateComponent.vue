@@ -4,7 +4,7 @@
             <div class="col-1">
             </div>
             <div class="col-10 container">
-                <div v-for="formula in formulas" :key="formula.id" class="col-md-6 col-xs-12">
+                <div v-for="formula in formulas" :key="formula.id">
                     <q-card class="my-card bg-secondary text-white" flat bordered>
                         <q-card-section horizontal class="cards">
                             <q-card-section>

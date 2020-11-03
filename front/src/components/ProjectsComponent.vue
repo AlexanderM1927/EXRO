@@ -18,7 +18,7 @@
                     <div v-if="projects.length === 0">
                       Ningun proyecto hasta el momento
                     </div>
-                    <div v-for="(item, id) in projects" :key="id"  class="col-md-6 col-xs-12">
+                    <div v-for="item in projects" :key="item.id"  class="col-md-6 col-xs-12">
                         <q-card class="my-card" flat bordered>
                             <q-card-section horizontal class="cards">
                                 <q-card-section style="width: 58.5%;">
