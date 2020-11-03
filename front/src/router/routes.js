@@ -165,6 +165,16 @@ const routes = [
     }
   },
   {
+    path: '/calculate/:id',
+    component: () => import('layouts/MainLayout.vue'),
+    props: {
+      view: 'calculate-form'
+    },
+    meta: {
+      title: 'Formula: Enfriamentos de sistemas abiertos', requireSession: true
+    }
+  },
+  {
     name: 'logout',
     path: '/logout',
     meta: {

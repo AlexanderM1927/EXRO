@@ -13,13 +13,12 @@
         <div class="row">
             <div class="col-1"></div>
             <div class="col-10 container">
-                <div class="row"></div>
                 <div class="row">
                     <div v-if="projects.length === 0">
                       Ningun proyecto hasta el momento
                     </div>
-                    <div v-for="item in projects" :key="item.id"  class="col-md-6 col-xs-12">
-                        <q-card class="my-card" flat bordered>
+                    <div v-for="item in projects" :key="item.id" class="col-md-6 col-xs-12">
+                        <q-card class="my-card" style="margin: 5px;" flat bordered>
                             <q-card-section horizontal class="cards">
                                 <q-card-section style="width: 58.5%;">
                                     <div class="text-h6">{{item.name}}</div>
