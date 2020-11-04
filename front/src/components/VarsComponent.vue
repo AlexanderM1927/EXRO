@@ -5,7 +5,7 @@
             </div>
             <div class="col-10 container">
                 <div class="title">
-                  <div class="text-h6">
+                  <div class="text-h4">
                       Variables
                       <div class="right">
                         <q-btn round color="positive" @click="createVar" size="sm" icon="add">

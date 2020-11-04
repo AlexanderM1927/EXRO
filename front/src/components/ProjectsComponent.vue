@@ -4,7 +4,7 @@
             <div class="col-1"></div>
             <div class="col-10 container">
                 <div class="title">
-                  <div class="text-h6">
+                  <div class="text-h4">
                       Proyectos
                       <div class="right">
                         <q-btn round color="positive" @click="createProject" size="sm" icon="add">

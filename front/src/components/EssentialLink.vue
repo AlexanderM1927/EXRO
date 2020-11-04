@@ -62,7 +62,7 @@ export default {
 </script>
 <style lang="scss" scoped>
 .marked {
-  background: white;
-  color: black;
+  background: $primary;
+  color: white;
 }
 </style>
