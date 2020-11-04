@@ -4,7 +4,7 @@
     tag="a"
     target="_blank"
     @click="goTo(link)"
-    :class="`${view === link ? 'marked' : ''}`"
+    :class="`enlace ${view === link ? 'marked' : ''}`"
     v-if="rank >= minRank"
   >
     <q-item-section
@@ -62,6 +62,10 @@ export default {
 </script>
 <style lang="scss" scoped>
 .marked {
+  background: $primary;
+  color: white;
+}
+.enlace:hover {
   background: $primary;
   color: white;
 }
