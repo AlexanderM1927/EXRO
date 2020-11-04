@@ -9,6 +9,7 @@
         "guzzlehttp/guzzle": "^7.0",
         "illuminate/mail": "7.27",
         "illuminate/session": "^7.26",
+        "intervention/image": "^2.5",
         "laravel/lumen-framework": "^7.0",
         "tymon/jwt-auth": "dev-develop"
     },

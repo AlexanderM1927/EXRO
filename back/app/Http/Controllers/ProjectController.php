@@ -93,12 +93,6 @@ class ProjectController extends Controller
         return response()->json(['project' => $project]);
     }
 
-    public function getImg ($id) {
-        $storagePath = storage_path('images/'.$id);
-
-        return Image::make($storagePath)->response();
-    }
-
     public function deleteProjectById ($id) {
         $project = DB::table('projects')->where('id', '=', $id)->delete();
         return response()->json(['projects' => $project]);

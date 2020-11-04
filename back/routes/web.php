@@ -15,6 +15,9 @@ $router->post('/recovery', "AuthController@recoveryPassword");
 $router->post('/changepassword', "AuthController@updatePassword");
 $router->post('/logout', "UserController@logout");
 
+//images
+$router->get('/images/{id}', "ImageController@getImg");
+
 $router->group(['middleware' => 'auth'], function () use ($router) {
     // Users routes
     $router->get('/my-user', "UserController@getUser");
@@ -58,9 +61,6 @@ $router->group(['middleware' => 'auth'], function () use ($router) {
 
     //statics
     $router->post('/getstats', "StatisticController@getStats");
-
-    //images
-    $router->get('/images/{id}', "ProjectController@getImg");
 
 
     $router->post('/register', "UserController@register");

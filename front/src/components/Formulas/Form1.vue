@@ -11,8 +11,9 @@
                         <div v-for="field in table.fields" :key="field.id" class="row">
                             <div class="col-6">{{field.name}}</div>
                             <div class="col-6">
-                                <input type="text" v-model="field.value" class="full-width full-height" :style="field.color" style="text-align: center"
+                                <input v-if="field.name !== ''" type="text" v-model="field.value" class="full-width full-height" :style="field.color" style="text-align: center"
                                 :readonly="field.color==='background-color:yellow'"/>
+                                <br v-else>
                             </div>
                         </div>
                     </div>

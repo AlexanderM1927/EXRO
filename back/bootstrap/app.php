@@ -102,7 +102,10 @@ $app->register(App\Providers\AuthServiceProvider::class);
 
 $app->register(Tymon\JWTAuth\Providers\LumenServiceProvider::class);
 $app->register(Illuminate\Mail\MailServiceProvider::class);
+$app->register(Intervention\Image\ImageServiceProvider::class);
 $app->configure('mail');
+
+$app->alias('Image', Intervention\Image\Facades\Image::class);
 
 $app->alias('mail.manager', Illuminate\Mail\MailManager::class);
 $app->alias('mail.manager', Illuminate\Contracts\Mail\Factory::class);
