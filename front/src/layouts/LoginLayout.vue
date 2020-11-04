@@ -1,5 +1,5 @@
 <template>
-  <q-layout view="lHh Lpr lFf">
+  <q-layout view="lHh Lpr lFf" class="bg-index">
     <q-page-container>
       <login-component v-if="view === 'login'"></login-component>
       <recovery-component v-if="view === 'recovery'"></recovery-component>

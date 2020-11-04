@@ -1,6 +1,6 @@
 <template>
   <q-layout view="lHh Lpr lFf">
-    <q-header class="header" elevated>
+    <q-header class="bg-white text-black" elevated>
       <q-toolbar>
         <q-btn
           flat
@@ -12,7 +12,7 @@
         />
 
         <q-toolbar-title>
-          My App
+          <q-img src="../assets/logo.png" style="width: 100px;" />
         </q-toolbar-title>
         <q-btn flat round dense icon="login" @click="goTo('logout')" />
       </q-toolbar>
@@ -22,7 +22,7 @@
       v-model="leftDrawerOpen"
       show-if-above
       bordered
-      content-class="menu"
+      content-class="bg-white text-black"
     >
       <div class="box profile" id="v-step-0">
         <q-img src="../assets/profile.png" style="height: 100px; width: 100px;" /><br>

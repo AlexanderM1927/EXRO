@@ -24,7 +24,6 @@
                         :data="data"
                         :columns="columns"
                         row-key="name"
-                        title="Usuarios"
                         :filter="filter"
                     >
                         <template v-slot:body="props">

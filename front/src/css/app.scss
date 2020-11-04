@@ -1,9 +1,13 @@
 // app global css in SCSS form
 body {
-    background: $grey-3;
-    background-position: fixed;
-    background-repeat: no-repeat;
-    background-size: 100%;
+    background: url('../assets/bg.png');
+    background-position-x: 50%;
+    background-attachment: fixed;
+}
+
+.bg-index {
+    background: url('../assets/bg.png');
+    background-position-x: 50%;
 }
 
 .login {
@@ -13,12 +17,13 @@ body {
     height: 100%;
     padding: 10px;
     border-radius: 5px;
-    margin-top: 10%;
 }
 
-.header, .menu {
-    background: $primary;
-    color: white;
+.center {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5%;
+    margin-bottom: 2%;
 }
 
 .container {

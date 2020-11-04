@@ -1,18 +1,20 @@
 <template>
     <div class="q-pa-md">
         <div class="row">
-          <div class="col-1"></div>
-          <div class="col-10" style="padding: 10px;">
-              <div class="text-h4" :style="`float: left;`">Proyectos</div>
-              <div class="right" :style="`${ $q.screen.xs ? 'width: 40%;' : ''}`">
-                <q-btn color="positive" round icon="add" @click="createProject"></q-btn>
-              </div>
-          </div>
-          <div class="col-1"></div>
-        </div>
-        <div class="row">
             <div class="col-1"></div>
             <div class="col-10 container">
+                <div class="title">
+                  <div class="text-h6">
+                      Proyectos
+                      <div class="right">
+                        <q-btn round color="positive" @click="createProject" size="sm" icon="add">
+                          <q-tooltip>
+                              Agregar
+                          </q-tooltip>
+                        </q-btn>
+                      </div>
+                  </div>
+                </div>
                 <div class="row">
                     <div v-if="projects.length === 0">
                       Ningun proyecto hasta el momento

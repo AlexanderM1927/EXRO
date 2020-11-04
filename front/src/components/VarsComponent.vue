@@ -4,22 +4,17 @@
             <div class="col-1">
             </div>
             <div class="col-10 container">
-                <div class="text-h6">Variables</div>
-                <div class="row">
-                    <div class="col-md-4"></div>
-                    <div class="col-md-4 container col-xs-12">
-                        <center>
-                        <q-form @submit="validateForm([variable.name], save)">
-                            <q-input v-model="variable.name" label="Nombre de la variable" color="grey-3" bg-color="white" label-color="primary">
-                                <template v-slot:append>
-                                    <q-icon name="title" color="primary" />
-                                </template>
-                            </q-input><br>
-                            <q-btn type="submit" color="positive" label="Agregar"></q-btn>
-                        </q-form>
-                        </center>
-                    </div>
-                    <div class="col-md-4"></div>
+                <div class="title">
+                  <div class="text-h6">
+                      Variables
+                      <div class="right">
+                        <q-btn round color="positive" @click="createVar" size="sm" icon="add">
+                          <q-tooltip>
+                              Agregar
+                          </q-tooltip>
+                        </q-btn>
+                      </div>
+                  </div>
                 </div>
                 <br>
                 <q-table
@@ -28,7 +23,6 @@
                     :data="data"
                     :columns="columns"
                     row-key="name"
-                    title="Variables"
                     :filter="filter"
                 >
                     <template v-slot:body="props">
@@ -70,6 +64,7 @@
 
 <script>
 import VarService from '../services/VarService'
+import AddVar from './Dialogs/AddVar.vue'
 import { functions } from '../functions.js'
 
 export default {
@@ -79,7 +74,6 @@ export default {
   data () {
     return {
       filter: '',
-      variable: {},
       columns: [
         { name: 'id', align: 'center', label: 'id', field: 'id', sortable: true },
         { name: 'name', align: 'center', label: 'Nombre', field: 'name', sortable: true },
@@ -92,13 +86,25 @@ export default {
     this.getVars()
   },
   methods: {
-    async save () {
+    createVar () {
+      this.$q.dialog({
+        component: AddVar,
+        parent: this,
+        text: 'Hola'
+      }).onOk(async (data) => {
+        data.token = localStorage.getItem('token')
+        this.save(data)
+      }).onCancel(() => {
+        // console.log('Cancel')
+      }).onDismiss(() => {
+        // console.log('Called on OK or Cancel')
+      })
+    },
+    async save (data) {
       try {
-        this.variable.token = localStorage.getItem('token')
         this.activateLoading('Cargando')
-        const p = await VarService.addVar(this.variable)
+        const p = await VarService.addVar(data)
         if (p.status === 201) {
-          this.variable = {}
           this.alert('positive', 'Variable agregada correctamente')
           this.getVars()
         }
