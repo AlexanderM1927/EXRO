@@ -22,7 +22,7 @@
       v-model="leftDrawerOpen"
       show-if-above
       bordered
-      content-class="bg-white text-black"
+      content-class="bg-primary text-white"
     >
       <div class="box profile" id="v-step-0">
         <q-img src="../assets/profile.png" style="height: 100px; width: 100px;" /><br>

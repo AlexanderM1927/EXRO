@@ -62,7 +62,7 @@ class ReportController extends Controller
         $body .= "Un ingeniero ha actualizado los datos de las variables del proyecto <b>". $user->project_name ."</b>.";
         $body .= "<br>";
         $body .= "<a href='".env('FRONT_URL')."report/".$report->id."'>Ver reporte</a>";
-        // Mail::to($user->email)->send(new MessageSend($title,$body,$user->email));
+        Mail::to($user->email)->send(new MessageSend($title,$body,$user->email));
         return response()->json(['report' => $report, 'message' => 'CREATED'], 201);
     }
 
