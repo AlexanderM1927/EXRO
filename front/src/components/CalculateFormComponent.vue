@@ -4,7 +4,7 @@
             <div class="col-1">
             </div>
             <div class="col-10 container">
-                <!-- Aqui llamamos al component correspondiente a la id -->
+              <formula></formula>
             </div>
             <div class="col-1"></div>
         </div>
@@ -13,16 +13,17 @@
 
 <script>
 import { functions } from '../functions.js'
-// incluimos todas los componentes de la carpeta formulas
 
 export default {
   name: 'calculate-form-component',
   mixins: [functions],
   data () {
     return {
+      id: this.$route.params.id
     }
   },
-  mounted () {
+  created () {
+    this.$options.components.formula = require('./Formulas/Form' + this.id).default
   },
   methods: {
   }
