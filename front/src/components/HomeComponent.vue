@@ -5,7 +5,7 @@
             </div>
             <div class="col-10 container">
                 <div class="text-h4">Bienvenido, {{user.name}}.</div><br>
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit ducimus doloribus rerum necessitatibus, earum cupiditate voluptatibus eligendi architecto libero. Placeat ipsum ipsa atque minima fugit similique est a, quidem eligendi.
+                Plataforma donde se registran los distintos programas químicos, también se realizan calculos de dosificaciones y sugerencias de nuestros productos químicos.
                 <br>
                 <q-separator />
                 <br>

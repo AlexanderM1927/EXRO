@@ -152,7 +152,7 @@ export default {
           header: {
             title: 'Inicio'
           },
-          content: 'Plataforma donde se realizan los distintos programas químicos, también se realizan calculos de dosificaciones y sugerencias de nuestros productos químicos.'
+          content: 'Plataforma donde se registran los distintos programas químicos, también se realizan calculos de dosificaciones y sugerencias de nuestros productos químicos.'
         },
         {
           target: '#users',
