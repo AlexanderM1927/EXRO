@@ -150,9 +150,9 @@ export default {
         {
           target: '#home', // We're using document.querySelector() under the hood
           header: {
-            title: 'Hola!'
+            title: 'Inicio'
           },
-          content: 'Acá es dónde te encuentras actualmente, normalmente, se va demarcar con fondo blanco la sección activa.'
+          content: 'Plataforma donde se realizan los distintos programas químicos, también se realizan calculos de dosificaciones y sugerencias de nuestros productos químicos.'
         },
         {
           target: '#users',
@@ -162,6 +162,24 @@ export default {
           },
           content: 'En este apartado puedes agregar clientes, ingenieros y administradores.',
           params: { placement: 'bottom' }
+        },
+        {
+          target: '#projects',
+          overlay: '#projects',
+          header: {
+            title: 'Sección de Proyectos'
+          },
+          content: 'Gestiona los proyectos que manejas actualmente.',
+          params: { placement: 'bottom' }
+        },
+        {
+          target: '#vars',
+          overlay: '#vars',
+          header: {
+            title: 'Sección de Variables'
+          },
+          content: 'Agrega variables a la aplicación para usarlos en tratamientos.',
+          params: { placement: 'bottom-right' }
         }
       ]
     }
