@@ -60,7 +60,7 @@ $router->group(['middleware' => 'auth'], function () use ($router) {
     $router->post('/getstats', "StatisticController@getStats");
 
     //images
-    $routes->get('/images/{id}', "ProjectController@getImg");
+    $router->get('/images/{id}', "ProjectController@getImg");
 
 
     $router->post('/register', "UserController@register");
