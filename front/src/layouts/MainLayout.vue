@@ -201,7 +201,7 @@ export default {
     },
     activateTour () {
       if (this.leftDrawerOpen === false) this.leftDrawerOpen = true
-      this.$tours.myTour.start()
+      setTimeout(this.$tours.myTour.start, 1000)
     }
   }
 }
