@@ -180,10 +180,9 @@ export default {
       this.tables[2].fields[13].value = Math.round((2 * this.tables[2].fields[10].value - this.tables[2].fields[11].value) * 1000) / 1000
     },
     balances () {
-      
       this.tables[3].fields[4].value = this.tables[3].fields[2].value - this.tables[3].fields[3].value
-      let porcentaje = (this.tables[3].fields[4].value * 0.01) / 10
-      this.tables[3].fields[5].value = this.tables[3].fields[4].value / 10 + " %"
+      const porcentaje = (this.tables[3].fields[4].value * 0.01) / 10
+      this.tables[3].fields[5].value = (this.tables[3].fields[4].value / 10) + ' %'
       this.tables[3].fields[8].value = this.tables[1].fields[3].value / this.tables[0].fields[3].value
       this.tables[3].fields[9].value = this.tables[3].fields[1].value * porcentaje
       this.tables[3].fields[10].value = this.tables[3].fields[9].value / (this.tables[3].fields[8].value - 1)
