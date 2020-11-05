@@ -180,12 +180,14 @@ export default {
       this.tables[2].fields[13].value = Math.round((2 * this.tables[2].fields[10].value - this.tables[2].fields[11].value) * 1000) / 1000
     },
     balances () {
+      
       this.tables[3].fields[4].value = this.tables[3].fields[2].value - this.tables[3].fields[3].value
-      this.tables[3].fields[5].value = (this.tables[3].fields[4].value * 0.01) / 10
-      this.tables[3].fields[8].value = Math.round((this.tables[1].fields[3].value / this.tables[0].fields[3].value) * 100) / 100
-      this.tables[3].fields[9].value = Math.round((this.tables[3].fields[1].value * this.tables[3].fields[5].value) * 1000) / 1000
-      this.tables[3].fields[10].value = Math.round((this.tables[3].fields[9].value / (this.tables[3].fields[8].value - 1)) * 1000) / 1000
-      this.tables[3].fields[11].value = Math.round((Number(this.tables[3].fields[9].value) + Number(this.tables[3].fields[10].value)) * 1000) / 1000
+      let porcentaje = (this.tables[3].fields[4].value * 0.01) / 10
+      this.tables[3].fields[5].value = this.tables[3].fields[4].value / 10 + " %"
+      this.tables[3].fields[8].value = this.tables[1].fields[3].value / this.tables[0].fields[3].value
+      this.tables[3].fields[9].value = this.tables[3].fields[1].value * porcentaje
+      this.tables[3].fields[10].value = this.tables[3].fields[9].value / (this.tables[3].fields[8].value - 1)
+      this.tables[3].fields[11].value = Number(this.tables[3].fields[9].value) + Number(this.tables[3].fields[10].value)
     },
     calculosProducto () {
       this.tables[5].fields[1].value = (this.tables[3].fields[11].value * this.tables[5].fields[0].value * this.tables[3].fields[6].value) / 1000000
