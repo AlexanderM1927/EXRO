@@ -11,7 +11,12 @@
                         <div v-for="field in table.fields" :key="field.id" class="row">
                             <div class="col-6">{{field.name}}</div>
                             <div class="col-6">
-                                <input v-if="field.name !== ''" type="text" v-model="field.value" class="full-width full-height" :style="field.color" style="text-align: center"
+                                <select class="full-width full-height" :style="`${field.color}; text-align: center`" v-model="field.value" v-if="field.name === 'Metalografia total del sistema'">
+                                  <option value="Anodica">Anodica</option>
+                                  <option value="Catodica">Catodica</option>
+                                  <option value="Mixta">Mixta</option>
+                                </select>
+                                <input v-else-if="field.name !== ''" type="text" v-model="field.value" class="full-width full-height" :style="`${field.color}; text-align: center`"
                                 :readonly="field.color==='background-color:yellow'"/>
                                 <br v-else>
                             </div>
@@ -20,6 +25,26 @@
                 </div>
                 <!------- fin tabla ---->
             </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <br>
+            <center>
+              <q-btn color="primary" label="Ver interpretacion y productos sugeridos" @click="getInterpretacion"></q-btn>
+            </center>
+            <br>
+            <div v-if="showInterpretacion" class="container">
+              <div class="text-h6">Interpretación del RYZNAR</div>
+              {{interpretacion}}
+            </div><br>
+            <div v-if="showInterpretacion" class="container">
+              <div class="text-h6">Productos sugeridos</div>
+              <ul v-for="product in products" :key="product.id">
+                <li>{{product.name}}</li>
+              </ul>
+              <b>NOTA:</b> Acorde a la caracterizacion fisicoquimica del agua, se pueden encontrar situaciones donde se requieran 2 productos ( Inhibidor de corrosion y dispersante) o un producto multifuncional  independientemente del indice de Ryznar
+            </div>
+          </div>
         </div>
     </div>
 </template>
@@ -32,6 +57,9 @@ export default {
   mixins: [functions],
   data () {
     return {
+      interpretacion: '',
+      showInterpretacion: false,
+      products: [],
       tables: [
         {
           id: 1,
@@ -98,7 +126,7 @@ export default {
             { id: 11, name: 'Caudal de evaporación (m3/h)', value: '', color: 'background-color:yellow' },
             { id: 12, name: 'Caudal de purga (m3/h)', value: '', color: 'background-color:yellow' },
             { id: 13, name: 'Caudal de reposición (m3/h)', value: '', color: 'background-color:yellow' },
-            { id: 14, name: 'Metalografia total del sistema ', value: '', color: 'background-color:#A2CCFA' }
+            { id: 14, name: 'Metalografia total del sistema', value: '', color: 'background-color:#A2CCFA' }
           ]
         },
         {
@@ -166,6 +194,27 @@ export default {
       this.tables[4].fields[2].value = Math.round((this.tables[1].fields[8].value / this.tables[3].fields[8].value) * 1000) / 1000
       this.tables[4].fields[4].value = Math.round((((this.tables[4].fields[0].value * this.tables[4].fields[3].value) / this.tables[4].fields[2].value) - this.tables[4].fields[0].value) * 1000) / 1000
       this.tables[4].fields[5].value = Math.round((((this.tables[4].fields[4].value * this.tables[3].fields[11].value) / 1000) * 24) * 1000) / 1000
+    },
+    getInterpretacion () {
+      this.showInterpretacion = true
+      let interpretacion = ''
+      if (this.tables[2].fields[13].value >= 4 && this.tables[2].fields[13].value < 5) interpretacion = 'Fuertemente incrustante'
+      if (this.tables[2].fields[13].value >= 5 && this.tables[2].fields[13].value < 6) interpretacion = 'Ligeramente Incrustante'
+      if (this.tables[2].fields[13].value >= 6 && this.tables[2].fields[13].value < 7) interpretacion = 'Ligeramente incriustante o corrosiva'
+      if (this.tables[2].fields[13].value >= 7 && this.tables[2].fields[13].value < 7.5) interpretacion = 'Ligeramente corrosiva'
+      if (this.tables[2].fields[13].value >= 7.5 && this.tables[2].fields[13].value <= 9) interpretacion = 'Fuertetemente corrosiva'
+      if (this.tables[2].fields[13].value > 9) interpretacion = 'Intolerable corrosion'
+      this.interpretacion = interpretacion
+      this.getProducts()
+    },
+    getProducts () {
+      if (this.tables[2].fields[13].value < 4) this.products = [{ id: 1, name: 'E-774' }, { id: 2, name: 'E-764' }]
+      if (this.tables[2].fields[13].value >= 4 && this.tables[2].fields[13].value < 5) this.products = [{ id: 1, name: 'E-724' }, { id: 2, name: 'E-760' }]
+      if (this.tables[2].fields[13].value >= 5 && this.tables[2].fields[13].value < 6) this.products = [{ id: 1, name: 'E-760' }, { id: 2, name: 'E-771' }, { id: 3, name: 'E-770' }]
+      if (this.tables[2].fields[13].value >= 6 && this.tables[2].fields[13].value < 7) this.products = [{ id: 1, name: 'Inhibidor de corrosion + dispersante' }, { id: 2, name: 'E- 726' }, { id: 3, name: 'E- 717' }]
+      if (this.tables[2].fields[13].value >= 7 && this.tables[3].fields[12].value === 'Anodica') this.products = [{ id: 1, name: 'E- 718' }, { id: 2, name: 'E- 721' }, { id: 3, name: 'E- 725' }, { id: 4, name: 'E- 725L' }]
+      if (this.tables[2].fields[13].value >= 7 && this.tables[3].fields[12].value === 'Catodica') this.products = [{ id: 3, name: 'E- 725' }, { id: 4, name: 'E- 725L' }]
+      if (this.tables[2].fields[13].value >= 7 && this.tables[3].fields[12].value === 'Mixta') this.products = [{ id: 1, name: 'E- 726' }, { id: 2, name: 'E- 717' }, { id: 3, name: 'E- 725' }, { id: 4, name: 'E- 725L' }]
     }
   }
 }
