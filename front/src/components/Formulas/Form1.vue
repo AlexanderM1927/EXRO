@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div ref="content">
         <div class="row">
             <div v-for="table in tables" :key="table.id" class="col-md-6 col-xs-12">
                 <!------- tabla ---->
@@ -31,6 +31,7 @@
             <br>
             <center>
               <q-btn color="primary" label="Ver interpretacion y productos sugeridos" @click="getInterpretacion"></q-btn>
+              <q-btn color="black" label="Exportar PDF" @click="printPDF"></q-btn>
             </center>
             <br>
             <div v-if="showInterpretacion" class="container">
@@ -51,6 +52,8 @@
 
 <script>
 import { functions } from '../../functions.js'
+import JSPDF from 'jspdf'
+import domtoimage from 'dom-to-image'
 
 export default {
   name: 'form-1-component',
@@ -209,13 +212,30 @@ export default {
       this.getProducts()
     },
     getProducts () {
-      if (this.tables[2].fields[13].value < 4) this.products = [{ id: 1, name: 'E-774' }, { id: 2, name: 'E-764' }]
-      if (this.tables[2].fields[13].value >= 4 && this.tables[2].fields[13].value < 5) this.products = [{ id: 1, name: 'E-724' }, { id: 2, name: 'E-760' }]
-      if (this.tables[2].fields[13].value >= 5 && this.tables[2].fields[13].value < 6) this.products = [{ id: 1, name: 'E-760' }, { id: 2, name: 'E-771' }, { id: 3, name: 'E-770' }]
-      if (this.tables[2].fields[13].value >= 6 && this.tables[2].fields[13].value < 7) this.products = [{ id: 1, name: 'Inhibidor de corrosion + dispersante' }, { id: 2, name: 'E- 726' }, { id: 3, name: 'E- 717' }]
-      if (this.tables[2].fields[13].value >= 7 && this.tables[3].fields[12].value === 'Anodica') this.products = [{ id: 1, name: 'E- 718' }, { id: 2, name: 'E- 721' }, { id: 3, name: 'E- 725' }, { id: 4, name: 'E- 725L' }]
-      if (this.tables[2].fields[13].value >= 7 && this.tables[3].fields[12].value === 'Catodica') this.products = [{ id: 3, name: 'E- 725' }, { id: 4, name: 'E- 725L' }]
-      if (this.tables[2].fields[13].value >= 7 && this.tables[3].fields[12].value === 'Mixta') this.products = [{ id: 1, name: 'E- 726' }, { id: 2, name: 'E- 717' }, { id: 3, name: 'E- 725' }, { id: 4, name: 'E- 725L' }]
+      if (this.tables[2].fields[13].value < 4) this.products = [{ id: 1, name: 'EXRO 774' }, { id: 2, name: 'EXRO 764' }]
+      if (this.tables[2].fields[13].value >= 4 && this.tables[2].fields[13].value < 5) this.products = [{ id: 1, name: 'EXRO 724' }, { id: 2, name: 'EXRO 760' }]
+      if (this.tables[2].fields[13].value >= 5 && this.tables[2].fields[13].value < 6) this.products = [{ id: 1, name: 'EXRO 760' }, { id: 2, name: 'EXRO 771' }, { id: 3, name: 'EXRO 770' }]
+      if (this.tables[2].fields[13].value >= 6 && this.tables[2].fields[13].value < 7) this.products = [{ id: 1, name: 'Inhibidor de corrosion + dispersante' }, { id: 2, name: 'EXRO  726' }, { id: 3, name: 'EXRO  717' }]
+      if (this.tables[2].fields[13].value >= 7 && this.tables[3].fields[12].value === 'Anodica') this.products = [{ id: 1, name: 'EXRO  718' }, { id: 2, name: 'EXRO  721' }, { id: 3, name: 'EXRO  725' }, { id: 4, name: 'EXRO  725L' }]
+      if (this.tables[2].fields[13].value >= 7 && this.tables[3].fields[12].value === 'Catodica') this.products = [{ id: 3, name: 'EXRO  725' }, { id: 4, name: 'EXRO  725L' }]
+      if (this.tables[2].fields[13].value >= 7 && this.tables[3].fields[12].value === 'Mixta') this.products = [{ id: 1, name: 'EXRO  726' }, { id: 2, name: 'EXRO  717' }, { id: 3, name: 'EXRO  725' }, { id: 4, name: 'EXRO  725L' }]
+    },
+    printPDF () {
+      /** WITH CSS */
+      domtoimage.toPng(this.$refs.content).then(function (dataUrl) {
+        var img = new Image()
+        img.src = dataUrl
+        const doc = new JSPDF({
+          // unit: "pt"
+        })
+        const width = doc.internal.pageSize.getWidth()
+        const height = doc.internal.pageSize.getHeight()
+        doc.addImage(img, 'JPEG', 0, 0, width, height)
+        const filename = 'form.pdf'
+        doc.save(filename)
+      }).catch(function (error) {
+        console.error('oops, something went wrong!', error)
+      })
     }
   }
 }
