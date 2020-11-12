@@ -103,7 +103,7 @@ const linksData = [
     minRank: 3
   },
   {
-    title: 'Informes',
+    title: 'Reportes',
     icon: 'article',
     link: 'reports',
     minRank: 1
