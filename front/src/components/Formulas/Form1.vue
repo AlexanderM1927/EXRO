@@ -169,10 +169,12 @@ export default {
     this.calculosProducto()
   },
   methods: {
-    isNumber (n) { return !isNaN(parseFloat(n)) && !isNaN(n - 0) },
+    isNumber (n) {
+      return !isNaN(parseFloat(n)) && isFinite(n)
+    },
     validar (valor, conditions, e) {
       const val = e.target.value + e.key
-      if (!this.isNumber(val)) {
+      if (e.key !== '-' && !this.isNumber(val)) {
         e.preventDefault()
       }
       if (conditions) {
