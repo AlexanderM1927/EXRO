@@ -17,7 +17,7 @@
                                   <option value="Mixta">Mixta</option>
                                 </select>
                                 <input v-else-if="field.name !== ''" type="text" v-model="field.value" class="full-width full-height" :style="`${field.color}; text-align: center`"
-                                :readonly="field.color==='background-color:yellow'"/>
+                                :readonly="field.color==='background-color:yellow'" @keypress="validar(field.value, field.conditions, $event)" />
                                 <br v-else>
                             </div>
                         </div>
@@ -68,7 +68,7 @@ export default {
           id: 1,
           name: 'Calidad agua de Reposicion (Ingreso a la Torre)',
           fields: [
-            { id: 1, name: 'pH', value: '', color: 'background-color:#A2CCFA' },
+            { id: 1, name: 'pH', value: '', color: 'background-color:#A2CCFA', conditions: { min: 0, max: 14 } },
             { id: 2, name: 'Dureza ppm CaCO3', value: '', color: 'background-color:#A2CCFA' },
             { id: 3, name: 'Alcalinidad Total ppm CaCO3', value: '', color: 'background-color:#A2CCFA' },
             { id: 4, name: 'Silice ppm SiO2', value: '', color: 'background-color:#A2CCFA' },
@@ -82,7 +82,7 @@ export default {
           id: 2,
           name: 'Calidad agua de Recirculacion',
           fields: [
-            { id: 1, name: 'pH', value: '', color: 'background-color:#A2CCFA' },
+            { id: 1, name: 'pH', value: '', color: 'background-color:#A2CCFA', conditions: { min: 0, max: 14 } },
             { id: 2, name: 'Dureza ppm', value: '', color: 'background-color:#A2CCFA' },
             { id: 3, name: 'Alcalinidad Total ppm', value: '', color: 'background-color:#A2CCFA' },
             { id: 4, name: 'Silice ppm', value: '', color: 'background-color:#A2CCFA' },
@@ -169,6 +169,22 @@ export default {
     this.calculosProducto()
   },
   methods: {
+    isNumber (n) { return !isNaN(parseFloat(n)) && !isNaN(n - 0) },
+    validar (valor, conditions, e) {
+      const val = e.target.value + e.key
+      if (!this.isNumber(val)) {
+        e.preventDefault()
+      }
+      if (conditions) {
+        if (val < conditions.min) {
+          this.alert('negative', 'No puedes colocar un valor menor que ' + conditions.min)
+          e.preventDefault()
+        } else if (val > conditions.max) {
+          this.alert('negative', 'No puedes colocar un valor mayor que ' + conditions.max)
+          e.preventDefault()
+        }
+      }
+    },
     ryznar () {
       this.tables[2].fields[5].value = this.tables[1].fields[4].value
       this.tables[2].fields[7].value = this.tables[1].fields[1].value
