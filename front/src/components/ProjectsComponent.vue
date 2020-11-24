@@ -7,7 +7,7 @@
                   <div class="text-h4">
                       Proyectos
                       <div class="right">
-                        <q-btn round color="positive" @click="createProject" size="sm" icon="add">
+                        <q-btn round color="positive" @click="createProject" size="md" icon="add">
                           <q-tooltip>
                               Agregar
                           </q-tooltip>

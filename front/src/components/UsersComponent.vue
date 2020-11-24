@@ -8,7 +8,7 @@
                     <div class="text-h4">
                         Usuarios
                         <div class="right">
-                          <q-btn round color="positive" @click="createUser" icon="add">
+                          <q-btn round color="positive" @click="createUser" size="md" icon="add">
                             <q-tooltip>
                                 Agregar
                             </q-tooltip>

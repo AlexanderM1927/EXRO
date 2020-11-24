@@ -16,7 +16,7 @@
                 <div class="text-h6">
                   Variables asociadas
                   <div class="right">
-                    <q-btn round color="positive" @click="assocVar" size="sm" icon="add">
+                    <q-btn round color="positive" @click="assocVar" size="md" icon="add">
                       <q-tooltip>
                         Asociar
                       </q-tooltip>
@@ -58,7 +58,7 @@
                 <div class="text-h6">
                   Ingenieros asociados
                   <div class="right">
-                    <q-btn round color="positive" @click="assocEngineer" size="sm" icon="add">
+                    <q-btn round color="positive" @click="assocEngineer" size="md" icon="add">
                       <q-tooltip>
                         Asociar
                       </q-tooltip>

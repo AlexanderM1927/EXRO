@@ -8,7 +8,7 @@
                   <div class="text-h4">
                       Variables
                       <div class="right">
-                        <q-btn round color="positive" @click="createVar" size="sm" icon="add">
+                        <q-btn round color="positive" @click="createVar" size="md" icon="add">
                           <q-tooltip>
                               Agregar
                           </q-tooltip>
