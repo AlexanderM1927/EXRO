@@ -109,13 +109,13 @@ const linksData = [
     minRank: 1
   },
   {
-    title: 'Graficas',
+    title: 'Gráficas',
     icon: 'analytics',
     link: 'graphics',
     minRank: 1
   },
   {
-    title: 'Formulas',
+    title: 'Fórmulas',
     icon: 'calculate',
     link: 'calculate',
     minRank: 2
