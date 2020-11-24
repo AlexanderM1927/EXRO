@@ -128,17 +128,19 @@ export default {
       })
     },
     async eliminar (id) {
-      try {
-        this.activateLoading('Cargando')
-        const p = await ProjectService.deleteProject({ id: id, token: localStorage.getItem('token') })
-        if (p.status === 200) {
-          this.getProjects()
-          this.alert('positive', 'Eliminado correctamente')
+      if (this.confirmAction('eliminar', 'proyecto')) {
+        try {
+          this.activateLoading('Cargando')
+          const p = await ProjectService.deleteProject({ id: id, token: localStorage.getItem('token') })
+          if (p.status === 200) {
+            this.getProjects()
+            this.alert('positive', 'Eliminado correctamente')
+          }
+        } catch (error) {
+          this.alert('negative', 'Se presentó un error')
         }
-      } catch (error) {
-        this.alert('negative', 'Se presentó un error')
+        this.disableLoading()
       }
-      this.disableLoading()
     },
     editProject (params) {
       this.$q.dialog({

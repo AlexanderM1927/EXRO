@@ -124,17 +124,19 @@ export default {
       this.disableLoading()
     },
     async del (id) {
-      try {
-        this.activateLoading('Cargando')
-        const p = await VarService.deleteVar({ id: id, token: localStorage.getItem('token') })
-        if (p.status === 200) {
-          this.getVars()
-          this.alert('positive', 'Eliminado correctamente')
+      if (this.confirmAction('eliminar', 'variable')) {
+        try {
+          this.activateLoading('Cargando')
+          const p = await VarService.deleteVar({ id: id, token: localStorage.getItem('token') })
+          if (p.status === 200) {
+            this.getVars()
+            this.alert('positive', 'Eliminado correctamente')
+          }
+        } catch (error) {
+          this.alert('negative', 'Se presentó un error')
         }
-      } catch (error) {
-        this.alert('negative', 'Se presentó un error')
+        this.disableLoading()
       }
-      this.disableLoading()
     }
   }
 }

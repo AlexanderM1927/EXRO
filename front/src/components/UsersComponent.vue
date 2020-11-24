@@ -61,7 +61,7 @@
                             </q-tr>
                         </template>
                         <template v-slot:top-right>
-                            <q-input borderless dense debounce="300" v-model="filter" placeholder="Buscar">
+                            <q-input borderless dense color="primary" debounce="300" v-model="filter" placeholder="Buscar">
                             <template v-slot:append>
                                 <q-icon name="search" />
                             </template>
@@ -120,8 +120,7 @@ export default {
     createUser () {
       this.$q.dialog({
         component: AddUser,
-        parent: this,
-        text: 'Hola'
+        parent: this
       }).onOk(async (data) => {
         data.token = localStorage.getItem('token')
         try {
@@ -132,7 +131,7 @@ export default {
             this.alert('positive', 'Usuario agregado correctamente')
           }
         } catch (error) {
-          this.alert('negative', 'Se ha presentado un error al crear el usuario')
+          this.alert('negative', 'Se ha presentado un error al crear el usuario, verifica que el correo no este previamente ingresado')
         }
         this.disableLoading()
       }).onCancel(() => {
@@ -142,17 +141,19 @@ export default {
       })
     },
     async del (id) {
-      try {
-        this.activateLoading('Cargando')
-        const p = await UserService.deleteUser({ id: id, token: localStorage.getItem('token') })
-        if (p.status === 200) {
-          this.getUsers()
-          this.alert('positive', 'Eliminado correctamente')
+      if (this.confirmAction('eliminar', 'usuario')) {
+        try {
+          this.activateLoading('Cargando')
+          const p = await UserService.deleteUser({ id: id, token: localStorage.getItem('token') })
+          if (p.status === 200) {
+            this.getUsers()
+            this.alert('positive', 'Eliminado correctamente')
+          }
+        } catch (error) {
+          this.alert('negative', 'Se presentó un error')
         }
-      } catch (error) {
-        this.alert('negative', 'Se presentó un error')
+        this.disableLoading()
       }
-      this.disableLoading()
     }
   }
 }

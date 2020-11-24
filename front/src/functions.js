@@ -189,6 +189,24 @@ export const functions = {
         fechas.push(this.graphics[params][index].max)
       }
       return fechas
+    },
+    confirmAction (type, item) {
+      let res = false
+      this.$q.dialog({
+        title: 'Confirmar',
+        message: 'Seguro que deseas ' + type + ' este ' + item + '?',
+        cancel: true,
+        persistent: true
+      }).onOk(() => {
+        res = true
+      }).onOk(() => {
+        res = true
+      }).onCancel(() => {
+        res = false
+      }).onDismiss(() => {
+        res = false
+      })
+      return res
     }
   }
 }
