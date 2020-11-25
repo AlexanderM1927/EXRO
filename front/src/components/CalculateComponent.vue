@@ -4,6 +4,11 @@
             <div class="col-1">
             </div>
             <div class="col-10 container">
+                <div class="title">
+                  <div class="text-h4">
+                      Formulas
+                  </div>
+                </div>
                 <div class="row">
                     <div v-for="formula in formulas" :key="formula.id" class="col-md-6 col-xs-12">
                         <q-card :class="`my-card bg-green-7 text-white`" style="margin: 5px;" flat bordered>

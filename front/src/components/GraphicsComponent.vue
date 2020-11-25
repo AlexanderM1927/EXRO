@@ -4,6 +4,11 @@
             <div class="col-1">
             </div>
             <div class="col-10 container">
+                <div class="title">
+                  <div class="text-h4">
+                      Gráficas
+                  </div>
+                </div>
                 <q-btn color="primary" outline class="full-width" v-if="idproject === undefined || idproject === ''" label="Seleccionar proyecto" icon="add" @click="addProject" />
                 <q-btn color="primary" outline class="full-width" v-else label="Cambiar proyecto" icon="edit" @click="addProject" />
                 <q-input color="grey-3" bg-color="white" label-color="primary" label="Desde" required :rules="[val => !!val || 'Tienes que llenar este campo']" v-model="from">
