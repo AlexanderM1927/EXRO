@@ -123,8 +123,8 @@ export default {
             { id: 4, name: '°T Agua de salida °F', value: '', color: 'background-color:#A2CCFA' },
             { id: 5, name: 'delta °T °F', value: '', color: 'background-color:yellow' },
             { id: 6, name: '% de evaporación', value: '', color: 'background-color:yellow' },
-            { id: 7, name: 'Horas de trabajo dia', value: '', color: 'background-color:#A2CCFA' },
-            { id: 9, name: 'Dias de trabajo al mes', value: '', color: 'background-color:#A2CCFA' },
+            { id: 7, name: 'Horas de trabajo dia', value: '', color: 'background-color:#A2CCFA', conditions: { min: 0, max: 24 } },
+            { id: 9, name: 'Dias de trabajo al mes', value: '', color: 'background-color:#A2CCFA', conditions: { min: 1, max: 30 } },
             { id: 10, name: 'Ciclos de concentración', value: '', color: 'background-color:yellow' },
             { id: 11, name: 'Caudal de evaporación (m3/h)', value: '', color: 'background-color:yellow' },
             { id: 12, name: 'Caudal de purga (m3/h)', value: '', color: 'background-color:yellow' },
@@ -178,10 +178,10 @@ export default {
         e.preventDefault()
       }
       if (conditions) {
-        if (val < conditions.min) {
+        if (conditions.min && val < conditions.min) {
           this.alert('negative', 'No puedes colocar un valor menor que ' + conditions.min)
           e.preventDefault()
-        } else if (val > conditions.max) {
+        } else if (conditions.max && val > conditions.max) {
           this.alert('negative', 'No puedes colocar un valor mayor que ' + conditions.max)
           e.preventDefault()
         }
