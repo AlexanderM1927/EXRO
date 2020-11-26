@@ -13,7 +13,7 @@
           <q-icon name="topic" color="primary" />
         </template>
       </q-input>
-      <q-file color="grey-3" bg-color="white" label-color="primary" filled v-model="project.photo" label="Img" required :rules="[val => !!val || 'Este campo es necesario']">
+      <q-file color="grey-3" accept=".jpg, image/*" bg-color="white" label-color="primary" filled v-model="project.photo" label="Img" required :rules="[val => !!val || 'Este campo es necesario']">
         <template v-slot:append>
           <q-icon name="attach_file" color="primary" />
         </template>
