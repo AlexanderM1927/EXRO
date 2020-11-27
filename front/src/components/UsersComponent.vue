@@ -131,7 +131,8 @@ export default {
             this.alert('positive', 'Usuario agregado correctamente')
           }
         } catch (error) {
-          this.alert('negative', 'Se ha presentado un error al crear el usuario, verifica que el correo no este previamente ingresado')
+          if (error.response.data.email) this.alert('negative', 'El correo ya está registrado, intenta con otro.')
+          else this.alert('negative', 'Se ha presentado un error.')
         }
         this.disableLoading()
       }).onCancel(() => {
