@@ -6,7 +6,7 @@
             <div class="col-10 container">
                 <div class="title">
                   <div class="text-h4">
-                      Formulas
+                      Fórmulas
                   </div>
                 </div>
                 <div class="row">
