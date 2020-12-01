@@ -43,6 +43,7 @@ export default {
         { name: 'Enfriamentos de sistemas abiertos', id: 1 },
         { name: 'Parametros vapor', id: 2 },
         { name: 'Polimeros - Comparacion tecnica', id: 4 }
+        { name: 'Polimeros - Aplicaciones Industriales', id: 3 }
       ]
     }
   },
