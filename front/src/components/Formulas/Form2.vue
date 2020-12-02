@@ -121,8 +121,8 @@ export default {
             { id: 1, name: 'BHP Caldera', value: '', color: 'background-color:#A2CCFA' },
             { id: 2, name: '% eficiencia produccion de vapor', value: '', color: 'background-color:#A2CCFA' },
             { id: 3, name: '% Retorno de condensado', value: '', color: 'background-color:#A2CCFA' },
-            { id: 4, name: '°T Agua de alimentacion °C', value: '', color: 'background-color:#A2CCFA' },
-            { id: 5, name: 'Presion operación del sistema (PSI)', value: '', color: 'background-color:#A2CCFA' },
+            { id: 4, name: '°T Agua de alimentacion °C', value: '', color: 'background-color:#A2CCFA', conditions: { min: 0, max: 100 } },
+            { id: 5, name: 'Presion operación del sistema (PSI)', value: '', color: 'background-color:#A2CCFA', conditions: { min: 0, max: 2000 } },
             { id: 6, name: 'Ciclos de concentracion ', value: '', color: 'background-color:yellow' },
             { id: 7, name: 'Caudal de vapor (TonV/hora)', value: '', color: 'background-color:yellow' },
             { id: 8, name: 'Caudal retorno de condensado ', value: '', color: 'background-color:yellow' },
@@ -152,7 +152,7 @@ export default {
         },
         {
           id: 8,
-          name: 'Calculos de dosificacion Amina neutralizante',
+          name: 'Calculos dosificacion Amina neutralizante',
           fields: [
             { id: 1, name: 'ppm del Producto', value: '', color: 'background-color:#A2CCFA' },
             { id: 2, name: 'Cantidad Kg/dia', value: '', color: 'background-color:yellow' }
@@ -163,16 +163,16 @@ export default {
   },
   // operaciones
   updated () {
-    this.ryznar()
-    this.balances()
-    this.calculosProducto()
-    this.calculosAjuste()
+    this.BHCO()
+    this.CDSO()
+    this.CDAD()
+    this.CDAN()
   },
   mounted () {
-    this.ryznar()
-    this.balances()
-    this.calculosProducto()
-    this.calculosProducto()
+    this.BHCO()
+    this.CDSO()
+    this.CDAD()
+    this.CDAN()
   },
   methods: {
     isNumber (n) {
@@ -193,56 +193,43 @@ export default {
         }
       }
     },
-    ryznar () {
-      this.tables[2].fields[5].value = this.tables[1].fields[4].value
-      this.tables[2].fields[7].value = this.tables[1].fields[1].value
-      this.tables[2].fields[8].value = this.tables[1].fields[2].value
-      this.tables[2].fields[11].value = this.tables[1].fields[0].value
-      this.tables[2].fields[0].value = Math.round(((Math.log10(this.tables[2].fields[5].value) - 1) / 10) * 1000) / 1000
-      this.tables[2].fields[6].value = Math.round((((Number(this.tables[3].fields[2].value) - 32) * 5) / 9) * 1000) / 1000
-      this.tables[2].fields[1].value = Math.round((-13.12 * Math.log10(Number(this.tables[2].fields[6].value) + 273) + 34.55) * 1000) / 1000
-      this.tables[2].fields[2].value = Math.round(Math.log10(this.tables[2].fields[7].value) * 1000) / 1000
-      this.tables[2].fields[3].value = Math.round(Math.log10(this.tables[2].fields[8].value) * 1000) / 1000
-      this.tables[2].fields[10].value = Math.round(((9.3 + this.tables[2].fields[0].value + this.tables[2].fields[1].value) - (this.tables[2].fields[2].value + this.tables[2].fields[3].value)) * 1000) / 1000
-      this.tables[2].fields[13].value = Math.round((2 * this.tables[2].fields[10].value - this.tables[2].fields[11].value) * 1000) / 1000
+    BHCO () {
+      this.tables[4].fields[5].value = Math.round((this.tables[1].fields[3].value / this.tables[0].fields[3].value) * 1000000000) / 1000000000
+      this.tables[4].fields[6].value = Math.round(((((this.tables[4].fields[1].value / 100) * 34.5 * (this.tables[4].fields[2].value) / 100) / 2.2) / 1000) * 1000000000) / 1000000000
+      this.tables[4].fields[7].value = Math.round((this.tables[4].fields[6].value * (this.tables[4].fields[2].value / 100)) * 1000000000) / 1000000000
+      this.tables[4].fields[11].value = Math.round((this.tables[4].fields[6].value / (this.tables[4].fields[5].value - 1)) * 1000000000) / 1000000000
+      this.tables[4].fields[12].value = Math.round((this.tables[4].fields[6].value + this.tables[4].fields[11].value) * 1000000000) / 1000000000
+      this.tables[4].fields[13].value = Math.round((this.tables[4].fields[12].value - this.tables[4].fields[7].value) * 1000000000) / 1000000000
     },
-    balances () {
-      this.tables[3].fields[4].value = this.tables[3].fields[2].value - this.tables[3].fields[3].value
-      const porcentaje = (this.tables[3].fields[4].value * 0.01) / 10
-      this.tables[3].fields[5].value = (this.tables[3].fields[4].value / 10) + ' %'
-      this.tables[3].fields[8].value = Math.round((this.tables[1].fields[3].value / this.tables[0].fields[3].value) * 1000000000) / 1000000000
-      this.tables[3].fields[9].value = Math.round((this.tables[3].fields[1].value * porcentaje) * 1000000000) / 1000000000
-      this.tables[3].fields[10].value = Math.round((this.tables[3].fields[9].value / (this.tables[3].fields[8].value - 1)) * 1000000000) / 1000000000
-      this.tables[3].fields[11].value = Math.round((Number(this.tables[3].fields[9].value) + Number(this.tables[3].fields[10].value)) * 1000000000) / 1000000000
+    CDSO () {
+      this.tables[5].fields[1].value = ((this.tables[4].fields[12].value * this.tables[5].fields[0].value) / 1000000) * this.tables[4].fields[8].value
     },
-    calculosProducto () {
-      this.tables[5].fields[1].value = (this.tables[3].fields[11].value * this.tables[5].fields[0].value * this.tables[3].fields[6].value) / 1000000
+    CDAD () {
+      this.tables[6].fields[1].value = ((this.tables[4].fields[12].value * this.tables[6].fields[0].value) / 1000000) * this.tables[4].fields[8].value
     },
-    calculosAjuste () {
-      this.tables[4].fields[2].value = Math.round((this.tables[1].fields[8].value / this.tables[3].fields[8].value) * 1000) / 1000
-      this.tables[4].fields[4].value = Math.round((((this.tables[4].fields[0].value * this.tables[4].fields[3].value) / this.tables[4].fields[2].value) - this.tables[4].fields[0].value) * 1000) / 1000
-      this.tables[4].fields[5].value = Math.round((((this.tables[4].fields[4].value * this.tables[3].fields[11].value) / 1000) * 24) * 1000) / 1000
+    CDAN () {
+      this.tables[7].fields[1].value = ((this.tables[4].fields[12].value * this.tables[7].fields[0].value) / 1000000) * this.tables[4].fields[8].value
     },
     getInterpretacion () {
-      this.showInterpretacion = true
-      let interpretacion = ''
-      if (this.tables[2].fields[13].value >= 4 && this.tables[2].fields[13].value < 5) interpretacion = 'Fuertemente incrustante'
-      if (this.tables[2].fields[13].value >= 5 && this.tables[2].fields[13].value < 6) interpretacion = 'Ligeramente Incrustante'
-      if (this.tables[2].fields[13].value >= 6 && this.tables[2].fields[13].value < 7) interpretacion = 'Ligeramente incriustante o corrosiva'
-      if (this.tables[2].fields[13].value >= 7 && this.tables[2].fields[13].value < 7.5) interpretacion = 'Ligeramente corrosiva'
-      if (this.tables[2].fields[13].value >= 7.5 && this.tables[2].fields[13].value <= 9) interpretacion = 'Fuertetemente corrosiva'
-      if (this.tables[2].fields[13].value > 9) interpretacion = 'Intolerable corrosion'
-      this.interpretacion = interpretacion
-      this.getProducts()
+      // this.showInterpretacion = true
+      // let interpretacion = ''
+      // if (this.tables[2].fields[13].value >= 4 && this.tables[2].fields[13].value < 5) interpretacion = 'Fuertemente incrustante'
+      // if (this.tables[2].fields[13].value >= 5 && this.tables[2].fields[13].value < 6) interpretacion = 'Ligeramente Incrustante'
+      // if (this.tables[2].fields[13].value >= 6 && this.tables[2].fields[13].value < 7) interpretacion = 'Ligeramente incriustante o corrosiva'
+      // if (this.tables[2].fields[13].value >= 7 && this.tables[2].fields[13].value < 7.5) interpretacion = 'Ligeramente corrosiva'
+      // if (this.tables[2].fields[13].value >= 7.5 && this.tables[2].fields[13].value <= 9) interpretacion = 'Fuertetemente corrosiva'
+      // if (this.tables[2].fields[13].value > 9) interpretacion = 'Intolerable corrosion'
+      // this.interpretacion = interpretacion
+      // this.getProducts()
     },
     getProducts () {
-      if (this.tables[2].fields[13].value < 4) this.products = [{ id: 1, name: 'EXRO 774' }, { id: 2, name: 'EXRO 764' }]
-      if (this.tables[2].fields[13].value >= 4 && this.tables[2].fields[13].value < 5) this.products = [{ id: 1, name: 'EXRO 724' }, { id: 2, name: 'EXRO 760' }]
-      if (this.tables[2].fields[13].value >= 5 && this.tables[2].fields[13].value < 6) this.products = [{ id: 1, name: 'EXRO 760' }, { id: 2, name: 'EXRO 771' }, { id: 3, name: 'EXRO 770' }]
-      if (this.tables[2].fields[13].value >= 6 && this.tables[2].fields[13].value < 7) this.products = [{ id: 1, name: 'Inhibidor de corrosion + dispersante' }, { id: 2, name: 'EXRO  726' }, { id: 3, name: 'EXRO  717' }]
-      if (this.tables[2].fields[13].value >= 7 && this.tables[3].fields[12].value === 'Anodica') this.products = [{ id: 1, name: 'EXRO  718' }, { id: 2, name: 'EXRO  721' }, { id: 3, name: 'EXRO  725' }, { id: 4, name: 'EXRO  725L' }]
-      if (this.tables[2].fields[13].value >= 7 && this.tables[3].fields[12].value === 'Catodica') this.products = [{ id: 3, name: 'EXRO  725' }, { id: 4, name: 'EXRO  725L' }]
-      if (this.tables[2].fields[13].value >= 7 && this.tables[3].fields[12].value === 'Mixta') this.products = [{ id: 1, name: 'EXRO  726' }, { id: 2, name: 'EXRO  717' }, { id: 3, name: 'EXRO  725' }, { id: 4, name: 'EXRO  725L' }]
+      // if (this.tables[2].fields[13].value < 4) this.products = [{ id: 1, name: 'EXRO 774' }, { id: 2, name: 'EXRO 764' }]
+      // if (this.tables[2].fields[13].value >= 4 && this.tables[2].fields[13].value < 5) this.products = [{ id: 1, name: 'EXRO 724' }, { id: 2, name: 'EXRO 760' }]
+      // if (this.tables[2].fields[13].value >= 5 && this.tables[2].fields[13].value < 6) this.products = [{ id: 1, name: 'EXRO 760' }, { id: 2, name: 'EXRO 771' }, { id: 3, name: 'EXRO 770' }]
+      // if (this.tables[2].fields[13].value >= 6 && this.tables[2].fields[13].value < 7) this.products = [{ id: 1, name: 'Inhibidor de corrosion + dispersante' }, { id: 2, name: 'EXRO  726' }, { id: 3, name: 'EXRO  717' }]
+      // if (this.tables[2].fields[13].value >= 7 && this.tables[3].fields[12].value === 'Anodica') this.products = [{ id: 1, name: 'EXRO  718' }, { id: 2, name: 'EXRO  721' }, { id: 3, name: 'EXRO  725' }, { id: 4, name: 'EXRO  725L' }]
+      // if (this.tables[2].fields[13].value >= 7 && this.tables[3].fields[12].value === 'Catodica') this.products = [{ id: 3, name: 'EXRO  725' }, { id: 4, name: 'EXRO  725L' }]
+      // if (this.tables[2].fields[13].value >= 7 && this.tables[3].fields[12].value === 'Mixta') this.products = [{ id: 1, name: 'EXRO  726' }, { id: 2, name: 'EXRO  717' }, { id: 3, name: 'EXRO  725' }, { id: 4, name: 'EXRO  725L' }]
     },
     printPDF () {
       /** WITH CSS */

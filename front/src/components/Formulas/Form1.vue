@@ -30,7 +30,7 @@
           <div class="col-12">
             <br>
             <center>
-              <!-- <q-btn color="primary" label="Ver interpretacion y productos sugeridos" @click="getInterpretacion"></q-btn> -->
+              <q-btn color="primary" label="Ver interpretacion y productos sugeridos" @click="getInterpretacion"></q-btn>
               <q-btn color="black" label="Exportar PDF" @click="printPDF"></q-btn>
             </center>
             <br>
