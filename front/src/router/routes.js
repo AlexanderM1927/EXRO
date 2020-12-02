@@ -5,7 +5,7 @@ const routes = [
     path: '/',
     component: () => import('layouts/LoginLayout.vue'),
     meta: {
-      title: 'Login'
+      title: 'Control Programas Quimicos | Login'
     },
     props: {
       view: 'login'
@@ -16,7 +16,7 @@ const routes = [
     path: '/changepassword/:token',
     component: () => import('layouts/LoginLayout.vue'),
     meta: {
-      title: 'Cambiar clave'
+      title: 'Control Programas Quimicos | Cambiar clave'
     },
     props: {
       view: 'changepassword'
@@ -27,7 +27,7 @@ const routes = [
     path: '/recovery',
     component: () => import('layouts/LoginLayout.vue'),
     meta: {
-      title: 'Recuperar clave'
+      title: 'Control Programas Quimicos | Recuperar clave'
     },
     props: {
       view: 'recovery'
@@ -37,7 +37,7 @@ const routes = [
     path: '/login',
     component: () => import('layouts/LoginLayout.vue'),
     meta: {
-      title: 'Login'
+      title: 'Control Programas Quimicos | Login'
     },
     props: {
       view: 'login'
@@ -51,7 +51,7 @@ const routes = [
       view: 'home'
     },
     meta: {
-      title: 'Home', requireSession: true
+      title: 'Control Programas Quimicos | Home', requireSession: true
     }
   },
   {
@@ -61,7 +61,7 @@ const routes = [
       view: 'users'
     },
     meta: {
-      title: 'Usuarios', requireSession: true
+      title: 'Control Programas Quimicos | Usuarios', requireSession: true
     }
   },
   {
@@ -71,7 +71,7 @@ const routes = [
       view: 'user'
     },
     meta: {
-      title: 'Usuario', requireSession: true
+      title: 'Control Programas Quimicos | Usuario', requireSession: true
     }
   },
   {
@@ -81,7 +81,7 @@ const routes = [
       view: 'projects'
     },
     meta: {
-      title: 'Proyectos', requireSession: true
+      title: 'Control Programas Quimicos | Proyectos', requireSession: true
     }
   },
   {
@@ -91,7 +91,7 @@ const routes = [
       view: 'project'
     },
     meta: {
-      title: 'Proyecto', requireSession: true
+      title: 'Control Programas Quimicos | Proyecto', requireSession: true
     }
   },
   {
@@ -101,7 +101,7 @@ const routes = [
       view: 'vars'
     },
     meta: {
-      title: 'Variables', requireSession: true
+      title: 'Control Programas Quimicos | Variables', requireSession: true
     }
   },
   {
@@ -111,7 +111,7 @@ const routes = [
       view: 'var'
     },
     meta: {
-      title: 'Variable', requireSession: true
+      title: 'Control Programas Quimicos | Variable', requireSession: true
     }
   },
   {
@@ -121,7 +121,7 @@ const routes = [
       view: 'reports'
     },
     meta: {
-      title: 'Informes', requireSession: true
+      title: 'Control Programas Quimicos | Informes', requireSession: true
     }
   },
   {
@@ -131,7 +131,7 @@ const routes = [
       view: 'new-report'
     },
     meta: {
-      title: 'Crear informe', requireSession: true
+      title: 'Control Programas Quimicos | Crear informe', requireSession: true
     }
   },
   {
@@ -141,7 +141,7 @@ const routes = [
       view: 'report'
     },
     meta: {
-      title: 'Informe', requireSession: true
+      title: 'Control Programas Quimicos | Informe', requireSession: true
     }
   },
   {
@@ -151,7 +151,7 @@ const routes = [
       view: 'graphics'
     },
     meta: {
-      title: 'Graficas', requireSession: true
+      title: 'Control Programas Quimicos | Graficas', requireSession: true
     }
   },
   {
@@ -161,7 +161,7 @@ const routes = [
       view: 'calculate'
     },
     meta: {
-      title: 'Formulas', requireSession: true
+      title: 'Control Programas Quimicos | Formulas', requireSession: true
     }
   },
   {
@@ -171,14 +171,14 @@ const routes = [
       view: 'calculate-form'
     },
     meta: {
-      title: 'Formula: Enfriamentos de sistemas abiertos', requireSession: true
+      title: 'Control Programas Quimicos | Formula: Enfriamentos de sistemas abiertos', requireSession: true
     }
   },
   {
     name: 'logout',
     path: '/logout',
     meta: {
-      title: 'logout', requireSession: true
+      title: 'Control Programas Quimicos | logout', requireSession: true
     }
   },
 
