@@ -64,8 +64,13 @@ export default {
       this.report = t.data.report
       this.disableLoading()
     },
-    async deleteReport () {
-      if (this.confirmAction('eliminar', 'reporte')) {
+    deleteReport () {
+      this.$q.dialog({
+        title: 'Confirmar',
+        message: 'Seguro que deseas eliminar este reporte?',
+        cancel: true,
+        persistent: true
+      }).onOk(async () => {
         try {
           this.activateLoading('Cargando')
           const p = await ReportService.deleteReport({ id: this.id, token: localStorage.getItem('token') })
@@ -77,7 +82,10 @@ export default {
           this.alert('negative', 'Se presentó un error')
         }
         this.disableLoading()
-      }
+      }).onOk(() => {
+      }).onCancel(() => {
+      }).onDismiss(() => {
+      })
     },
     async editReport () {
       try {

@@ -141,8 +141,13 @@ export default {
         // console.log('Called on OK or Cancel')
       })
     },
-    async del (id) {
-      if (this.confirmAction('eliminar', 'usuario')) {
+    del (id) {
+      this.$q.dialog({
+        title: 'Confirmar',
+        message: 'Seguro que deseas eliminar este usuario?',
+        cancel: true,
+        persistent: true
+      }).onOk(async () => {
         try {
           this.activateLoading('Cargando')
           const p = await UserService.deleteUser({ id: id, token: localStorage.getItem('token') })
@@ -154,7 +159,10 @@ export default {
           this.alert('negative', 'Se presentó un error')
         }
         this.disableLoading()
-      }
+      }).onOk(() => {
+      }).onCancel(() => {
+      }).onDismiss(() => {
+      })
     }
   }
 }

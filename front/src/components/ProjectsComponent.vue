@@ -127,8 +127,13 @@ export default {
         // console.log('Called on OK or Cancel')
       })
     },
-    async eliminar (id) {
-      if (this.confirmAction('eliminar', 'proyecto')) {
+    eliminar (id) {
+      this.$q.dialog({
+        title: 'Confirmar',
+        message: 'Seguro que deseas eliminar este proyecto?',
+        cancel: true,
+        persistent: true
+      }).onOk(async () => {
         try {
           this.activateLoading('Cargando')
           const p = await ProjectService.deleteProject({ id: id, token: localStorage.getItem('token') })
@@ -140,7 +145,10 @@ export default {
           this.alert('negative', 'Se presentó un error')
         }
         this.disableLoading()
-      }
+      }).onOk(() => {
+      }).onCancel(() => {
+      }).onDismiss(() => {
+      })
     },
     editProject (params) {
       this.$q.dialog({

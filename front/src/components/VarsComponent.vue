@@ -123,8 +123,13 @@ export default {
       this.data = p.data.vars
       this.disableLoading()
     },
-    async del (id) {
-      if (this.confirmAction('eliminar', 'variable')) {
+    del (id) {
+      this.$q.dialog({
+        title: 'Confirmar',
+        message: 'Seguro que deseas eliminar esta variable?',
+        cancel: true,
+        persistent: true
+      }).onOk(async () => {
         try {
           this.activateLoading('Cargando')
           const p = await VarService.deleteVar({ id: id, token: localStorage.getItem('token') })
@@ -136,7 +141,10 @@ export default {
           this.alert('negative', 'Se presentó un error')
         }
         this.disableLoading()
-      }
+      }).onOk(() => {
+      }).onCancel(() => {
+      }).onDismiss(() => {
+      })
     }
   }
 }
