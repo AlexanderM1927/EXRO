@@ -52,7 +52,7 @@ import JSPDF from 'jspdf'
 import domtoimage from 'dom-to-image'
 
 export default {
-  name: 'form-1-component',
+  name: 'form-4-component',
   mixins: [functions],
   data () {
     return {

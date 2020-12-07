@@ -13,7 +13,7 @@
                             <div class="col-6">
                                 <select class="full-width full-height" :style="`${field.color}; text-align: center`" v-model="field.value" v-if="field.name === 'Nombre del producto'">
                                   <option value="EXRO 614">EXRO 614</option>
-                                  <option value="EXRO 633">EXRO 633</option>
+                                  <option value="EXRO 633">EXRO 663</option>
                                 </select>
                                 <input v-else-if="field.name !== ''" type="text" v-model="field.value" class="full-width full-height" :style="`${field.color}; text-align: center`"
                                 :readonly="field.color==='background-color:yellow'" @keypress="validar(field.value, field.conditions, $event)" />
@@ -55,7 +55,7 @@ import JSPDF from 'jspdf'
 import domtoimage from 'dom-to-image'
 
 export default {
-  name: 'form-1-component',
+  name: 'form-3-component',
   mixins: [functions],
   data () {
     return {

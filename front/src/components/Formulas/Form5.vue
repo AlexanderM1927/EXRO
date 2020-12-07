@@ -13,7 +13,7 @@
                             <div class="col-6">
                                 <select class="full-width full-height" :style="`${field.color}; text-align: center`" v-model="field.value" v-if="field.name === 'Nombre del producto'">
                                   <option value="EXRO 614">EXRO 614</option>
-                                  <option value="EXRO 633">EXRO 633</option>
+                                  <option value="EXRO 633">EXRO 663</option>
                                 </select>
                                 <input v-else-if="field.name !== ''" type="text" v-model="field.value" class="full-width full-height" :style="`${field.color}; text-align: center`"
                                 :readonly="field.color==='background-color:yellow'" @keypress="validar(field.value, field.conditions, $event)" />
@@ -55,7 +55,7 @@ import JSPDF from 'jspdf'
 import domtoimage from 'dom-to-image'
 
 export default {
-  name: 'form-1-component',
+  name: 'form-5-component',
   mixins: [functions],
   data () {
     return {
@@ -91,7 +91,7 @@ export default {
             { id: 1, name: 'Concentracion Sln mg P Puro / ml Sln', value: '', color: 'background-color:#A2CCFA' },
             { id: 2, name: 'Dosis deseada mg P / Litro AT', value: '', color: 'background-color:#A2CCFA' },
             { id: 3, name: 'Caudal de Agua a Tratar Litro AT / Seg', value: '', color: 'background-color:#A2CCFA' },
-            { id: 4, name: 'Aforo de la Sln a dosificar (Caudal bomba)', value: '', color: 'background-color:yellow' }
+            { id: 4, name: 'Volumen de Sln a Tomar', value: '', color: 'background-color:yellow' }
           ]
         },
         {
@@ -101,7 +101,7 @@ export default {
             { id: 1, name: 'Concentracion Sln mg P Puro / ml Sln', value: '', color: 'background-color:#A2CCFA' },
             { id: 2, name: 'Dosis deseada mg P / Litro AT', value: '', color: 'background-color:#A2CCFA' },
             { id: 3, name: 'Caudal de Agua a Tratar Litro AT / Seg', value: '', color: 'background-color:#A2CCFA' },
-            { id: 4, name: 'Aforo de la Sln a dosificar (Caudal bomba)', value: '', color: 'background-color:yellow' }
+            { id: 4, name: 'Volumen de Sln a Tomar', value: '', color: 'background-color:yellow' }
           ]
         }
       ]
@@ -111,14 +111,14 @@ export default {
   updated () {
     this.volumenProductoPuro()
     this.pesoProductoPuro()
-    this.caudalBomba1()
-    this.caudalBomba2()
+    this.VolumenATomar1()
+    this.VolumenATomar2()
   },
   mounted () {
     this.volumenProductoPuro()
     this.pesoProductoPuro()
-    this.caudalBomba1()
-    this.caudalBomba2()
+    this.VolumenATomar1()
+    this.VolumenATomar2()
   },
   methods: {
     isNumber (n) {
@@ -140,15 +140,15 @@ export default {
       }
     },
     volumenProductoPuro () {
-      this.tables[0].fields[4].value = Math.round((this.tables[0].fields[3].value * (this.tables[0].fields[2].value * 10) / (this.tables[0].fields[1].value * 1000)) * 100) / 100
+      this.tables[0].fields[4].value = Math.round((this.tables[0].fields[3].value * (this.tables[0].fields[2].value * 10) / this.tables[0].fields[1].value) * 100) / 100
     },
     pesoProductoPuro () {
       this.tables[1].fields[3].value = this.tables[1].fields[2].value * (this.tables[1].fields[1].value * 10)
     },
-    caudalBomba1 () {
+    VolumenATomar1 () {
       this.tables[2].fields[3].value = (this.tables[2].fields[1].value * this.tables[2].fields[2].value) / (this.tables[2].fields[0].value * 10)
     },
-    caudalBomba2 () {
+    VolumenATomar2 () {
       this.tables[3].fields[3].value = (this.tables[3].fields[2].value * this.tables[3].fields[1].value) / (this.tables[3].fields[0].value * 10)
     },
     getInterpretacion () {
