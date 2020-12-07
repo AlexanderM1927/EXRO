@@ -180,6 +180,33 @@ export default {
           },
           content: 'Agrega variables a la aplicación para usarlos en tratamientos.',
           params: { placement: 'bottom-right' }
+        },
+        {
+          target: '#reports',
+          overlay: '#reports',
+          header: {
+            title: 'Sección de Reportes'
+          },
+          content: 'Actualiza los valores de variables de los proyectos.',
+          params: { placement: 'bottom-right' }
+        },
+        {
+          target: '#graphics',
+          overlay: '#graphics',
+          header: {
+            title: 'Sección de Gráficas'
+          },
+          content: 'Mira los avances de los proyectos, revisa el estado de sus variables.',
+          params: { placement: 'bottom-right' }
+        },
+        {
+          target: '#calculate',
+          overlay: '#calculate',
+          header: {
+            title: 'Sección de Fórmulas'
+          },
+          content: 'Realiza calculos.',
+          params: { placement: 'bottom-right' }
         }
       ]
     }
