@@ -14,7 +14,7 @@
         <q-toolbar-title>
           <q-img src="../assets/logo.png" style="width: 100px;" />
         </q-toolbar-title>
-        <q-btn flat round dense icon="login" @click="goTo('logout')" />
+        <q-btn class="bg-primary" color="white" flat round dense icon="login" @click="goTo('logout')" />
       </q-toolbar>
     </q-header>
 
