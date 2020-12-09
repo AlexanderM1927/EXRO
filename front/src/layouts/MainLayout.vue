@@ -56,7 +56,9 @@
       <calculate-form-component v-if="view === 'calculate-form'"></calculate-form-component>
       <pqrs-component v-if="view === 'pqrs'"></pqrs-component>
       <chat-component></chat-component>
-      <v-tour name="myTour" :steps="steps"></v-tour>
+      <v-tour name="myTour" v-if="user.rank === 3" :steps="steps3"></v-tour>
+      <v-tour name="myTour" v-if="user.rank === 2" :steps="steps2"></v-tour>
+      <v-tour name="myTour" v-if="user.rank === 1" :steps="steps1"></v-tour>
     </q-page-container>
   </q-layout>
 </template>
@@ -128,7 +130,7 @@ const linksData = [
     title: 'PQRS',
     icon: 'chat',
     link: 'pqrs',
-    minRank: 2
+    minRank: 3
   }
 ]
 
@@ -158,7 +160,7 @@ export default {
       leftDrawerOpen: false,
       essentialLinks: linksData,
       user: {},
-      steps: [
+      steps3: [
         {
           target: '#home', // We're using document.querySelector() under the hood
           header: {
@@ -218,6 +220,78 @@ export default {
             title: 'Sección de Fórmulas'
           },
           content: 'Realiza calculos.',
+          params: { placement: 'bottom-right' }
+        },
+        {
+          target: '#pqrs',
+          overlay: '#pqrs',
+          header: {
+            title: 'Sección de PQRS'
+          },
+          content: 'Lee y da respuesta a los diferentes PQRS.',
+          params: { placement: 'bottom-right' }
+        }
+      ],
+      steps2: [
+        {
+          target: '#home', // We're using document.querySelector() under the hood
+          header: {
+            title: 'Inicio'
+          },
+          content: 'Plataforma donde se registran los distintos programas químicos, también se realizan calculos de dosificaciones y sugerencias de nuestros productos químicos.'
+        },
+        {
+          target: '#reports',
+          overlay: '#reports',
+          header: {
+            title: 'Sección de Reportes'
+          },
+          content: 'Actualiza los valores de variables de los proyectos.',
+          params: { placement: 'bottom-right' }
+        },
+        {
+          target: '#graphics',
+          overlay: '#graphics',
+          header: {
+            title: 'Sección de Gráficas'
+          },
+          content: 'Mira los avances de los proyectos, revisa el estado de sus variables.',
+          params: { placement: 'bottom-right' }
+        },
+        {
+          target: '#calculate',
+          overlay: '#calculate',
+          header: {
+            title: 'Sección de Fórmulas'
+          },
+          content: 'Realiza calculos.',
+          params: { placement: 'bottom-right' }
+        }
+      ],
+      steps1: [
+        {
+          target: '#home', // We're using document.querySelector() under the hood
+          header: {
+            title: 'Inicio'
+          },
+          content: 'Plataforma donde se registran los distintos programas químicos, también se realizan calculos de dosificaciones y sugerencias de nuestros productos químicos.'
+        },
+        {
+          target: '#reports',
+          overlay: '#reports',
+          header: {
+            title: 'Sección de Reportes'
+          },
+          content: 'Actualiza los valores de variables de los proyectos.',
+          params: { placement: 'bottom-right' }
+        },
+        {
+          target: '#graphics',
+          overlay: '#graphics',
+          header: {
+            title: 'Sección de Gráficas'
+          },
+          content: 'Mira los avances de los proyectos, revisa el estado de sus variables.',
           params: { placement: 'bottom-right' }
         }
       ]
