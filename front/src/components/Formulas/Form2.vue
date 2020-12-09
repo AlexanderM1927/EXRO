@@ -31,7 +31,7 @@
             <br>
             <div v-if="showInterpretacion" class="container">
               <div class="text-h6">SECUESTRANTES DE OXIGENO</div>
-              <div>
+              <div class="row">
                 <div class="col-6">Productos</div>
                 <div class="col-6">DODIS RECOMENDADA</div>
               </div>
@@ -42,7 +42,7 @@
             </div><br>
             <div v-if="showInterpretacion" class="container">
               <div class="text-h6">INHIBIDORES DE INCRUSTACION Y ACONDICIONADORES DE DUREZA</div>
-               <div>
+               <div class="row">
                 <div class="col-6">Productos</div>
                 <div class="col-6">DODIS RECOMENDADA</div>
               </div>
