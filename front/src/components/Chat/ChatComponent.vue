@@ -56,6 +56,7 @@ export default {
         const p = await ChatService.addChat(this.chat)
         if (p.status === 201) {
           this.alert('positive', 'Mensaje enviado')
+          this.chat = {}
         }
       } catch (error) {
         this.alert('negative', 'Se ha presentado un error al enviar el mensaje')
