@@ -11,12 +11,7 @@
                         <div v-for="field in table.fields" :key="field.id" class="row">
                             <div class="col-6">{{field.name}}</div>
                             <div class="col-6">
-                                <select class="full-width full-height" :style="`${field.color}; text-align: center`" v-model="field.value" v-if="field.name === 'Metalografia total del sistema'">
-                                  <option value="Anodica">Anodica</option>
-                                  <option value="Catodica">Catodica</option>
-                                  <option value="Mixta">Mixta</option>
-                                </select>
-                                <input v-else-if="field.name !== ''" type="text" v-model="field.value" class="full-width full-height" :style="`${field.color}; text-align: center`"
+                                <input v-if="field.name !== ''" type="text" v-model="field.value" class="full-width full-height" :style="`${field.color}; text-align: center`"
                                 :readonly="field.color==='background-color:yellow'" @keypress="validar(field.value, field.conditions, $event)" />
                                 <br v-else>
                             </div>
@@ -30,20 +25,31 @@
           <div class="col-12">
             <br>
             <center>
-              <q-btn color="primary" label="Ver interpretacion y productos sugeridos" @click="getInterpretacion"></q-btn>
+              <q-btn color="primary" label="Ver productos sugeridos" @click="getProducts"></q-btn>
               <q-btn color="black" label="Exportar PDF" @click="printPDF"></q-btn>
             </center>
             <br>
             <div v-if="showInterpretacion" class="container">
-              <div class="text-h6">Interpretación del RYZNAR</div>
-              {{interpretacion}}
+              <div class="text-h6">SECUESTRANTES DE OXIGENO</div>
+              <div>
+                <div class="col-6">Productos</div>
+                <div class="col-6">DODIS RECOMENDADA</div>
+              </div>
+              <div v-for="field in products1" :key="field.id" class="row">
+                <div class="col-6">{{field.name}}</div>
+                <div class="col-6">{{field.dosis}}</div>
+              </div>
             </div><br>
             <div v-if="showInterpretacion" class="container">
-              <div class="text-h6">Productos sugeridos</div>
-              <ul v-for="product in products" :key="product.id">
-                <li>{{product.name}}</li>
-              </ul>
-              <b>NOTA:</b> Acorde a la caracterizacion fisicoquimica del agua, se pueden encontrar situaciones donde se requieran 2 productos ( Inhibidor de corrosion y dispersante) o un producto multifuncional  independientemente del indice de Ryznar
+              <div class="text-h6">INHIBIDORES DE INCRUSTACION Y ACONDICIONADORES DE DUREZA</div>
+               <div>
+                <div class="col-6">Productos</div>
+                <div class="col-6">DODIS RECOMENDADA</div>
+              </div>
+              <div v-for="field in products2" :key="field.id" class="row">
+                <div class="col-6">{{field.name}}</div>
+                <div class="col-6">{{field.dosis}}</div>
+              </div>
             </div>
           </div>
         </div>
@@ -62,7 +68,8 @@ export default {
     return {
       interpretacion: '',
       showInterpretacion: false,
-      products: [],
+      products1: [],
+      products2: [],
       tables: [
         {
           id: 1,
@@ -210,26 +217,62 @@ export default {
     CDAN () {
       this.tables[7].fields[1].value = ((this.tables[4].fields[12].value * this.tables[7].fields[0].value) / 1000000) * this.tables[4].fields[8].value
     },
-    getInterpretacion () {
-      // this.showInterpretacion = true
-      // let interpretacion = ''
-      // if (this.tables[2].fields[13].value >= 4 && this.tables[2].fields[13].value < 5) interpretacion = 'Fuertemente incrustante'
-      // if (this.tables[2].fields[13].value >= 5 && this.tables[2].fields[13].value < 6) interpretacion = 'Ligeramente Incrustante'
-      // if (this.tables[2].fields[13].value >= 6 && this.tables[2].fields[13].value < 7) interpretacion = 'Ligeramente incriustante o corrosiva'
-      // if (this.tables[2].fields[13].value >= 7 && this.tables[2].fields[13].value < 7.5) interpretacion = 'Ligeramente corrosiva'
-      // if (this.tables[2].fields[13].value >= 7.5 && this.tables[2].fields[13].value <= 9) interpretacion = 'Fuertetemente corrosiva'
-      // if (this.tables[2].fields[13].value > 9) interpretacion = 'Intolerable corrosion'
-      // this.interpretacion = interpretacion
-      // this.getProducts()
-    },
     getProducts () {
-      // if (this.tables[2].fields[13].value < 4) this.products = [{ id: 1, name: 'EXRO 774' }, { id: 2, name: 'EXRO 764' }]
-      // if (this.tables[2].fields[13].value >= 4 && this.tables[2].fields[13].value < 5) this.products = [{ id: 1, name: 'EXRO 724' }, { id: 2, name: 'EXRO 760' }]
-      // if (this.tables[2].fields[13].value >= 5 && this.tables[2].fields[13].value < 6) this.products = [{ id: 1, name: 'EXRO 760' }, { id: 2, name: 'EXRO 771' }, { id: 3, name: 'EXRO 770' }]
-      // if (this.tables[2].fields[13].value >= 6 && this.tables[2].fields[13].value < 7) this.products = [{ id: 1, name: 'Inhibidor de corrosion + dispersante' }, { id: 2, name: 'EXRO  726' }, { id: 3, name: 'EXRO  717' }]
-      // if (this.tables[2].fields[13].value >= 7 && this.tables[3].fields[12].value === 'Anodica') this.products = [{ id: 1, name: 'EXRO  718' }, { id: 2, name: 'EXRO  721' }, { id: 3, name: 'EXRO  725' }, { id: 4, name: 'EXRO  725L' }]
-      // if (this.tables[2].fields[13].value >= 7 && this.tables[3].fields[12].value === 'Catodica') this.products = [{ id: 3, name: 'EXRO  725' }, { id: 4, name: 'EXRO  725L' }]
-      // if (this.tables[2].fields[13].value >= 7 && this.tables[3].fields[12].value === 'Mixta') this.products = [{ id: 1, name: 'EXRO  726' }, { id: 2, name: 'EXRO  717' }, { id: 3, name: 'EXRO  725' }, { id: 4, name: 'EXRO  725L' }]
+      this.showInterpretacion = true
+      if (this.tables[4].fields[4].value >= 1 && this.tables[4].fields[4].value <= 500) {
+        this.products1 = [{ id: 1, name: 'E-820', dosis: '' }, { id: 2, name: 'E-829', dosis: '' }, { id: 3, name: 'E-822', dosis: '' }, { id: 4, name: 'E-827', dosis: '' }, { id: 5, name: 'E-820L', dosis: '' }, { id: 6, name: 'E-822L', dosis: '' }]
+      }
+      if (this.tables[4].fields[4].value > 500) {
+        this.products1 = [{ id: 1, name: 'E-14', dosis: '' }, { id: 2, name: 'E-814L', dosis: '' }, { id: 3, name: 'E-815', dosis: '' }]
+      }
+      if (this.tables[4].fields[4].value >= 1 && this.tables[4].fields[4].value <= 400) {
+        this.products2 = [{ id: 1, name: 'E-860', dosis: '' }, { id: 2, name: 'E-830', dosis: '' }, { id: 3, name: 'E-840', dosis: '' }, { id: 4, name: 'E-849', dosis: '' }, { id: 5, name: 'E-832', dosis: '' }, { id: 6, name: 'E-833', dosis: '' }, { id: 7, name: 'E-860L', dosis: '' }]
+      }
+      if (this.tables[4].fields[4].value > 400 && this.tables[4].fields[4].value <= 600) {
+        this.products2 = [{ id: 1, name: 'E-32', dosis: '' }, { id: 2, name: 'E-33', dosis: '' }]
+      }
+      if (this.tables[4].fields[4].value > 600) {
+        this.products2 = [{ id: 1, name: 'E-3080', dosis: '' }, { id: 2, name: 'E-3082', dosis: '' }, { id: 3, name: 'E-3087', dosis: '' }]
+      }
+      this.getDosis()
+    },
+    getDosis () {
+      var num = 0
+      if (this.tables[4].fields[4].value >= 1 && this.tables[4].fields[4].value <= 500) {
+        for (let index = 0; index < this.products1.length; index++) {
+          if (index === 0 || index === 1 || index === 2) num = 10
+          if (index === 3) num = 20
+          if (index === 4 || index === 5) num = 55
+          this.products1[index].dosis = num * this.tables[0].fields[7].value
+        }
+      }
+      if (this.tables[4].fields[4].value > 500) {
+        for (let index = 0; index < this.products1.length; index++) {
+          if (index === 0) num = 2
+          if (index === 1) num = 20
+          if (index === 2) num = 8
+          this.products1[index].dosis = num * this.tables[0].fields[7].value
+        }
+      }
+      if (this.tables[4].fields[4].value >= 1 && this.tables[4].fields[4].value <= 400) {
+        for (let index = 0; index < this.products2.length; index++) {
+          if (index === 0 || index === 1 || index === 2 || index === 3) num = 1
+          if (index === 4 || index === 5) num = 10
+          if (index === 6) num = 25
+          this.products2[index].dosis = num * this.tables[0].fields[1].value
+        }
+      }
+      if (this.tables[4].fields[4].value > 400 && this.tables[4].fields[4].value <= 600) {
+        for (let index = 0; index < this.products2.length; index++) {
+          num = 10
+          this.products2[index].dosis = num * this.tables[0].fields[1].value
+        }
+      }
+      if (this.tables[4].fields[4].value > 600) {
+        for (let index = 0; index < this.products2.length; index++) {
+          this.products2[index].dosis = 'cada caso puntual'
+        }
+      }
     },
     printPDF () {
       /** WITH CSS */
