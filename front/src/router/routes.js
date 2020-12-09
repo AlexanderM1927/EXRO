@@ -165,6 +165,16 @@ const routes = [
     }
   },
   {
+    path: '/pqrs',
+    component: () => import('layouts/MainLayout.vue'),
+    props: {
+      view: 'pqrs'
+    },
+    meta: {
+      title: 'Control Programas Quimicos | PQRS', requireSession: true
+    }
+  },
+  {
     path: '/calculate/:id',
     component: () => import('layouts/MainLayout.vue'),
     props: {

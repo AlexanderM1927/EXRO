@@ -54,6 +54,8 @@
       <graphics-component v-if="view === 'graphics'"></graphics-component>
       <calculate-component v-if="view === 'calculate'"></calculate-component>
       <calculate-form-component v-if="view === 'calculate-form'"></calculate-form-component>
+      <pqrs-component v-if="view === 'pqrs'"></pqrs-component>
+      <chat-component></chat-component>
       <v-tour name="myTour" :steps="steps"></v-tour>
     </q-page-container>
   </q-layout>
@@ -74,6 +76,8 @@ import GraphicsComponent from 'components/GraphicsComponent.vue'
 import HomeComponent from 'components/HomeComponent.vue'
 import CalculateComponent from 'components/CalculateComponent.vue'
 import CalculateFormComponent from 'components/CalculateFormComponent.vue'
+import PqrsComponent from 'components/PQRSComponent.vue'
+import ChatComponent from 'components/Chat/ChatComponent.vue'
 import { functions } from '../functions.js'
 import UserService from '../services/UserService'
 
@@ -119,6 +123,12 @@ const linksData = [
     icon: 'calculate',
     link: 'calculate',
     minRank: 2
+  },
+  {
+    title: 'PQRS',
+    icon: 'chat',
+    link: 'pqrs',
+    minRank: 2
   }
 ]
 
@@ -138,7 +148,9 @@ export default {
     ReportsComponent,
     NewReportComponent,
     ReportComponent,
-    GraphicsComponent
+    GraphicsComponent,
+    ChatComponent,
+    PqrsComponent
   },
   mixins: [functions],
   data () {
