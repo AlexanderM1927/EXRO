@@ -71,8 +71,8 @@ export default {
     position: fixed;
     bottom: 0px;
     .container {
-        background: $primary;
-        color: white;
+        background: white;
+        color: $primary;
         padding: 5px 20px;
         border-radius: 10px 10px 0px 0px;
         cursor: pointer;
