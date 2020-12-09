@@ -4,6 +4,9 @@ export default {
   addChat (params) {
     return Api().post('chat', params, { headers: { Authorization: params.token } })
   },
+  answerChat (params) {
+    return Api().post('chat/' + params.id, params, { headers: { Authorization: params.token } })
+  },
   getChats (params) {
     return Api().get('chats', { headers: { Authorization: params.token } })
   },

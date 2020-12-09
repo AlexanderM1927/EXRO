@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Chat;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\MessageSend;
 
 class ChatController extends Controller
 {
@@ -66,6 +68,25 @@ class ChatController extends Controller
     public function deleteChatById ($id) {
         $chat = DB::table('chats')->where('id', '=', $id)->delete();
         return response()->json(['chat' => $chat]);
+    }
+
+    public function answerChat (Request $request) {
+        $id = $request->input('id');
+        $answer = $request->input('answer');
+        $user = Auth::user();
+        $chat = DB::table('chats')
+        ->join('users', 'users.id', '=', 'chats.idusuario')
+        ->select('users.email as email', 'chats.id', 'chats.message', 'chats.type')
+        ->where('chats.id', '=', $id)
+        ->orderByDesc('id')->get()->first();
+        $title = 'Respuesta a su '.$chat->type;
+        $body = $answer;
+        $body .= "<br>";
+        $body .= "<br>";
+        $body .= "Att:";
+        $body .= $user->name;
+        Mail::to($chat->email)->send(new MessageSend($title,$body,$chat->email));
+        return response()->json(['chat' => $chat, 'message' => 'CREATED'], 201);
     }
 
 

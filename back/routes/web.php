@@ -66,6 +66,7 @@ $router->group(['middleware' => 'auth'], function () use ($router) {
     $router->get('/chats', "ChatController@getChats");
     $router->get('/chat/{id}', "ChatController@getChatById");
     $router->post('/chat', "ChatController@newChat");
+    $router->post('/chat/{id}', "ChatController@answerChat");
     $router->delete('/chat/{id}', "ChatController@deleteChatById");
 
     //users

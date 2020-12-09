@@ -58,6 +58,7 @@
 <script>
 import { functions } from '../functions.js'
 import ChatService from '../services/ChatService.js'
+import ChatInformation from './Dialogs/ChatInformation.vue'
 
 export default {
   name: 'pqrs-component',
@@ -114,11 +115,23 @@ export default {
     },
     verMsg (msg) {
       this.$q.dialog({
-        title: msg.type + ' - ' + msg.user,
-        message: msg.message,
-        html: true
-      }).onOk(() => {
-        // console.log('OK')
+        component: ChatInformation,
+        parent: this,
+        chatToEdit: msg
+      }).onOk(async (data) => {
+        if (data.answer) {
+          data.token = localStorage.getItem('token')
+          try {
+            this.activateLoading('Cargando')
+            const p = await ChatService.answerChat(data)
+            if (p.status === 201) {
+              this.alert('positive', 'Haz respondido al chat')
+            }
+          } catch (error) {
+            this.alert('negative', 'Se ha presentado un error al contestar el PQRS')
+          }
+          this.disableLoading()
+        }
       }).onCancel(() => {
         // console.log('Cancel')
       }).onDismiss(() => {
