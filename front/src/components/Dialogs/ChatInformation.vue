@@ -6,6 +6,8 @@
       <b>Tipo: {{chat.type}}</b><br>
       <hr>
       <div v-html="chat.message"></div>
+      <hr>
+      <b>Respuesta:</b>
       <ckeditor :editor="editor" v-model="chat.answer" :config="editorConfig"></ckeditor>
       <q-card-actions align="right">
         <q-btn color="primary" label="OK" @click="onOKClick" />
