@@ -23,31 +23,34 @@ class UserController extends Controller
 
     public function register(Request $request)
     {
-        //validate incoming request 
-        $this->validate($request, [
-            'name' => 'required|string',
-            'email' => 'required|email|unique:users',
-            'password' => 'required',
-            'rank' => 'required',
-        ]);
+        $user = Auth::user();
+        if ($user->rank > 2) {
+            //validate incoming request 
+            $this->validate($request, [
+                'name' => 'required|string',
+                'email' => 'required|email|unique:users',
+                'password' => 'required',
+                'rank' => 'required',
+            ]);
 
-        try {
+            try {
 
-            $user = new User;
-            $user->name = $request->input('name');
-            $user->email = $request->input('email');
-            $plainPassword = $request->input('password');
-            $user->password = app('hash')->make($plainPassword);
-            $user->rank = $this->getRankByName($request->input('rank'));
+                $user = new User;
+                $user->name = $request->input('name');
+                $user->email = $request->input('email');
+                $plainPassword = $request->input('password');
+                $user->password = app('hash')->make($plainPassword);
+                $user->rank = $this->getRankByName($request->input('rank'));
 
-            $user->save();
+                $user->save();
 
-            //return successful response
-            return response()->json(['user' => $user, 'message' => 'CREATED'], 201);
+                //return successful response
+                return response()->json(['user' => $user, 'message' => 'CREATED'], 201);
 
-        } catch (\Exception $e) {
-            //return error message
-            return response()->json(['message' => $e], 409);
+            } catch (\Exception $e) {
+                //return error message
+                return response()->json(['message' => $e], 409);
+            }
         }
     }
 

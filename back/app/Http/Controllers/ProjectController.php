@@ -24,27 +24,30 @@ class ProjectController extends Controller
 
     public function newProject(Request $request)
     {
-        $this->validate($request, [
-            'name' => 'required|string',
-            'photo' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
-        ]);
-        try {
-            $project = new Project;
-            $project->name = $request->input('name');
-            $project->descripcion = $request->input('descripcion');
-            $file = $request->file('photo');
-            $imageName = time().'.'.$file->getClientOriginalExtension();
-            $destination_path = 'images';
-            $path = $file->move($destination_path, $imageName);
-            $project->urlimg = $path;
-            $project->idcliente = $request->input('idcliente');
+        $user = Auth::user();
+        if ($user->rank > 2) {
+            $this->validate($request, [
+                'name' => 'required|string',
+                'photo' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
+            ]);
+            try {
+                $project = new Project;
+                $project->name = $request->input('name');
+                $project->descripcion = $request->input('descripcion');
+                $file = $request->file('photo');
+                $imageName = time().'.'.$file->getClientOriginalExtension();
+                $destination_path = 'images';
+                $path = $file->move($destination_path, $imageName);
+                $project->urlimg = $path;
+                $project->idcliente = $request->input('idcliente');
 
-            $project->save();
-            return response()->json(['project' => $project, 'message' => 'CREATED'], 201);
+                $project->save();
+                return response()->json(['project' => $project, 'message' => 'CREATED'], 201);
 
-        } catch (\Exception $e) {
-            //return error message
-            return response()->json(['message' => $e], 409);
+            } catch (\Exception $e) {
+                //return error message
+                return response()->json(['message' => $e], 409);
+            }
         }
     }
 
