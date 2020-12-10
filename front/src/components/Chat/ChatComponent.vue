@@ -21,7 +21,7 @@
                         </q-input>
                         <ckeditor :editor="editor" v-model="chat.message" :config="editorConfig"></ckeditor>
                         <br>
-                        <q-btn color="primary" @click="validateForm([chat.type, chat.message], sendMsg)" class="full-width" label="Enviar"></q-btn>
+                        <q-btn color="primary" @click="validateForm([chat.type, chat.message, chat.subject], sendMsg)" class="full-width" label="Enviar"></q-btn>
                     </div>
                 </div>
                 <div class="col-md-1 col-xs-1"></div>
