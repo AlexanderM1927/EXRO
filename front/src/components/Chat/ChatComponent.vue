@@ -55,6 +55,7 @@ export default {
         this.activateLoading('Cargando')
         const p = await ChatService.addChat(this.chat)
         if (p.status === 201) {
+          this.chatingMode = false
           this.alert('positive', 'Mensaje enviado')
           this.chat = {}
         }
