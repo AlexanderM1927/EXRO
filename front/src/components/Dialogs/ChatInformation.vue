@@ -1,7 +1,7 @@
 <template>
   <q-dialog ref="dialog" @hide="onDialogHide">
     <q-card class="q-dialog-plugin container">
-      <div class="text-h6">Chat</div>
+      <div class="text-h6">{{chat.subject}}</div>
       <b>Usuario: {{chat.user}}</b><br>
       <b>Tipo: {{chat.type}}</b><br>
       <hr>

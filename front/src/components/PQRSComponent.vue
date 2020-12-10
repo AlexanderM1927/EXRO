@@ -30,6 +30,9 @@
                                 <q-td key="user" :props="props">
                                     <div class="text-pre-wrap">{{ props.row.user }}</div>
                                 </q-td>
+                                <q-td key="user" :props="props">
+                                    <div class="text-pre-wrap">{{ props.row.subject }}</div>
+                                </q-td>
                                 <q-td key="ops" :props="props">
                                   <a class="text-blue" style="cursor: pointer; padding: 5px;" @click="verMsg(props.row)"> <q-icon size="md" name="search"/>
                                     <q-tooltip :delay="1000" :offset="[0, 10]">ver</q-tooltip>
@@ -70,6 +73,7 @@ export default {
         { name: 'id', align: 'center', label: 'id', field: 'id', sortable: true },
         { name: 'type', align: 'center', label: 'Tipo', field: 'type', sortable: true },
         { name: 'user', align: 'center', label: 'Usuario', field: 'user', sortable: true },
+        { name: 'subject', align: 'center', label: 'Asunto', field: 'subject', sortable: true },
         { name: 'ops', align: 'center', label: 'Opciones', field: 'ops', sortable: true }
       ],
       data: []

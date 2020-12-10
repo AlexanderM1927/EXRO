@@ -14,6 +14,11 @@
                             <q-icon name="check" color="primary" />
                             </template>
                         </q-select>
+                        <q-input color="grey-3" bg-color="white" label-color="primary" filled v-model="chat.subject" label="Asunto" required :rules="[val => !!val || 'Este campo es necesario']">
+                          <template v-slot:append>
+                            <q-icon name="text_format" color="primary" />
+                          </template>
+                        </q-input>
                         <ckeditor :editor="editor" v-model="chat.message" :config="editorConfig"></ckeditor>
                         <br>
                         <q-btn color="primary" @click="validateForm([chat.type, chat.message], sendMsg)" class="full-width" label="Enviar"></q-btn>

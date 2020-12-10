@@ -37,6 +37,7 @@ class ChatController extends Controller
             $chat->message = $request->input('message');
             $chat->type = $request->input('type');
             $chat->idusuario = $request->input('idusuario');
+            $chat->subject = $request->input('subject');
 
             $chat->save();
 
@@ -54,7 +55,7 @@ class ChatController extends Controller
         if ($user->rank > 2) {
             $chats = DB::table('chats')
             ->join('users', 'users.id', '=', 'chats.idusuario')
-            ->select('users.name as user', 'chats.id', 'chats.message', 'chats.type')
+            ->select('users.name as user', 'chats.id', 'chats.message', 'chats.type', 'chats.subject')
             ->orderByDesc('id')->get();
             return response()->json(['chats' => $chats]);
         }
@@ -84,7 +85,7 @@ class ChatController extends Controller
             $user = Auth::user();
             $chat = DB::table('chats')
             ->join('users', 'users.id', '=', 'chats.idusuario')
-            ->select('users.email as email', 'chats.id', 'chats.message', 'chats.type')
+            ->select('users.email as email', 'chats.id', 'chats.message', 'chats.type', 'chats.subject')
             ->where('chats.id', '=', $id)
             ->orderByDesc('id')->get()->first();
             $title = 'Respuesta a su '.$chat->type;
