@@ -56,18 +56,27 @@ class UserController extends Controller
     }
 
     public function getUsers () {
-        $users = DB::table('users')->get();
-        return response()->json(['users' => $users]);
+        $user = Auth::user();
+        if ($user->rank > 2) {
+            $users = DB::table('users')->get();
+            return response()->json(['users' => $users]);
+        }
     }
 
     public function getClients () {
-        $clients = DB::table('users')->where('rank','=','1')->get();
-        return response()->json(['users' => $clients]);
+        $user = Auth::user();
+        if ($user->rank > 2) {
+            $clients = DB::table('users')->where('rank','=','1')->get();
+            return response()->json(['users' => $clients]);
+        }
     }
 
     public function getEngineers () {
-        $clients = DB::table('users')->where('rank','=','2')->get();
-        return response()->json(['users' => $clients]);
+        $user = Auth::user();
+        if ($user->rank > 2) {
+            $clients = DB::table('users')->where('rank','=','2')->get();
+            return response()->json(['users' => $clients]);
+        }
     }
     
     public function getUserById ($id) {
@@ -79,17 +88,23 @@ class UserController extends Controller
     }
 
     public function modifyUserById ($id, Request $request) {
-        $user = DB::table('users')->where('id', '=', $id)->update([
-            'name' => $request->input('name'),
-            'email' => $request->input('email'),
-            'rank' => $this->getRankByName($request->input('rank'))
-        ]);
-        return response()->json(['user' => $user]);
+        $user = Auth::user();
+        if ($user->rank > 2) {
+            $user = DB::table('users')->where('id', '=', $id)->update([
+                'name' => $request->input('name'),
+                'email' => $request->input('email'),
+                'rank' => $this->getRankByName($request->input('rank'))
+            ]);
+            return response()->json(['user' => $user]);
+        }
     }
 
     public function deleteUserById ($id) {
-        $user = DB::table('users')->where('id', '=', $id)->delete();
-        return response()->json(['user' => $user]);
+        $user = Auth::user();
+        if ($user->rank > 2) {
+            $user = DB::table('users')->where('id', '=', $id)->delete();
+            return response()->json(['user' => $user]);
+        }
     }
 
     public function getRankByName ($name) {
