@@ -43,7 +43,7 @@ export default {
     return {
       chatingMode: false,
       chat: {},
-      options: ['Peticion', 'Queja', 'Reclamo', 'Sugerencia'],
+      options: ['Petición', 'Queja', 'Reclamo', 'Sugerencia'],
       editor: ClassicEditor,
       editorConfig: {
         // The configuration of the editor.
