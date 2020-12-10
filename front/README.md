@@ -1,4 +1,4 @@
-# EXROStats (front)
+# Control Programas Químicos (front)
 
 Stats by EXRO
 

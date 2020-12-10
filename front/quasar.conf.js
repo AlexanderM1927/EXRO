@@ -121,8 +121,8 @@ module.exports = function (/* ctx */) {
       workboxPluginMode: 'GenerateSW', // 'GenerateSW' or 'InjectManifest'
       workboxOptions: {}, // only for GenerateSW
       manifest: {
-        name: 'EXROStats',
-        short_name: 'EXROStats',
+        name: 'Control Programas Químicos',
+        short_name: 'Control Programas Químicos',
         description: 'Stats by EXRO',
         display: 'standalone',
         orientation: 'portrait',

@@ -51,7 +51,7 @@ class AuthController extends Controller
             ->first();
             if ($user) {
                 $token = $this->generateToken();
-                $title = "Recupera tu clave | EXROStats";
+                $title = "Recupera tu clave | Control Programas Químicos";
                 $body = "Hola, ".$user->name."<br>";
                 $body .= "<br>";
                 $body .= "<br>";

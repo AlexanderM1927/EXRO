@@ -55,7 +55,7 @@ class ReportController extends Controller
         ->select('users.name as name', 'projects.name as project_name', 'users.email as email')
         ->get()
         ->first();
-        $title = "Nuevo reporte | EXROStats";
+        $title = "Nuevo reporte | Control Programas Químicos";
         $body = "Hola, ".$user->name."<br>";
         $body .= "<br>";
         $body .= "<br>";
