@@ -8,8 +8,26 @@
                     Crear informe
                 </div>
                 <q-form @submit="save">
+                    <q-input color="grey-3" bg-color="white" label-color="primary" label="Desde" required :rules="[val => !!val || 'Tienes que llenar este campo']" v-model="date">
+                      <template v-slot:prepend>
+                          <q-icon color="primary" name="event" class="cursor-pointer">
+                            <q-popup-proxy transition-show="scale" transition-hide="scale">
+                              <q-date v-model="date" mask="YYYY-MM-DD HH:mm" />
+                            </q-popup-proxy>
+                          </q-icon>
+                        </template>
+
+                        <template v-slot:append>
+                          <q-icon color="primary" name="access_time" class="cursor-pointer">
+                            <q-popup-proxy transition-show="scale" transition-hide="scale">
+                              <q-time v-model="date" mask="YYYY-MM-DD HH:mm" format24h />
+                            </q-popup-proxy>
+                          </q-icon>
+                      </template>
+                    </q-input>
+                    <q-separator />
                     <div v-for="variable in vars" v-bind:key="variable.id">
-                        <q-input color="grey-3" bg-color="white" label-color="primary" filled v-model="variable.value" type="number" :label="variable.name"></q-input>
+                        <q-input color="grey-3" bg-color="white" label-color="primary" filled v-model="variable.value" :label="variable.name"></q-input>
                     </div>
                     <q-separator />
                     <div class="text-h6">Observacion:</div>
@@ -39,6 +57,7 @@ export default {
       vars: [],
       editor: ClassicEditor,
       observacion: '',
+      date: date.formatDate(Date.now(), 'YYYY-MM-DD HH:mm:ss'),
       editorConfig: {
         // The configuration of the editor.
       }
@@ -64,7 +83,7 @@ export default {
         token: localStorage.getItem('token'),
         observacion: this.observacion,
         idproyecto: this.id,
-        fecha: date.formatDate(Date.now(), 'YYYY-MM-DD HH:mm:ss')
+        fecha: this.date
       }
       try {
         this.activateLoading('Cargando')

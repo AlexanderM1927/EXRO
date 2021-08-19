@@ -9,7 +9,6 @@
                 <q-separator />
                 <div v-for="variable in report.variables" v-bind:key="variable.id">
                     <q-input
-                      type="number"
                       color="grey-3"
                       bg-color="white"
                       label-color="primary"

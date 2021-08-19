@@ -3,12 +3,12 @@
     <q-card class="q-dialog-plugin container">
       <div class="text-h6">Máximos y mínimos</div>
       <q-separator />
-      <q-input type="number" color="grey-3" bg-color="white" label-color="primary" filled v-model="variable.max" label="Máximo">
+      <q-input color="grey-3" bg-color="white" label-color="primary" filled v-model="variable.max" label="Máximo">
         <template v-slot:append>
           <q-icon name="flip_to_front" color="primary" />
         </template>
       </q-input>
-      <q-input type="number" color="grey-3" bg-color="white" label-color="primary" filled v-model="variable.min" label="Mínimo">
+      <q-input color="grey-3" bg-color="white" label-color="primary" filled v-model="variable.min" label="Mínimo">
         <template v-slot:append>
           <q-icon name="flip_to_back" color="primary" />
         </template>

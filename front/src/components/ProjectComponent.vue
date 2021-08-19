@@ -102,13 +102,12 @@
               </q-dialog>
               <q-dialog
                 v-model="dialogEngineers"
-                persistent
                 transition-show="slide-up"
                 transition-hide="slide-down"
               >
                 <q-card style="width: 800px; max-width: 80vw;">
                 <q-card-section>
-                    <users-component mode= 'engineer' @addengineer="addengineer"></users-component>
+                    <users-component mode='engineer' @addengineer="addengineer"></users-component>
                 </q-card-section>
                 </q-card>
               </q-dialog>
