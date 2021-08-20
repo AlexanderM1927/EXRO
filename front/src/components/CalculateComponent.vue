@@ -44,7 +44,9 @@ export default {
         { name: 'Parametros vapor', id: 2 },
         { name: 'Polimeros - Aplicaciones Industriales', id: 3 },
         { name: 'Polimeros - Comparacion tecnica', id: 4 },
-        { name: 'Polimeros - Laboratorio', id: 5 }
+        { name: 'Polimeros - Laboratorio', id: 5 },
+        { name: 'Rata de Flujo', id: 6 },
+        { name: 'Aplicaciones Antiincrustantes', id: 7 }
       ]
     }
   },
