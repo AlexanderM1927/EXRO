@@ -298,7 +298,7 @@ export default {
       this.tables[6].fields[0].value = this.tables[1].fields[3].value * 1500 * 0.25
     },
     gravillaTres () {
-      this.tables[6].fields[1].value = this.tables[1].fields[3].value * 1500 * 0.15
+      this.tables[6].fields[1].value = this.tables[1].fields[3].value * 1500 * 0.1
     },
     carbonActivadoUno () {
       this.tables[6].fields[2].value = this.tables[1].fields[3].value * this.tables[3].fields[1].value * 0.65
