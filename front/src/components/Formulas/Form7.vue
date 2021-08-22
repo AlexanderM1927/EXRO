@@ -3,7 +3,7 @@
         <div class="row">
           <div class="col-12">
             <center>
-              <img src="../../assets/form7.png">
+              <img style="max-width: 100%;" src="../../assets/form7.png">
             </center>
           </div>
         </div>

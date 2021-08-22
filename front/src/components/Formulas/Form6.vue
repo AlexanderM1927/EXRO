@@ -89,8 +89,8 @@ export default {
           fields: [
             { id: 1, name: 'Altura Recta Filtro (metros)', value: '', color: 'background-color:#A2CCFA' },
             { id: 2, name: 'Altura Recta Filtro (in)', value: '', color: 'background-color:yellow' },
-            { id: 3, name: 'V 100%', value: '', color: 'background-color:yellow' },
-            { id: 4, name: 'V 60%', value: '', color: 'background-color:yellow' }
+            { id: 3, name: 'V 100% (mts3)', value: '', color: 'background-color:yellow' },
+            { id: 4, name: 'V 60% (mts3)', value: '', color: 'background-color:yellow' }
           ]
         },
         {
@@ -111,6 +111,35 @@ export default {
             { id: 2, name: 'ɗ Carbón (kg/m3)', value: '', color: 'background-color:#A2CCFA' },
             { id: 3, name: 'ɗ Turbidex (Kg/ft3)', value: '', color: 'background-color:#A2CCFA' }
           ]
+        },
+        {
+          id: 5,
+          name: 'Estratificacion del lecho - OPCIÓN 1  Gravas y Arenas',
+          fields: [
+            { id: 1, name: 'Grava # 6-8 (Kg)', value: '', color: 'background-color:yellow' },
+            { id: 2, name: 'Gravilla # 8-14 (Kg)', value: '', color: 'background-color:yellow' },
+            { id: 3, name: 'Arena # 14-20 (Kg)', value: '', color: 'background-color:yellow' },
+            { id: 4, name: 'Arena 20-40 (Kg)', value: '', color: 'background-color:yellow' }
+          ]
+        },
+        {
+          id: 6,
+          name: 'Estratificacion del lecho - OPCIÓN 2 Grava, Arena y Turbidex',
+          fields: [
+            { id: 1, name: 'Grava # 6-8 (Kg)', value: '', color: 'background-color:yellow' },
+            { id: 2, name: 'Gravilla # 8-14 (Kg)', value: '', color: 'background-color:yellow' },
+            { id: 3, name: 'Arena # 14-20 (Kg)', value: '', color: 'background-color:yellow' },
+            { id: 4, name: 'Turbidex (ft3)', value: '', color: 'background-color:yellow' }
+          ]
+        },
+        {
+          id: 7,
+          name: 'Estratificacion del lecho - OPCIÓN 3 Grava, Gravilla y Carbon Activado',
+          fields: [
+            { id: 1, name: 'Grava # 6-8 (Kg)', value: '', color: 'background-color:yellow' },
+            { id: 2, name: 'Gravilla # 8-14 (Kg)', value: '', color: 'background-color:yellow' },
+            { id: 3, name: 'Carbon Activado (Kg)', value: '', color: 'background-color:yellow' }
+          ]
         }
       ]
     }
@@ -127,6 +156,23 @@ export default {
     this.rataFlujoDos()
     this.rfUno()
     this.rfDos()
+    this.alturaRectoFiltro()
+    this.vUno()
+    this.vDos()
+    this.tuberia()
+    this.aUno()
+    this.vTres()
+    this.gravaUno()
+    this.gravillaUno()
+    this.arenaUno()
+    this.arenaDos()
+    this.gravaDos()
+    this.gravillaDos()
+    this.arenaTres()
+    this.turbidexUno()
+    this.gravaTres()
+    this.gravillaTres()
+    this.carbonActivadoUno()
   },
   mounted () {
     this.qATrabajarUno()
@@ -139,6 +185,23 @@ export default {
     this.rataFlujoDos()
     this.rfUno()
     this.rfDos()
+    this.alturaRectoFiltro()
+    this.vUno()
+    this.vDos()
+    this.tuberia()
+    this.aUno()
+    this.vTres()
+    this.gravaUno()
+    this.gravillaUno()
+    this.arenaUno()
+    this.arenaDos()
+    this.gravaDos()
+    this.gravillaDos()
+    this.arenaTres()
+    this.turbidexUno()
+    this.gravaTres()
+    this.gravillaTres()
+    this.carbonActivadoUno()
   },
   methods: {
     isNumber (n) {
@@ -188,6 +251,57 @@ export default {
     },
     rfDos () {
       this.tables[0].fields[13].value = (this.tables[0].fields[12].value * 1000) / (3.785 * 10.7639 * 1440)
+    },
+    alturaRectoFiltro () {
+      this.tables[1].fields[1].value = (this.tables[1].fields[0].value * 100 / 2.54)
+    },
+    vUno () {
+      this.tables[1].fields[2].value = ((3.14116 * Math.pow((this.tables[0].fields[3].value), 2)) * this.tables[1].fields[0].value) / 4
+    },
+    vDos () {
+      this.tables[1].fields[3].value = this.tables[1].fields[2].value * 0.6
+    },
+    tuberia () {
+      this.tables[2].fields[1].value = this.tables[2].fields[0].value * 0.0254
+    },
+    aUno () {
+      this.tables[2].fields[2].value = (3.1416 * Math.pow((this.tables[2].fields[1].value), 2)) / 4
+    },
+    vTres () {
+      this.tables[2].fields[3].value = this.tables[0].fields[1].value / this.tables[2].fields[2].value
+    },
+    gravaUno () {
+      this.tables[4].fields[0].value = this.tables[1].fields[3].value * 1500 * 0.25
+    },
+    gravillaUno () {
+      this.tables[4].fields[1].value = this.tables[1].fields[3].value * 1500 * 0.15
+    },
+    arenaUno () {
+      this.tables[4].fields[2].value = this.tables[1].fields[3].value * 1500 * 0.1
+    },
+    arenaDos () {
+      this.tables[4].fields[3].value = this.tables[1].fields[3].value * 1500 * 0.5
+    },
+    gravaDos () {
+      this.tables[5].fields[0].value = this.tables[1].fields[3].value * 1500 * 0.25
+    },
+    gravillaDos () {
+      this.tables[5].fields[1].value = this.tables[1].fields[3].value * 1500 * 0.15
+    },
+    arenaTres () {
+      this.tables[5].fields[2].value = this.tables[1].fields[3].value * 1500 * 0.1
+    },
+    turbidexUno () {
+      this.tables[5].fields[3].value = (this.tables[1].fields[3].value * 802.5 * 0.6) / this.tables[3].fields[2].value
+    },
+    gravaTres () {
+      this.tables[6].fields[0].value = this.tables[1].fields[3].value * 1500 * 0.25
+    },
+    gravillaTres () {
+      this.tables[6].fields[1].value = this.tables[1].fields[3].value * 1500 * 0.15
+    },
+    carbonActivadoUno () {
+      this.tables[6].fields[2].value = this.tables[1].fields[3].value * this.tables[3].fields[1].value * 0.65
     },
     printPDF () {
       /** WITH CSS */
