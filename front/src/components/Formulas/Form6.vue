@@ -223,85 +223,85 @@ export default {
       }
     },
     qATrabajarUno () {
-      this.tables[0].fields[1].value = (this.tables[0].fields[0].value / 3600)
+      this.tables[0].fields[1].value = Math.round((this.tables[0].fields[0].value / 3600) * 1000) / 1000
     },
     qATrabajarDos () {
-      this.tables[0].fields[2].value = (this.tables[0].fields[0].value * 1000) / (3.785 * 60)
+      this.tables[0].fields[2].value = Math.round(((this.tables[0].fields[0].value * 1000) / (3.785 * 60)) * 1000) / 1000
     },
     diametroFiltroUno () {
-      this.tables[0].fields[4].value = (this.tables[0].fields[3].value / 2.54) * 100
+      this.tables[0].fields[4].value = Math.round(((this.tables[0].fields[3].value / 2.54) * 100) * 1000) / 1000
     },
     diametroFiltroDos () {
-      this.tables[0].fields[5].value = (this.tables[0].fields[3].value * 3.28084)
+      this.tables[0].fields[5].value = Math.round((this.tables[0].fields[3].value * 3.28084) * 1000) / 1000
     },
     areaUno () {
-      this.tables[0].fields[6].value = (3.1416 * Math.pow((this.tables[0].fields[5].value), 2)) / 4
+      this.tables[0].fields[6].value = Math.round(((3.1416 * Math.pow((this.tables[0].fields[5].value), 2)) / 4) * 1000) / 1000
     },
     areaDos () {
-      this.tables[0].fields[7].value = (this.tables[0].fields[6].value * 0.092903)
+      this.tables[0].fields[7].value = Math.round((this.tables[0].fields[6].value * 0.092903) * 1000) / 1000
     },
     rataFlujoUno () {
-      this.tables[0].fields[8].value = (this.tables[0].fields[2].value / this.tables[0].fields[6].value)
+      this.tables[0].fields[8].value = Math.round((this.tables[0].fields[2].value / this.tables[0].fields[6].value) * 1000) / 1000
     },
     rataFlujoDos () {
-      this.tables[0].fields[9].value = (this.tables[0].fields[8].value * 3.7851 * 1440) / (1000 * 0.092903)
+      this.tables[0].fields[9].value = Math.round(((this.tables[0].fields[8].value * 3.7851 * 1440) / (1000 * 0.092903)) * 1000) / 1000
     },
     rfUno () {
-      this.tables[0].fields[11].value = (this.tables[0].fields[10].value * 3.785 * 1440) / (1000 * 0.0929)
+      this.tables[0].fields[11].value = Math.round(((this.tables[0].fields[10].value * 3.785 * 1440) / (1000 * 0.0929)) * 1000) / 1000
     },
     rfDos () {
-      this.tables[0].fields[13].value = (this.tables[0].fields[12].value * 1000) / (3.785 * 10.7639 * 1440)
+      this.tables[0].fields[13].value = Math.round(((this.tables[0].fields[12].value * 1000) / (3.785 * 10.7639 * 1440)) * 1000) / 1000
     },
     alturaRectoFiltro () {
-      this.tables[1].fields[1].value = (this.tables[1].fields[0].value * 100 / 2.54)
+      this.tables[1].fields[1].value = Math.round((this.tables[1].fields[0].value * 100 / 2.54) * 1000) / 1000
     },
     vUno () {
-      this.tables[1].fields[2].value = ((3.14116 * Math.pow((this.tables[0].fields[3].value), 2)) * this.tables[1].fields[0].value) / 4
+      this.tables[1].fields[2].value = Math.round((((3.14116 * Math.pow((this.tables[0].fields[3].value), 2)) * this.tables[1].fields[0].value) / 4) * 1000) / 1000
     },
     vDos () {
-      this.tables[1].fields[3].value = this.tables[1].fields[2].value * 0.6
+      this.tables[1].fields[3].value = Math.round((this.tables[1].fields[2].value * 0.6) * 1000) / 1000
     },
     tuberia () {
-      this.tables[2].fields[1].value = this.tables[2].fields[0].value * 0.0254
+      this.tables[2].fields[1].value = Math.round((this.tables[2].fields[0].value * 0.0254) * 1000) / 1000
     },
     aUno () {
-      this.tables[2].fields[2].value = (3.1416 * Math.pow((this.tables[2].fields[1].value), 2)) / 4
+      this.tables[2].fields[2].value = Math.round(((3.1416 * Math.pow((this.tables[2].fields[1].value), 2)) / 4) * 1000) / 1000
     },
     vTres () {
-      this.tables[2].fields[3].value = this.tables[0].fields[1].value / this.tables[2].fields[2].value
+      this.tables[2].fields[3].value = Math.round((this.tables[0].fields[1].value / this.tables[2].fields[2].value) * 1000) / 1000
     },
     gravaUno () {
-      this.tables[4].fields[0].value = this.tables[1].fields[3].value * 1500 * 0.25
+      this.tables[4].fields[0].value = Math.round((this.tables[1].fields[3].value * 1500 * 0.25) * 1000) / 1000
     },
     gravillaUno () {
-      this.tables[4].fields[1].value = this.tables[1].fields[3].value * 1500 * 0.15
+      this.tables[4].fields[1].value = Math.round((this.tables[1].fields[3].value * 1500 * 0.15) * 1000) / 1000
     },
     arenaUno () {
-      this.tables[4].fields[2].value = this.tables[1].fields[3].value * 1500 * 0.1
+      this.tables[4].fields[2].value = Math.round((this.tables[1].fields[3].value * 1500 * 0.1) * 1000) / 1000
     },
     arenaDos () {
-      this.tables[4].fields[3].value = this.tables[1].fields[3].value * 1500 * 0.5
+      this.tables[4].fields[3].value = Math.round((this.tables[1].fields[3].value * 1500 * 0.5) * 1000) / 1000
     },
     gravaDos () {
-      this.tables[5].fields[0].value = this.tables[1].fields[3].value * 1500 * 0.25
+      this.tables[5].fields[0].value = Math.round((this.tables[1].fields[3].value * 1500 * 0.25) * 1000) / 1000
     },
     gravillaDos () {
-      this.tables[5].fields[1].value = this.tables[1].fields[3].value * 1500 * 0.15
+      this.tables[5].fields[1].value = Math.round((this.tables[1].fields[3].value * 1500 * 0.15) * 1000) / 1000
     },
     arenaTres () {
-      this.tables[5].fields[2].value = this.tables[1].fields[3].value * 1500 * 0.1
+      this.tables[5].fields[2].value = Math.round((this.tables[1].fields[3].value * 1500 * 0.1) * 1000) / 1000
     },
     turbidexUno () {
-      this.tables[5].fields[3].value = (this.tables[1].fields[3].value * 802.5 * 0.6) / this.tables[3].fields[2].value
+      this.tables[5].fields[3].value = Math.round(((this.tables[1].fields[3].value * 802.5 * 0.6) / this.tables[3].fields[2].value) * 1000) / 1000
     },
     gravaTres () {
-      this.tables[6].fields[0].value = this.tables[1].fields[3].value * 1500 * 0.25
+      this.tables[6].fields[0].value = Math.round((this.tables[1].fields[3].value * 1500 * 0.25) * 1000) / 1000
     },
     gravillaTres () {
-      this.tables[6].fields[1].value = this.tables[1].fields[3].value * 1500 * 0.1
+      this.tables[6].fields[1].value = Math.round((this.tables[1].fields[3].value * 1500 * 0.1) * 1000) / 1000
     },
     carbonActivadoUno () {
-      this.tables[6].fields[2].value = this.tables[1].fields[3].value * this.tables[3].fields[1].value * 0.65
+      this.tables[6].fields[2].value = Math.round((this.tables[1].fields[3].value * this.tables[3].fields[1].value * 0.65) * 1000) / 1000
     },
     printPDF () {
       /** WITH CSS */

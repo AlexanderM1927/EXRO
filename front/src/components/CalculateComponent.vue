@@ -45,8 +45,8 @@ export default {
         { name: 'Polimeros - Aplicaciones Industriales', id: 3 },
         { name: 'Polimeros - Comparacion tecnica', id: 4 },
         { name: 'Polimeros - Laboratorio', id: 5 },
-        { name: 'Rata de Flujo', id: 6 },
-        { name: 'Aplicaciones Antiincrustantes', id: 7 }
+        { name: 'Filtración - Rata de Flujo', id: 6 },
+        { name: 'Filtración - Aplicaciones Antiincrustantes', id: 7 }
       ]
     }
   },
