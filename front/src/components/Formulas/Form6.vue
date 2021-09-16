@@ -73,8 +73,8 @@ export default {
             { id: 4, name: 'Diámetro Filtro (metros)', value: '', color: 'background-color:#A2CCFA' },
             { id: 5, name: 'Diámetro Filtro (in)', value: '', color: 'background-color:yellow' },
             { id: 6, name: 'Diámetro Filtro (ft)', value: '', color: 'background-color:yellow' },
-            { id: 7, name: 'Area (ft^2)', value: '', color: 'background-color:yellow' },
-            { id: 8, name: 'Area (m2)', value: '', color: 'background-color:yellow' },
+            { id: 7, name: 'Area (m2)', value: '', color: 'background-color:yellow' },
+            { id: 8, name: 'Area (ft^2)', value: '', color: 'background-color:yellow' },
             { id: 9, name: 'Rata de Flujo (gpm/ft2)', value: '', color: 'background-color:yellow' },
             { id: 10, name: 'Rata de Flujo (m3/(m2/día))', value: '', color: 'background-color:yellow' },
             { id: 11, name: 'RF (gpm/ft2)', value: '', color: 'background-color:#A2CCFA' },
@@ -223,7 +223,7 @@ export default {
       }
     },
     qATrabajarUno () {
-      this.tables[0].fields[1].value = Math.round((this.tables[0].fields[0].value / 3600) * 1000) / 1000
+      this.tables[0].fields[1].value = Math.round((this.tables[0].fields[0].value / 3600) * 100000000) / 100000000
     },
     qATrabajarDos () {
       this.tables[0].fields[2].value = Math.round(((this.tables[0].fields[0].value * 1000) / (3.785 * 60)) * 1000) / 1000
@@ -235,13 +235,13 @@ export default {
       this.tables[0].fields[5].value = Math.round((this.tables[0].fields[3].value * 3.28084) * 1000) / 1000
     },
     areaUno () {
-      this.tables[0].fields[6].value = Math.round(((3.1416 * Math.pow((this.tables[0].fields[5].value), 2)) / 4) * 1000) / 1000
+      this.tables[0].fields[6].value = Math.round((this.tables[0].fields[7].value * 0.092903) * 1000) / 1000
     },
     areaDos () {
-      this.tables[0].fields[7].value = Math.round((this.tables[0].fields[6].value * 0.092903) * 1000) / 1000
+      this.tables[0].fields[7].value = Math.round(((3.1416 * Math.pow((this.tables[0].fields[5].value), 2)) / 4) * 1000) / 1000
     },
     rataFlujoUno () {
-      this.tables[0].fields[8].value = Math.round((this.tables[0].fields[2].value / this.tables[0].fields[6].value) * 1000) / 1000
+      this.tables[0].fields[8].value = Math.round((this.tables[0].fields[2].value / this.tables[0].fields[7].value) * 1000) / 1000
     },
     rataFlujoDos () {
       this.tables[0].fields[9].value = Math.round(((this.tables[0].fields[8].value * 3.7851 * 1440) / (1000 * 0.092903)) * 1000) / 1000
@@ -262,13 +262,13 @@ export default {
       this.tables[1].fields[3].value = Math.round((this.tables[1].fields[2].value * 0.6) * 1000) / 1000
     },
     tuberia () {
-      this.tables[2].fields[1].value = Math.round((this.tables[2].fields[0].value * 0.0254) * 1000) / 1000
+      this.tables[2].fields[1].value = Math.round((this.tables[2].fields[0].value * 0.0254) * 1000000) / 1000000
     },
     aUno () {
-      this.tables[2].fields[2].value = Math.round(((3.1416 * Math.pow((this.tables[2].fields[1].value), 2)) / 4) * 1000) / 1000
+      this.tables[2].fields[2].value = Math.round(((3.1416 * Math.pow((this.tables[2].fields[1].value), 2)) / 4) * 10000000) / 10000000
     },
     vTres () {
-      this.tables[2].fields[3].value = Math.round((this.tables[0].fields[1].value / this.tables[2].fields[2].value) * 1000) / 1000
+      this.tables[2].fields[3].value = Math.round((this.tables[0].fields[1].value / this.tables[2].fields[2].value) * 1000000) / 1000000
     },
     gravaUno () {
       this.tables[4].fields[0].value = Math.round((this.tables[1].fields[3].value * 1500 * 0.25) * 1000) / 1000
