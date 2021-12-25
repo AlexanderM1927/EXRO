@@ -57,7 +57,7 @@ export default {
         const user = u.data
         if (u.status === 200) {
           localStorage.setItem('token', this.getToken(user))
-          localStorage.setItem('user', user.user.id)
+          localStorage.setItem('user', JSON.stringify(user.user))
           this.goTo('home')
         } else {
           this.alert('negative', 'Credenciales invalidas')

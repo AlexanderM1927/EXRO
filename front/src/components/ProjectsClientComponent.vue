@@ -6,6 +6,13 @@
                 <div class="title">
                   <div class="text-h4">
                       Tratamientos
+                      <div class="right">
+                        <q-btn round color="positive" @click="createProject" size="md" icon="add">
+                          <q-tooltip>
+                              Agregar
+                          </q-tooltip>
+                        </q-btn>
+                      </div>
                   </div>
                 </div>
                 <div class="row">
@@ -36,6 +43,12 @@
                                 <q-btn flat color="primary" @click="goTo('project/' + item.id)">
                                 Ver
                                 </q-btn>
+                                <q-btn flat color="primary" @click="editProject(item)">
+                                Editar
+                                </q-btn>
+                                <q-btn flat color="negative" @click="eliminar(item.id)">
+                                Eliminar
+                                </q-btn>
                             </q-card-actions>
                         </q-card>
                     </div>
@@ -48,6 +61,7 @@
 
 <script>
 import ProjectService from '../services/ProjectService'
+import AddProject from './Dialogs/AddProject.vue'
 import EditProject from './Dialogs/EditProject.vue'
 import { functions } from '../functions.js'
 
@@ -57,7 +71,8 @@ export default {
   props: ['mode'],
   data () {
     return {
-      projects: []
+      projects: [],
+      clientId: this.$route.params.id
     }
   },
   mounted () {
@@ -81,7 +96,7 @@ export default {
     async getProjects () {
       try {
         this.activateLoading('Cargando')
-        const us = await ProjectService.getProjects({ token: localStorage.getItem('token') })
+        const us = await ProjectService.getProjectsByClient({ clientId: this.clientId, token: localStorage.getItem('token') })
         const projects = us.data.projects
         this.projects = projects
         this.organizarCards()
@@ -89,6 +104,30 @@ export default {
         console.log(error)
       }
       this.disableLoading()
+    },
+    createProject () {
+      this.$q.dialog({
+        component: AddProject,
+        parent: this,
+        clientId: this.clientId
+      }).onOk(async (data) => {
+        data.token = localStorage.getItem('token')
+        try {
+          this.activateLoading('Cargando')
+          const p = await ProjectService.newProject(data)
+          this.getProjects()
+          if (p.status === 201) {
+            this.alert('positive', 'Tratamiento creado exitosamente')
+          }
+        } catch (error) {
+          this.alert('negative', 'Se ha presentado un error al crear el Tratamiento')
+        }
+        this.disableLoading()
+      }).onCancel(() => {
+        // console.log('Cancel')
+      }).onDismiss(() => {
+        // console.log('Called on OK or Cancel')
+      })
     },
     eliminar (id) {
       this.$q.dialog({

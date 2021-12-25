@@ -24,7 +24,7 @@ class UserController extends Controller
     public function register(Request $request)
     {
         $user = Auth::user();
-        if ($user->rank > 2) {
+        if ($user->rank === 3) {
             //validate incoming request 
             $this->validate($request, [
                 'name' => 'required|string',
@@ -54,32 +54,70 @@ class UserController extends Controller
         }
     }
 
+    public function registerChildren(Request $request)
+    {
+        $myUser = Auth::user();
+        if ($myUser->rank === 1) {
+            //validate incoming request 
+            $this->validate($request, [
+                'name' => 'required|string',
+                'email' => 'required|email|unique:users',
+                'password' => 'required'
+            ]);
+
+            try {
+
+                $user = new User;
+                $user->name = $request->input('name');
+                $user->email = $request->input('email');
+                $plainPassword = $request->input('password');
+                $user->password = app('hash')->make($plainPassword);
+                $user->rank = 7;
+                $user->parent_id = $myUser->id;
+
+                $user->save();
+
+                //return successful response
+                return response()->json(['user' => $user, 'message' => 'CREATED'], 201);
+
+            } catch (\Exception $e) {
+                //return error message
+                return response()->json(['message' => $e], 409);
+            }
+        }
+    }
+
     public function getUser () {
         return Auth::user();
     }
 
     public function getUsers () {
+        $users = DB::table('users')->get();
+        return response()->json(['users' => $users]);
+    }
+
+    public function getChildrens () {
         $user = Auth::user();
-        if ($user->rank > 2) {
-            $users = DB::table('users')->get();
-            return response()->json(['users' => $users]);
-        }
+        $users = DB::table('users')->where('parent_id', '=', $user->id)->get();
+        return response()->json(['users' => $users]);
     }
 
     public function getClients () {
         $user = Auth::user();
-        if ($user->rank > 2) {
-            $clients = DB::table('users')->where('rank','=','1')->get();
-            return response()->json(['users' => $clients]);
-        }
+        $clients = DB::table('users')->where('rank','=','1')->get();
+        return response()->json(['users' => $clients]);
     }
 
     public function getEngineers () {
         $user = Auth::user();
-        if ($user->rank > 2) {
-            $clients = DB::table('users')->where('rank','=','2')->get();
-            return response()->json(['users' => $clients]);
-        }
+        $engineers = DB::table('users')->where('rank','=','2')->get();
+        return response()->json(['users' => $engineers]);
+    }
+
+    public function getTechnicals () {
+        $user = Auth::user();
+        $technicals = DB::table('users')->where('rank','=','5')->get();
+        return response()->json(['users' => $technicals]);
     }
     
     public function getUserById ($id) {
@@ -115,6 +153,10 @@ class UserController extends Controller
         if ($name == 'Administrador') $r = 3;
         elseif ($name == 'Ingeniero') $r = 2;
         elseif ($name == 'Cliente') $r = 1;
+        elseif ($name == 'Supervisor') $r = 4;
+        elseif ($name == 'Tecnico') $r = 5;
+        elseif ($name == 'Gerente') $r = 6;
+        elseif ($name == 'Cliente hijo') $r = 7;
         return $r;
     }
 

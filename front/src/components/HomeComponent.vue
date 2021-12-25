@@ -10,7 +10,7 @@
                 <q-separator />
                 <br>
                 <center>
-                    <q-btn label="Activar tour" @click="startTour" color="primary"></q-btn>
+                    <q-btn v-if="hasAccess([1], user)" label="Activar tour" @click="startTour" color="primary"></q-btn>
                 </center>
             </div>
             <div class="col-1"></div>

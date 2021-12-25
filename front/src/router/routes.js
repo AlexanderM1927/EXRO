@@ -51,7 +51,7 @@ const routes = [
       view: 'home'
     },
     meta: {
-      title: 'Control Programas Quimicos | Home', requireSession: true
+      title: 'Control Programas Quimicos | Home', requireSession: true, ranks: [1, 2, 3, 4, 5, 6, 7]
     }
   },
   {
@@ -61,7 +61,17 @@ const routes = [
       view: 'users'
     },
     meta: {
-      title: 'Control Programas Quimicos | Usuarios', requireSession: true
+      title: 'Control Programas Quimicos | Usuarios', requireSession: true, ranks: [1, 2, 3, 4, 5, 6, 7]
+    }
+  },
+  {
+    path: '/clients',
+    component: () => import('layouts/MainLayout.vue'),
+    props: {
+      view: 'clients'
+    },
+    meta: {
+      title: 'Control Programas Quimicos | Clientes', requireSession: true, ranks: [2, 3, 4, 5, 6]
     }
   },
   {
@@ -71,7 +81,7 @@ const routes = [
       view: 'user'
     },
     meta: {
-      title: 'Control Programas Quimicos | Usuario', requireSession: true
+      title: 'Control Programas Quimicos | Usuario', requireSession: true, ranks: [2, 3, 4, 5, 6]
     }
   },
   {
@@ -81,7 +91,17 @@ const routes = [
       view: 'projects'
     },
     meta: {
-      title: 'Control Programas Quimicos | Proyectos', requireSession: true
+      title: 'Control Programas Quimicos | Tratamientos', requireSession: true, ranks: [1, 2, 3, 4, 5, 6, 7]
+    }
+  },
+  {
+    path: '/projects-client/:id',
+    component: () => import('layouts/MainLayout.vue'),
+    props: {
+      view: 'projects-client'
+    },
+    meta: {
+      title: 'Control Programas Quimicos | Tratamientos', requireSession: true, ranks: [2, 3, 4, 5, 6]
     }
   },
   {
@@ -91,7 +111,7 @@ const routes = [
       view: 'project'
     },
     meta: {
-      title: 'Control Programas Quimicos | Proyecto', requireSession: true
+      title: 'Control Programas Quimicos | Tratamiento', requireSession: true, ranks: [1, 2, 3, 4, 5, 6, 7]
     }
   },
   {
@@ -101,7 +121,7 @@ const routes = [
       view: 'vars'
     },
     meta: {
-      title: 'Control Programas Quimicos | Variables', requireSession: true
+      title: 'Control Programas Quimicos | Variables', requireSession: true, ranks: [1, 2, 3, 4, 5, 6, 7]
     }
   },
   {
@@ -111,7 +131,7 @@ const routes = [
       view: 'var'
     },
     meta: {
-      title: 'Control Programas Quimicos | Variable', requireSession: true
+      title: 'Control Programas Quimicos | Variable', requireSession: true, ranks: [1, 2, 3, 4, 5, 6, 7]
     }
   },
   {
@@ -121,7 +141,7 @@ const routes = [
       view: 'reports'
     },
     meta: {
-      title: 'Control Programas Quimicos | Informes', requireSession: true
+      title: 'Control Programas Quimicos | Informes', requireSession: true, ranks: [1, 2, 3, 4, 5, 6, 7]
     }
   },
   {
@@ -131,7 +151,7 @@ const routes = [
       view: 'new-report'
     },
     meta: {
-      title: 'Control Programas Quimicos | Crear informe', requireSession: true
+      title: 'Control Programas Quimicos | Crear informe', requireSession: true, ranks: [1, 2, 3, 4, 5, 6, 7]
     }
   },
   {
@@ -141,7 +161,7 @@ const routes = [
       view: 'report'
     },
     meta: {
-      title: 'Control Programas Quimicos | Informe', requireSession: true
+      title: 'Control Programas Quimicos | Informe', requireSession: true, ranks: [1, 2, 3, 4, 5, 6, 7]
     }
   },
   {
@@ -151,7 +171,7 @@ const routes = [
       view: 'graphics'
     },
     meta: {
-      title: 'Control Programas Quimicos | Graficas', requireSession: true
+      title: 'Control Programas Quimicos | Graficas', requireSession: true, ranks: [1, 2, 3, 4, 5, 6, 7]
     }
   },
   {
@@ -161,7 +181,7 @@ const routes = [
       view: 'calculate'
     },
     meta: {
-      title: 'Control Programas Quimicos | Formulas', requireSession: true
+      title: 'Control Programas Quimicos | Formulas', requireSession: true, ranks: [1, 2, 3, 4, 5, 6, 7]
     }
   },
   {
@@ -171,7 +191,7 @@ const routes = [
       view: 'pqrs'
     },
     meta: {
-      title: 'Control Programas Quimicos | PQRS', requireSession: true
+      title: 'Control Programas Quimicos | PQRS', requireSession: true, ranks: [1, 2, 3, 4, 5, 6, 7]
     }
   },
   {
@@ -181,14 +201,14 @@ const routes = [
       view: 'calculate-form'
     },
     meta: {
-      title: 'Control Programas Quimicos | Formula: Enfriamentos de sistemas abiertos', requireSession: true
+      title: 'Control Programas Quimicos | Formula: Enfriamentos de sistemas abiertos', requireSession: true, ranks: [1, 2, 3, 4, 5, 6, 7]
     }
   },
   {
     name: 'logout',
     path: '/logout',
     meta: {
-      title: 'Control Programas Quimicos | logout', requireSession: true
+      title: 'Control Programas Quimicos | logout', requireSession: true, ranks: [1, 2, 3, 4, 5, 6, 7]
     }
   },
 

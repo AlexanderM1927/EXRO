@@ -3,8 +3,8 @@
         <div class="row">
             <div class="col-1"></div>
             <div class="col-10 container">
-                <div class="text-h6">Reporte #{{id}}</div>
-                <div class="text-h8">Proyecto: {{report.name}}</div>
+                <div class="text-h6">Reporte</div>
+                <div class="text-h8">Tratamiento: {{report.name}}</div>
                 <div class="text-h8">Cliente: {{report.cliente_name}}</div>
                 <q-separator />
                 <div v-for="variable in report.variables" v-bind:key="variable.id">
@@ -20,10 +20,10 @@
                 </div>
                 <div class="text-h6">Observacion:</div>
                 <ckeditor :editor="editor" v-model="report.observacion" :config="editorConfig"></ckeditor>
-                <q-btn v-if="user.rank > 1" flat color="primary" @click="editReport">
+                <q-btn v-if="[3, 2, 4, 5, 6].includes(user.rank)" flat color="primary" @click="editReport">
                   Editar
                 </q-btn>
-                <q-btn v-if="user.rank > 1" flat color="negative" @click="deleteReport">
+                <q-btn v-if="[3, 2, 4, 5, 6].includes(user.rank)" flat color="negative" @click="deleteReport">
                   Eliminar
                 </q-btn>
             </div>

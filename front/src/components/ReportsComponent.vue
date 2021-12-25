@@ -6,7 +6,7 @@
                 <FullCalendar ref="calendar" :events="events" :config="config" />
                 <br>
                 <center>
-                  <q-btn v-if="user.rank > 1" label="Crear reporte" @click="newReport" color="primary"></q-btn>
+                  <q-btn v-if="hasAccess([2, 3, 4, 5, 6], user)" label="Crear reporte" @click="newReport" color="primary"></q-btn>
                 </center>
               <q-dialog
                 v-model="dialogProjects"

@@ -44,8 +44,10 @@
       <home-component :user="user" v-if="view === 'home'" @tour="activateTour"></home-component>
       <users-component v-if="view === 'users'"></users-component>
       <user-component v-if="view === 'user'"></user-component>
+      <clients-component v-if="view === 'clients'"></clients-component>
       <projects-component v-if="view === 'projects'"></projects-component>
-      <project-component v-if="view === 'project'"></project-component>
+      <projects-client-component v-if="view === 'projects-client'"></projects-client-component>
+      <project-component v-if="view === 'project'" :user="user"></project-component>
       <vars-component v-if="view === 'vars'"></vars-component>
       <var-component v-if="view === 'var'"></var-component>
       <reports-component :user="user" v-if="view === 'reports'"></reports-component>
@@ -54,8 +56,8 @@
       <graphics-component v-if="view === 'graphics'"></graphics-component>
       <calculate-component v-if="view === 'calculate'"></calculate-component>
       <calculate-form-component v-if="view === 'calculate-form'"></calculate-form-component>
-      <pqrs-component v-if="view === 'pqrs'"></pqrs-component>
-      <chat-component></chat-component>
+      <!-- <pqrs-component v-if="view === 'pqrs'"></pqrs-component> -->
+      <!-- <chat-component></chat-component> -->
       <v-tour name="myTour" v-if="user.rank === 3" :steps="steps3"></v-tour>
       <v-tour name="myTour" v-if="user.rank === 2" :steps="steps2"></v-tour>
       <v-tour name="myTour" v-if="user.rank === 1" :steps="steps1"></v-tour>
@@ -67,7 +69,9 @@
 import EssentialLink from 'components/EssentialLink.vue'
 import UsersComponent from 'components/UsersComponent.vue'
 import UserComponent from 'components/UserComponent.vue'
+import ClientsComponent from 'components/ClientsComponent.vue'
 import ProjectsComponent from 'components/ProjectsComponent.vue'
+import ProjectsClientComponent from 'components/ProjectsClientComponent.vue'
 import ProjectComponent from 'components/ProjectComponent.vue'
 import VarsComponent from 'components/VarsComponent.vue'
 import VarComponent from 'components/VarComponent.vue'
@@ -78,60 +82,65 @@ import GraphicsComponent from 'components/GraphicsComponent.vue'
 import HomeComponent from 'components/HomeComponent.vue'
 import CalculateComponent from 'components/CalculateComponent.vue'
 import CalculateFormComponent from 'components/CalculateFormComponent.vue'
-import PqrsComponent from 'components/PQRSComponent.vue'
-import ChatComponent from 'components/Chat/ChatComponent.vue'
+// import PqrsComponent from 'components/PQRSComponent.vue'
+// import ChatComponent from 'components/Chat/ChatComponent.vue'
 import { functions } from '../functions.js'
-import UserService from '../services/UserService'
 
 const linksData = [
   {
     title: 'Inicio',
     icon: 'home',
     link: 'home',
-    minRank: 1
+    ranks: [1, 2, 3, 4, 5, 6, 7]
   },
   {
     title: 'Usuarios',
     icon: 'business',
     link: 'users',
-    minRank: 3
+    ranks: [1, 3]
   },
   {
-    title: 'Proyectos',
+    title: 'Clientes',
+    icon: 'face',
+    link: 'clients',
+    ranks: [3, 2, 3, 4, 5, 6]
+  },
+  {
+    title: 'Tratamientos',
     icon: 'library_books',
     link: 'projects',
-    minRank: 3
+    ranks: [1, 7]
   },
-  {
-    title: 'Variables',
-    icon: 'description',
-    link: 'vars',
-    minRank: 3
-  },
+  // {
+  //   title: 'Variables',
+  //   icon: 'description',
+  //   link: 'vars',
+  //   ranks: [3]
+  // },
   {
     title: 'Reportes',
     icon: 'article',
     link: 'reports',
-    minRank: 1
+    ranks: [1, 2, 3, 5, 6, 7]
   },
   {
     title: 'Gráficas',
     icon: 'analytics',
     link: 'graphics',
-    minRank: 1
+    ranks: [1, 2, 3, 5, 6, 7]
   },
   {
     title: 'Fórmulas',
     icon: 'calculate',
     link: 'calculate',
-    minRank: 2
-  },
-  {
-    title: 'PQRS',
-    icon: 'chat',
-    link: 'pqrs',
-    minRank: 3
+    ranks: [2, 3, 4, 5, 6]
   }
+  // {
+  //   title: 'PQRS',
+  //   icon: 'chat',
+  //   link: 'pqrs',
+  //   ranks: [3]
+  // }
 ]
 
 export default {
@@ -140,7 +149,9 @@ export default {
     EssentialLink,
     UsersComponent,
     UserComponent,
+    ClientsComponent,
     ProjectsComponent,
+    ProjectsClientComponent,
     ProjectComponent,
     HomeComponent,
     CalculateComponent,
@@ -150,16 +161,16 @@ export default {
     ReportsComponent,
     NewReportComponent,
     ReportComponent,
-    GraphicsComponent,
-    ChatComponent,
-    PqrsComponent
+    GraphicsComponent
+    // ChatComponent,
+    // PqrsComponent
   },
   mixins: [functions],
   data () {
     return {
       leftDrawerOpen: false,
       essentialLinks: linksData,
-      user: {},
+      user: JSON.parse(localStorage.getItem('user')),
       steps3: [
         {
           target: '#home', // We're using document.querySelector() under the hood
@@ -174,16 +185,16 @@ export default {
           header: {
             title: 'Sección de Usuarios'
           },
-          content: 'En este apartado puedes agregar clientes, ingenieros y administradores.',
+          content: 'En este apartado puedes agregar diferentes tipos de usuarios.',
           params: { placement: 'bottom' }
         },
         {
           target: '#projects',
           overlay: '#projects',
           header: {
-            title: 'Sección de Proyectos'
+            title: 'Sección de Tratamientos'
           },
-          content: 'Gestiona los proyectos que manejas actualmente.',
+          content: 'Gestiona los tratamientos que manejas actualmente.',
           params: { placement: 'bottom' }
         },
         {
@@ -201,7 +212,7 @@ export default {
           header: {
             title: 'Sección de Reportes'
           },
-          content: 'Actualiza los valores de variables de los proyectos.',
+          content: 'Actualiza los valores de variables de los tratamientos.',
           params: { placement: 'bottom-right' }
         },
         {
@@ -210,7 +221,7 @@ export default {
           header: {
             title: 'Sección de Gráficas'
           },
-          content: 'Mira los avances de los proyectos, revisa el estado de sus variables.',
+          content: 'Mira los avances de los tratamientos, revisa el estado de sus variables.',
           params: { placement: 'bottom-right' }
         },
         {
@@ -220,15 +231,6 @@ export default {
             title: 'Sección de Fórmulas'
           },
           content: 'Realiza calculos.',
-          params: { placement: 'bottom-right' }
-        },
-        {
-          target: '#pqrs',
-          overlay: '#pqrs',
-          header: {
-            title: 'Sección de PQRS'
-          },
-          content: 'Lee y da respuesta a los diferentes PQRS.',
           params: { placement: 'bottom-right' }
         }
       ],
@@ -246,7 +248,7 @@ export default {
           header: {
             title: 'Sección de Reportes'
           },
-          content: 'Actualiza los valores de variables de los proyectos.',
+          content: 'Actualiza los valores de variables de los tratamientos.',
           params: { placement: 'bottom-right' }
         },
         {
@@ -255,7 +257,7 @@ export default {
           header: {
             title: 'Sección de Gráficas'
           },
-          content: 'Mira los avances de los proyectos, revisa el estado de sus variables.',
+          content: 'Mira los avances de los tratamientos, revisa el estado de sus variables.',
           params: { placement: 'bottom-right' }
         },
         {
@@ -282,7 +284,7 @@ export default {
           header: {
             title: 'Sección de Reportes'
           },
-          content: 'Actualiza los valores de variables de los proyectos.',
+          content: 'Actualiza los valores de variables de los tratamientos.',
           params: { placement: 'bottom-right' }
         },
         {
@@ -291,27 +293,14 @@ export default {
           header: {
             title: 'Sección de Gráficas'
           },
-          content: 'Mira los avances de los proyectos, revisa el estado de sus variables.',
+          content: 'Mira los avances de los tratamientos, revisa el estado de sus variables.',
           params: { placement: 'bottom-right' }
         }
       ]
     }
   },
   props: ['view'],
-  mounted () {
-    this.verifySession()
-  },
   methods: {
-    async verifySession () {
-      try {
-        this.activateLoading('Cargando')
-        const u = await UserService.getMyUser({ token: localStorage.getItem('token') })
-        this.user = u.data
-      } catch (error) {
-        this.goTo('login')
-      }
-      this.disableLoading()
-    },
     activateTour () {
       if (this.leftDrawerOpen === false) this.leftDrawerOpen = true
       setTimeout(this.$tours.myTour.start, 1000)

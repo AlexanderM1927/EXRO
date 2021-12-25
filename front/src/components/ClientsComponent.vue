@@ -6,14 +6,9 @@
             <div class="col-10 container">
                 <div class="title">
                     <div class="text-h4">
-                        Usuarios
+                        Clientes
                         <div class="right">
-                          <q-btn v-if="user.rank === 1" round color="positive" @click="createChildren" size="md" icon="add">
-                            <q-tooltip>
-                                Agregar
-                            </q-tooltip>
-                          </q-btn>
-                          <q-btn v-else-if="hasAccess([3], user)" round color="positive" @click="createUser" size="md" icon="add">
+                          <q-btn round color="positive" @click="createUser" size="md" icon="add">
                             <q-tooltip>
                                 Agregar
                             </q-tooltip>
@@ -55,13 +50,11 @@
                                     <q-tooltip :delay="1000" :offset="[0, 10]">agregar</q-tooltip>
                                   </a>
                                 </q-td>
-                                <q-td key="ops" v-else-if="mode === 'technical'" :props="props">
-                                  <a class="text-blue" style="cursor: pointer; padding: 5px;" @click="$emit('addtechnical', props.row)"> <q-icon size="md" name="add"/>
-                                    <q-tooltip :delay="1000" :offset="[0, 10]">agregar</q-tooltip>
-                                  </a>
-                                </q-td>
                                 <q-td key="ops" v-else :props="props">
-                                  <a class="text-blue" v-if="hasAccess([3], user)" style="cursor: pointer; padding: 5px;" @click="goTo('user/' + props.row.id)"> <q-icon size="md" name="edit"/>
+                                  <a class="text-yellow" style="cursor: pointer; padding: 5px;" @click="goTo('projects-client/' + props.row.id)"> <q-icon size="md" name="visibility"/>
+                                    <q-tooltip :delay="1000" :offset="[0, 10]">ver</q-tooltip>
+                                  </a>
+                                  <a class="text-blue" style="cursor: pointer; padding: 5px;" @click="goTo('user/' + props.row.id)"> <q-icon size="md" name="edit"/>
                                     <q-tooltip :delay="1000" :offset="[0, 10]">editar</q-tooltip>
                                   </a>
                                   <a class="text-red" style="cursor: pointer; padding: 5px;" @click="del(props.row.id)"> <q-icon size="md" name="delete"/>
@@ -104,8 +97,7 @@ export default {
         { name: 'rank', align: 'center', label: 'Tipo', field: 'rank', sortable: true },
         { name: 'ops', align: 'center', label: 'Opciones', field: 'ops', sortable: true }
       ],
-      data: [],
-      user: JSON.parse(localStorage.getItem('user'))
+      data: []
     }
   },
   mounted () {
@@ -115,14 +107,7 @@ export default {
     async getUsers () {
       try {
         this.activateLoading('Cargando')
-        let us = {}
-        if (this.mode === 'project') us = await UserService.getClients({ token: localStorage.getItem('token') })
-        else {
-          if (this.mode === 'engineer') us = await UserService.getEngineers({ token: localStorage.getItem('token') })
-          else if (this.mode === 'technical') us = await UserService.getTechnicals({ token: localStorage.getItem('token') })
-          else if (this.user.rank === 1) us = await UserService.getChildrens({ token: localStorage.getItem('token') })
-          else us = await UserService.getUsers({ token: localStorage.getItem('token') })
-        }
+        const us = await UserService.getClients({ token: localStorage.getItem('token') })
         const users = us.data.users
         this.data = users
       } catch (error) {
@@ -133,37 +118,14 @@ export default {
     createUser () {
       this.$q.dialog({
         component: AddUser,
-        parent: this
+        parent: this,
+        isClient: true
       }).onOk(async (data) => {
         data.token = localStorage.getItem('token')
+        data.rank = 'Cliente'
         try {
           this.activateLoading('Cargando')
           const p = await UserService.register(data)
-          this.getUsers()
-          if (p.status === 201) {
-            this.alert('positive', 'Usuario agregado correctamente')
-          }
-        } catch (error) {
-          if (error.response.data.email) this.alert('negative', 'El correo ya está registrado, intenta con otro.')
-          else this.alert('negative', 'Se ha presentado un error.')
-        }
-        this.disableLoading()
-      }).onCancel(() => {
-        // console.log('Cancel')
-      }).onDismiss(() => {
-        // console.log('Called on OK or Cancel')
-      })
-    },
-    createChildren () {
-      this.$q.dialog({
-        component: AddUser,
-        parent: this,
-        isChildren: true
-      }).onOk(async (data) => {
-        data.token = localStorage.getItem('token')
-        try {
-          this.activateLoading('Cargando')
-          const p = await UserService.registerChildren(data)
           this.getUsers()
           if (p.status === 201) {
             this.alert('positive', 'Usuario agregado correctamente')

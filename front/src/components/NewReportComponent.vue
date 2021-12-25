@@ -8,7 +8,7 @@
                     Crear informe
                 </div>
                 <q-form @submit="save">
-                    <q-input color="grey-3" bg-color="white" label-color="primary" label="Desde" required :rules="[val => !!val || 'Tienes que llenar este campo']" v-model="date">
+                    <q-input color="grey-3" bg-color="white" label-color="primary" label="Fecha" required :rules="[val => !!val || 'Tienes que llenar este campo']" v-model="date">
                       <template v-slot:prepend>
                           <q-icon color="primary" name="event" class="cursor-pointer">
                             <q-popup-proxy transition-show="scale" transition-hide="scale">
@@ -26,13 +26,15 @@
                       </template>
                     </q-input>
                     <q-separator />
-                    <div v-for="variable in vars" v-bind:key="variable.id">
-                        <q-input color="grey-3" bg-color="white" label-color="primary" filled v-model="variable.value" :label="variable.name"></q-input>
+                    <div class="row">
+                      <div class="col-md-6 col-xs-12" v-for="variable in vars" v-bind:key="variable.id">
+                        <q-input color="grey-3" bg-color="white" label-color="primary" outlined v-model="variable.value" :label="variable.name"></q-input>
+                      </div>
                     </div>
                     <q-separator />
                     <div class="text-h6">Observacion:</div>
                     <ckeditor :editor="editor" v-model="observacion" :config="editorConfig"></ckeditor>
-                    <q-btn v-if="user.rank > 1" class="right" round type="submit" color="primary" icon="save" />
+                    <q-btn v-if="[3, 2, 4, 5, 6].includes(user.rank)" class="right" round type="submit" color="primary" icon="save" />
                 </q-form>
             </div>
             <div class="col-1"></div>

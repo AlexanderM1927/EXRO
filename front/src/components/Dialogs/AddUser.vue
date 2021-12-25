@@ -23,13 +23,14 @@
           <q-icon color="primary" :name="isPwd2 ? 'visibility_off' : 'visibility'" @click="isPwd2 = !isPwd2"/>
         </template>
       </q-input>
-      <q-select color="grey-3" bg-color="white" label-color="primary" filled v-model="user.rank" :options="options" label="Tipo" required :rules="[val => !!val || 'Este campo es necesario']">
+      <q-select v-if="!isChildren && !isClient" color="grey-3" bg-color="white" label-color="primary" filled v-model="user.rank" :options="options" label="Tipo" required :rules="[val => !!val || 'Este campo es necesario']">
         <template v-slot:append>
           <q-icon name="check" color="primary" />
         </template>
       </q-select>
       <q-card-actions align="right">
-        <q-btn color="primary" label="OK" @click="validateForm([user.name, user.email, user.password, user.rank], onOKClick)" />
+        <q-btn color="primary" label="OK" v-if="isChildren || isClient" @click="validateForm([user.name, user.email, user.password], onOKClick)" />
+        <q-btn color="primary" label="OK" v-else @click="validateForm([user.name, user.email, user.password, user.rank], onOKClick)" />
         <q-btn color="primary" label="Cancel" @click="onCancelClick" />
       </q-card-actions>
     </q-card>
@@ -41,13 +42,14 @@ import { functions } from '../../functions.js'
 
 export default {
   mixins: [functions],
+  props: ['isChildren', 'isClient'],
   data () {
     return {
       user: {},
       isPwd: true,
       isPwd2: true,
       options: [
-        'Cliente', 'Ingeniero', 'Administrador'
+        'Cliente', 'Ingeniero', 'Administrador', 'Tecnico', 'Supervisor', 'Gerente'
       ]
     }
   },

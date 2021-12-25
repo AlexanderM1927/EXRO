@@ -50,6 +50,14 @@ export const functions = {
         r = 'Ingeniero'
       } else if (id === 3) {
         r = 'Administrador'
+      } else if (id === 4) {
+        r = 'Supervisor'
+      } else if (id === 5) {
+        r = 'Tecnico'
+      } else if (id === 6) {
+        r = 'Gerente'
+      } else if (id === 7) {
+        r = 'Cliente hijo'
       }
       return r
     },
@@ -61,6 +69,14 @@ export const functions = {
         r = 2
       } else if (name === 'Administrador') {
         r = 3
+      } else if (name === 'Supervisor') {
+        r = 4
+      } else if (name === 'Tecnico') {
+        r = 5
+      } else if (name === 'Gerente') {
+        r = 6
+      } else if (name === 'Cliente hijo') {
+        r = 7
       }
       return r
     },
@@ -78,6 +94,9 @@ export const functions = {
     },
     disableLoading () {
       this.$q.loading.hide()
+    },
+    hasAccess (ranks, user) {
+      return ranks.includes(user.rank)
     },
     getChar (params) {
       var chartOptions1 = {

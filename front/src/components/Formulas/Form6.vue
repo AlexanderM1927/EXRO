@@ -1,5 +1,10 @@
 <template>
     <div ref="content">
+        <center>
+          <div class="text-h4">
+            {{ formName }}
+          </div>
+        </center>
         <div class="row">
             <div v-for="table in tables" :key="table.id" class="col-md-6 col-xs-12">
                 <!------- tabla ---->
@@ -46,6 +51,11 @@
             </div>
           </div>
         </div>
+        <div class="row">
+          <div class="col-12">
+            <b>{{ configuration.messageCalculate }}</b>
+          </div>
+        </div>
     </div>
 </template>
 
@@ -55,10 +65,12 @@ import JSPDF from 'jspdf'
 import domtoimage from 'dom-to-image'
 
 export default {
-  name: 'form-5-component',
+  props: ['configuration'],
+  name: 'form-6-component',
   mixins: [functions],
   data () {
     return {
+      formName: 'Filtración - Rata de Flujo',
       interpretacion: '',
       showInterpretacion: false,
       products: [],

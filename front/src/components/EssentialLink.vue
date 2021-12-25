@@ -5,7 +5,7 @@
     target="_blank"
     @click="goTo(link)"
     :class="`${view === link ? 'marked' : ''}`"
-    v-if="rank >= minRank"
+    v-if="ranks.includes(rank)"
   >
     <q-item-section
       v-if="icon"
@@ -56,7 +56,7 @@ export default {
     },
 
     rank: {},
-    minRank: {}
+    ranks: {}
   }
 }
 </script>

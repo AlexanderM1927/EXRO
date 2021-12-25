@@ -1,5 +1,10 @@
 <template>
     <div ref="content">
+        <center>
+          <div class="text-h4">
+            {{ formName }}
+          </div>
+        </center>
         <div class="row">
             <div v-for="table in tables" :key="table.id" class="col-md-6 col-xs-12">
                 <!------- tabla ---->
@@ -47,6 +52,11 @@
             </div>
           </div>
         </div>
+        <div class="row">
+          <div class="col-12">
+            <b>{{ configuration.messageCalculate }}</b>
+          </div>
+        </div>
     </div>
 </template>
 
@@ -56,10 +66,12 @@ import JSPDF from 'jspdf'
 import domtoimage from 'dom-to-image'
 
 export default {
+  props: ['configuration'],
   name: 'form-1-component',
   mixins: [functions],
   data () {
     return {
+      formName: 'Enfriamentos de sistemas abiertos',
       interpretacion: '',
       showInterpretacion: false,
       products: [],
@@ -110,7 +122,7 @@ export default {
             { id: 11, name: 'pHs', value: '', color: 'background-color:yellow' },
             { id: 12, name: 'pHa', value: '', color: 'background-color:#A2CCFA' },
             { id: 13, name: '', value: '', color: '' },
-            { id: 14, name: 'Ryznar', value: '', color: 'background-color:#A2FAE7' }
+            { id: 14, name: 'Ryznar', value: '', color: 'background-color:yellow' }
           ]
         },
         {

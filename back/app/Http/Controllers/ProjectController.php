@@ -53,9 +53,9 @@ class ProjectController extends Controller
 
     public function getProjects () {
         $user = Auth::user();
-        if ($user->rank == 3) {
+        if ($user->rank == 3 || $user->rank == 6 || $user->rank == 4) {
             $projects = DB::table('projects')->get();
-        } elseif ($user->rank == 2) {
+        } elseif ($user->rank == 2 || $user->rank == 5) {
             $projects = DB::table('projects')
             ->join('engineers_projects', 'engineers_projects.idproyecto', '=', 'projects.id')
             ->where('engineers_projects.idingeniero', '=', $user->id)
@@ -63,6 +63,23 @@ class ProjectController extends Controller
         } else {
             $projects = DB::table('projects')
             ->where('idcliente', '=', $user->id)
+            ->orWhere('idcliente', '=', $user->parent_id)
+            ->get();
+        }
+        return response()->json(['projects' => $projects]);
+    }
+
+    public function getProjectsByClientId ($id) {
+        $user = Auth::user();
+        if ($user->rank == 2 || $user->rank == 5) {
+            $projects = DB::table('projects')
+            ->join('engineers_projects', 'engineers_projects.idproyecto', '=', 'projects.id')
+            ->where('engineers_projects.idingeniero', '=', $user->id)
+            ->where('idcliente', '=', $id)
+            ->get();
+        } else {
+            $projects = DB::table('projects')
+            ->where('idcliente', '=', $id)
             ->get();
         }
         return response()->json(['projects' => $projects]);

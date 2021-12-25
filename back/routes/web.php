@@ -25,8 +25,12 @@ $router->group(['middleware' => 'auth'], function () use ($router) {
     $router->post('/user/{id}', "UserController@modifyUserById");
     $router->delete('/user/{id}', "UserController@deleteUserById");
     $router->get('/users', "UserController@getUsers");
+    $router->get('/users-childrens', "UserController@getChildrens");
     $router->get('/clients', "UserController@getClients");
     $router->get('/engineers', "UserController@getEngineers");
+    $router->get('/technicals', "UserController@getTechnicals");
+    $router->post('/register', "UserController@register");
+    $router->post('/register-children', "UserController@registerChildren");
 
     // Variables routes
     $router->get('/vars', "VariableController@getVars");
@@ -37,6 +41,7 @@ $router->group(['middleware' => 'auth'], function () use ($router) {
 
     //Proyectos routes
     $router->get('/projects', "ProjectController@getProjects");
+    $router->get('/projects-client/{id}', "ProjectController@getProjectsByClientId");
     $router->get('/project/{id}', "ProjectController@getProjectsById");
     $router->post('/projects', "ProjectController@newProject");
     $router->delete('/project/{id}', "ProjectController@deleteProjectById");
@@ -50,6 +55,7 @@ $router->group(['middleware' => 'auth'], function () use ($router) {
     //EngineersProjects routes
     $router->post('/engineersProjects', "EngineersProjectsController@newEngineerProject");
     $router->get('/engineersProjects/{id}', "EngineersProjectsController@getEngineersByProject");
+    $router->get('/technicalsProjects/{id}', "EngineersProjectsController@getTechnicalsByProject");
     $router->delete('/engineersProjects/{id}', "EngineersProjectsController@deleteEngineerProjectById");
 
     //Reports routes
@@ -68,7 +74,4 @@ $router->group(['middleware' => 'auth'], function () use ($router) {
     $router->post('/chat', "ChatController@newChat");
     $router->post('/chat/{id}', "ChatController@answerChat");
     $router->delete('/chat/{id}', "ChatController@deleteChatById");
-
-    //users
-    $router->post('/register', "UserController@register");
 });

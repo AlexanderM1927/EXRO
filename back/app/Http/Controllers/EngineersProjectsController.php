@@ -49,6 +49,17 @@ class EngineersProjectsController extends Controller
         $engineerProject = DB::table('engineers_projects')
         ->join('users', 'users.id', '=', 'engineers_projects.idingeniero')
         ->where('engineers_projects.idproyecto','=',$id)
+        ->where('users.rank','=',2)
+        ->select('users.name','engineers_projects.id','engineers_projects.idingeniero','engineers_projects.idproyecto')
+        ->get();
+        return response()->json(['engineerProject' => $engineerProject]);
+    }
+
+    public function getTechnicalsByProject ($id) {
+        $engineerProject = DB::table('engineers_projects')
+        ->join('users', 'users.id', '=', 'engineers_projects.idingeniero')
+        ->where('engineers_projects.idproyecto','=',$id)
+        ->where('users.rank','=',5)
         ->select('users.name','engineers_projects.id','engineers_projects.idingeniero','engineers_projects.idproyecto')
         ->get();
         return response()->json(['engineerProject' => $engineerProject]);

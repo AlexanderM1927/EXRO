@@ -41,7 +41,7 @@ export default {
       id: this.$route.params.id,
       user: {},
       options: [
-        'Cliente', 'Ingeniero', 'Administrador'
+        'Cliente', 'Ingeniero', 'Administrador', 'Tecnico', 'Supervisor', 'Gerente'
       ]
     }
   },

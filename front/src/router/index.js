@@ -61,6 +61,11 @@ export default function (/* { store, ssrContext } */) {
     }
 
     const reqSession = to.matched.some(route => route.meta.requireSession)
+    const hasRanks = to.matched.some(route => route.meta.ranks)
+    let ranks = []
+    if (hasRanks) {
+      ranks = to.meta.ranks
+    }
 
     if (!reqSession) {
       if (to.name === 'login' && localStorage.getItem('token')) {
@@ -69,7 +74,12 @@ export default function (/* { store, ssrContext } */) {
         next()
       }
     } else if (localStorage.getItem('token')) {
-      next()
+      const user = JSON.parse(localStorage.getItem('user'))
+      if (ranks.includes(user.rank)) {
+        next()
+      } else {
+        next({ name: 'home' })
+      }
     } else {
       next({ name: 'login' })
     }
