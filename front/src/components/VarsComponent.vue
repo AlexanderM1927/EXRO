@@ -33,12 +33,10 @@
                             <q-td key="name" :props="props">
                                 {{ props.row.name }}
                             </q-td>
-                            <q-td key="ops" v-if="mode === 'project'" :props="props">
-                                <a class="text-blue" style="cursor: pointer; padding: 5px;" @click="$emit('add', props.row)"> <q-icon size="md" name="add"/>
+                            <q-td key="ops" :props="props">
+                                <a v-if="mode === 'project'" class="text-green" style="cursor: pointer; padding: 5px;" @click="$emit('add', props.row)"> <q-icon size="md" name="add"/>
                                 <q-tooltip :delay="1000" :offset="[0, 10]">asociar</q-tooltip>
                                 </a>
-                            </q-td>
-                            <q-td key="ops" v-else :props="props">
                                 <a class="text-blue" style="cursor: pointer; padding: 5px;" @click="goTo('var/' + props.row.id)"> <q-icon size="md" name="edit"/>
                                 <q-tooltip :delay="1000" :offset="[0, 10]">editar</q-tooltip>
                                 </a>
@@ -70,7 +68,7 @@ import { functions } from '../functions.js'
 export default {
   name: 'vars-component',
   mixins: [functions],
-  props: ['mode'],
+  props: ['mode', 'project'],
   data () {
     return {
       filter: '',
@@ -104,6 +102,11 @@ export default {
       try {
         this.activateLoading('Cargando')
         const p = await VarService.addVar(data)
+        console.log('p')
+        console.log(p)
+        if (this.project) {
+          this.$emit('add', p.data.variable)
+        }
         if (p.status === 201) {
           this.alert('positive', 'Variable agregada correctamente')
           this.getVars()
@@ -126,7 +129,7 @@ export default {
     del (id) {
       this.$q.dialog({
         title: 'Confirmar',
-        message: 'Seguro que deseas eliminar esta variable?',
+        message: 'Seguro que deseas eliminar esta variable? si la eliminas, se eliminará toda la información relacionada.',
         cancel: true,
         persistent: true
       }).onOk(async () => {

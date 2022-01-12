@@ -117,18 +117,18 @@ const linksData = [
   //   link: 'vars',
   //   ranks: [3]
   // },
-  {
-    title: 'Reportes',
-    icon: 'article',
-    link: 'reports',
-    ranks: [1, 2, 3, 5, 6, 7]
-  },
-  {
-    title: 'Gráficas',
-    icon: 'analytics',
-    link: 'graphics',
-    ranks: [1, 2, 3, 5, 6, 7]
-  },
+  // {
+  //   title: 'Reportes',
+  //   icon: 'article',
+  //   link: 'reports',
+  //   ranks: [1, 2, 3, 5, 6, 7]
+  // },
+  // {
+  //   title: 'Gráficas',
+  //   icon: 'analytics',
+  //   link: 'graphics',
+  //   ranks: [1, 2, 3, 5, 6, 7]
+  // },
   {
     title: 'Fórmulas',
     icon: 'calculate',

@@ -133,7 +133,7 @@
               <q-separator /><br>
               <div class="title">
                 <div class="text-h6">
-                  Revisión de variables
+                  Consultar reportes por fechas
                 </div>
               </div>
               <q-input color="grey-3" bg-color="white" label-color="primary" label="Desde" required :rules="[val => !!val || 'Tienes que llenar este campo']" v-model="from">
@@ -172,10 +172,10 @@
               </q-input>
               <div class="row">
                 <div class="col-md-6">
-                  <q-btn color="primary" class="full-width" label="Generar grafica" @click="generarGraficas" />
+                  <q-btn color="black" class="full-width" label="Generar reporte" @click="generarGrilla" />
                 </div>
                 <div class="col-md-6">
-                  <q-btn color="black" class="full-width" label="Generar grilla" @click="generarGrilla" />
+                  <q-btn color="primary" class="full-width" label="Generar grafica" @click="generarGraficas" />
                 </div>
               </div>
               <div v-for="(value, key) in graphics" v-bind:key="value.id">
@@ -191,7 +191,7 @@
               >
                 <q-card style="width: 800px; max-width: 80vw;">
                 <q-card-section>
-                    <vars-component mode="project" @add="add"></vars-component>
+                    <vars-component mode="project" @add="add" :project="id"></vars-component>
                 </q-card-section>
                 </q-card>
               </q-dialog>
