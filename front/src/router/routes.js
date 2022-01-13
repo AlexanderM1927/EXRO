@@ -185,6 +185,26 @@ const routes = [
     }
   },
   {
+    path: '/logs',
+    component: () => import('layouts/MainLayout.vue'),
+    props: {
+      view: 'logs'
+    },
+    meta: {
+      title: 'Control Programas Quimicos | Auditoria', requireSession: true, ranks: [3]
+    }
+  },
+  {
+    path: '/settings',
+    component: () => import('layouts/MainLayout.vue'),
+    props: {
+      view: 'settings'
+    },
+    meta: {
+      title: 'Control Programas Quimicos | Configuración', requireSession: true, ranks: [3]
+    }
+  },
+  {
     path: '/pqrs',
     component: () => import('layouts/MainLayout.vue'),
     props: {

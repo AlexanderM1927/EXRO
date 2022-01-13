@@ -42,5 +42,8 @@ export default {
   },
   getTechnicals (params) {
     return Api().get('technicals', { headers: { Authorization: params.token } })
+  },
+  getManagers (params) {
+    return Api().get('managers', { headers: { Authorization: params.token } })
   }
 }

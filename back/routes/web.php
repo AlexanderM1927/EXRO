@@ -29,6 +29,7 @@ $router->group(['middleware' => 'auth'], function () use ($router) {
     $router->get('/clients', "UserController@getClients");
     $router->get('/engineers', "UserController@getEngineers");
     $router->get('/technicals', "UserController@getTechnicals");
+    $router->get('/managers', "UserController@getManagers");
     $router->post('/register', "UserController@register");
     $router->post('/register-children', "UserController@registerChildren");
 
@@ -49,6 +50,7 @@ $router->group(['middleware' => 'auth'], function () use ($router) {
 
     //VariablesProjects routes
     $router->post('/variablesprojects', "VariablesProjectsController@newVariablesProjects");
+    $router->post('/variablesprojects/{id}', "VariablesProjectsController@updateVariablesProjects");
     $router->get('/variablesprojects/{id}', "VariablesProjectsController@getVariablesByProject");
     $router->delete('/variablesprojects/{id}', "VariablesProjectsController@deleteVariableProjectById");
 
@@ -56,6 +58,7 @@ $router->group(['middleware' => 'auth'], function () use ($router) {
     $router->post('/engineersProjects', "EngineersProjectsController@newEngineerProject");
     $router->get('/engineersProjects/{id}', "EngineersProjectsController@getEngineersByProject");
     $router->get('/technicalsProjects/{id}', "EngineersProjectsController@getTechnicalsByProject");
+    $router->get('/managersProjects/{id}', "EngineersProjectsController@getManagersByProject");
     $router->delete('/engineersProjects/{id}', "EngineersProjectsController@deleteEngineerProjectById");
 
     //Reports routes
@@ -74,4 +77,12 @@ $router->group(['middleware' => 'auth'], function () use ($router) {
     $router->post('/chat', "ChatController@newChat");
     $router->post('/chat/{id}', "ChatController@answerChat");
     $router->delete('/chat/{id}', "ChatController@deleteChatById");
+
+    //logs
+    $router->get('/logs/{numItemsPerPage}/{page}[/{search}]', "AppLogController@getAppLogs");
+
+    //settings
+    $router->get('/settings', "SettingController@getSettings");
+    $router->get('/setting/{map}', "SettingController@getSettingByMap");
+    $router->post('/setting/{id}', "SettingController@updateSetting");
 });

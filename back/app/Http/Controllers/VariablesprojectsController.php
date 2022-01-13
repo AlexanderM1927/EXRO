@@ -42,6 +42,14 @@ class VariablesProjectsController extends Controller
         }
     }
 
+    public function updateVariablesProjects($id, Request $request) {
+        $var = DB::table('variablesprojects')->where('id', '=', $id)->update([
+            'max' => $request->input('max'),
+            'min' => $request->input('min')
+        ]);
+        return response()->json(['var' => $var]);
+    }
+
     public function deleteVariableProjectById ($id) {
         $variablesprojects = DB::table('variablesprojects')->where('id', '=', $id)->delete();
         return response()->json(['variablesprojects' => $variablesprojects]);

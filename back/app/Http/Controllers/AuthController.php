@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Mail\MessageSend;
 use Illuminate\Support\Facades\DB;
 use Log;
+use App\Http\Controllers\AppLogController;
 
 class AuthController extends Controller
 {
@@ -33,6 +34,8 @@ class AuthController extends Controller
             return response()->json(['message' => 'Unauthorized'], 401);
         } else {
             $user = Auth::user();
+            $log = new AppLogController;
+            $log->newAppLog($user->id, 'LOGIN', 'Ha iniciado sesión');
             return $this->respondWithToken($user,$token);
         }
     }

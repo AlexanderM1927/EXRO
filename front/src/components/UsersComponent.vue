@@ -60,6 +60,11 @@
                                     <q-tooltip :delay="1000" :offset="[0, 10]">agregar</q-tooltip>
                                   </a>
                                 </q-td>
+                                <q-td key="ops" v-else-if="mode === 'manager'" :props="props">
+                                  <a class="text-blue" style="cursor: pointer; padding: 5px;" @click="$emit('addmanager', props.row)"> <q-icon size="md" name="add"/>
+                                    <q-tooltip :delay="1000" :offset="[0, 10]">agregar</q-tooltip>
+                                  </a>
+                                </q-td>
                                 <q-td key="ops" v-else :props="props">
                                   <a class="text-blue" v-if="hasAccess([3], user)" style="cursor: pointer; padding: 5px;" @click="goTo('user/' + props.row.id)"> <q-icon size="md" name="edit"/>
                                     <q-tooltip :delay="1000" :offset="[0, 10]">editar</q-tooltip>
@@ -120,6 +125,7 @@ export default {
         else {
           if (this.mode === 'engineer') us = await UserService.getEngineers({ token: localStorage.getItem('token') })
           else if (this.mode === 'technical') us = await UserService.getTechnicals({ token: localStorage.getItem('token') })
+          else if (this.mode === 'manager') us = await UserService.getManagers({ token: localStorage.getItem('token') })
           else if (this.user.rank === 1) us = await UserService.getChildrens({ token: localStorage.getItem('token') })
           else us = await UserService.getUsers({ token: localStorage.getItem('token') })
         }

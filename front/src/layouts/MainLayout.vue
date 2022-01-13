@@ -56,6 +56,8 @@
       <graphics-component v-if="view === 'graphics'"></graphics-component>
       <calculate-component v-if="view === 'calculate'"></calculate-component>
       <calculate-form-component v-if="view === 'calculate-form'"></calculate-form-component>
+      <logs-component v-if="view === 'logs'"></logs-component>
+      <settings-component v-if="view === 'settings'"></settings-component>
       <!-- <pqrs-component v-if="view === 'pqrs'"></pqrs-component> -->
       <!-- <chat-component></chat-component> -->
       <v-tour name="myTour" v-if="user.rank === 3" :steps="steps3"></v-tour>
@@ -82,6 +84,8 @@ import GraphicsComponent from 'components/GraphicsComponent.vue'
 import HomeComponent from 'components/HomeComponent.vue'
 import CalculateComponent from 'components/CalculateComponent.vue'
 import CalculateFormComponent from 'components/CalculateFormComponent.vue'
+import LogsComponent from 'components/LogsComponent.vue'
+import SettingsComponent from 'components/SettingsComponent.vue'
 // import PqrsComponent from 'components/PQRSComponent.vue'
 // import ChatComponent from 'components/Chat/ChatComponent.vue'
 import { functions } from '../functions.js'
@@ -134,6 +138,18 @@ const linksData = [
     icon: 'calculate',
     link: 'calculate',
     ranks: [2, 3, 4, 5, 6]
+  },
+  {
+    title: 'Auditoria',
+    icon: 'history',
+    link: 'logs',
+    ranks: [3]
+  },
+  {
+    title: 'Configuracion',
+    icon: 'settings',
+    link: 'settings',
+    ranks: [3]
   }
   // {
   //   title: 'PQRS',
@@ -156,6 +172,8 @@ export default {
     HomeComponent,
     CalculateComponent,
     CalculateFormComponent,
+    LogsComponent,
+    SettingsComponent,
     VarsComponent,
     VarComponent,
     ReportsComponent,

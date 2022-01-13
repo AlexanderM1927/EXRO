@@ -12,6 +12,7 @@
 </template>
 
 <script>
+import SettingService from '../services/SettingService'
 import { functions } from '../functions.js'
 
 export default {
@@ -28,7 +29,16 @@ export default {
   created () {
     this.$options.components.formula = require('./Formulas/Form' + this.id).default
   },
+  mounted () {
+    this.getSettings()
+  },
   methods: {
+    async getSettings () {
+      this.activateLoading('Cargando')
+      const p = await SettingService.getSettingByMap({ map: 'calculate_text', token: localStorage.getItem('token') })
+      this.configuration.messageCalculate = p.data.value
+      this.disableLoading()
+    }
   }
 }
 </script>

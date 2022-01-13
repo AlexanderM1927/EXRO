@@ -35,6 +35,9 @@ class UserController extends Controller
 
             try {
 
+                $log = new AppLogController;
+                $log->newAppLog($user->id, 'USUARIO', 'Ha creado al usuario '.$request->input('name'));
+
                 $user = new User;
                 $user->name = $request->input('name');
                 $user->email = $request->input('email');
@@ -66,6 +69,9 @@ class UserController extends Controller
             ]);
 
             try {
+
+                $log = new AppLogController;
+                $log->newAppLog($user->id, 'USUARIO', 'Ha creado al usuario '.$request->input('name'));
 
                 $user = new User;
                 $user->name = $request->input('name');
@@ -104,20 +110,26 @@ class UserController extends Controller
 
     public function getClients () {
         $user = Auth::user();
-        $clients = DB::table('users')->where('rank','=','1')->get();
+        $clients = DB::table('users')->where('rank','=',1)->get();
         return response()->json(['users' => $clients]);
     }
 
     public function getEngineers () {
         $user = Auth::user();
-        $engineers = DB::table('users')->where('rank','=','2')->get();
+        $engineers = DB::table('users')->where('rank','=',2)->get();
         return response()->json(['users' => $engineers]);
     }
 
     public function getTechnicals () {
         $user = Auth::user();
-        $technicals = DB::table('users')->where('rank','=','5')->get();
+        $technicals = DB::table('users')->where('rank','=',5)->get();
         return response()->json(['users' => $technicals]);
+    }
+
+    public function getManagers () {
+        $user = Auth::user();
+        $managers = DB::table('users')->where('rank','=',6)->get();
+        return response()->json(['users' => $managers]);
     }
     
     public function getUserById ($id) {
@@ -131,6 +143,8 @@ class UserController extends Controller
     public function modifyUserById ($id, Request $request) {
         $user = Auth::user();
         if ($user->rank > 2) {
+            $log = new AppLogController;
+            $log->newAppLog($user->id, 'USUARIO', 'Ha modificado al usuario '.$id.' - '.$request->input('name'));
             $user = DB::table('users')->where('id', '=', $id)->update([
                 'name' => $request->input('name'),
                 'email' => $request->input('email'),
@@ -143,6 +157,8 @@ class UserController extends Controller
     public function deleteUserById ($id) {
         $user = Auth::user();
         if ($user->rank > 2) {
+            $log = new AppLogController;
+            $log->newAppLog($user->id, 'USUARIO', 'Ha eliminado al usuario '.$id);
             $user = DB::table('users')->where('id', '=', $id)->delete();
             return response()->json(['user' => $user]);
         }

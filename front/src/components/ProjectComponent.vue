@@ -46,9 +46,15 @@
                       </q-td>
                       <q-td key="max" :props="props">
                           {{ props.row.max }}
+                          <q-popup-edit v-model="props.row.max" title="Actualizar max">
+                            <q-input type="number" v-model="props.row.max" dense autofocus @keyup.enter="updateRow(props.row)" />
+                          </q-popup-edit>
                       </q-td>
                       <q-td key="min" :props="props">
                           {{ props.row.min }}
+                          <q-popup-edit v-model="props.row.min" title="Actualizar min">
+                            <q-input type="number" v-model="props.row.min" dense autofocus @keyup.enter="updateRow(props.row)" />
+                          </q-popup-edit>
                       </q-td>
                       <q-td key="ops" :props="props">
                         <a v-if="[3].includes(user.rank)" class="text-red" style="cursor: pointer; padding: 5px;" @click="del(props.row.id)"> <q-icon size="md" name="delete"/>
@@ -112,6 +118,42 @@
                 class="table"
                 :data="dataTechnicals"
                 :columns="columnsTechnicals"
+                row-key="name"
+              >
+                <template v-slot:body="props">
+                  <q-tr :props="props">
+                      <q-td key="id" :props="props">
+                          {{ props.row.idingeniero }}
+                      </q-td>
+                      <q-td key="name" :props="props">
+                          {{ props.row.name }}
+                      </q-td>
+                      <q-td key="ops" :props="props">
+                        <a v-if="[3].includes(user.rank)" class="text-red" style="cursor: pointer; padding: 5px;" @click="deleteEngineer(props.row.id)"> <q-icon size="md" name="delete"/>
+                          <q-tooltip :delay="1000" :offset="[0, 10]">desasociar</q-tooltip>
+                        </a>
+                      </q-td>
+                  </q-tr>
+                </template>
+              </q-table>
+              <q-separator /><br>
+              <div class="title">
+                <div class="text-h6">
+                  Gerentes asociados
+                  <div class="right">
+                    <q-btn v-if="[3].includes(user.rank)" round color="positive" @click="assocManager" size="md" icon="add">
+                      <q-tooltip>
+                        Asociar
+                      </q-tooltip>
+                    </q-btn>
+                  </div>
+                </div>
+              </div>
+              <q-table
+                :dense="$q.screen.lt.md"
+                class="table"
+                :data="dataManagers"
+                :columns="columnsManagers"
                 row-key="name"
               >
                 <template v-slot:body="props">
@@ -217,6 +259,17 @@
                 </q-card-section>
                 </q-card>
               </q-dialog>
+              <q-dialog
+                v-model="dialogManagers"
+                transition-show="slide-up"
+                transition-hide="slide-down"
+              >
+                <q-card style="width: 800px; max-width: 80vw;">
+                <q-card-section>
+                    <users-component mode='manager' @addmanager="addmanager"></users-component>
+                </q-card-section>
+                </q-card>
+              </q-dialog>
             </div>
             <div class="col-1"></div>
         </div>
@@ -265,12 +318,19 @@ export default {
         { name: 'name', align: 'center', label: 'Nombre', field: 'name', sortable: true },
         { name: 'ops', align: 'center', label: 'Opciones', field: 'ops', sortable: true }
       ],
+      columnsManagers: [
+        { name: 'id', align: 'center', label: 'id', field: 'id', sortable: true },
+        { name: 'name', align: 'center', label: 'Nombre', field: 'name', sortable: true },
+        { name: 'ops', align: 'center', label: 'Opciones', field: 'ops', sortable: true }
+      ],
       data: [],
       dataEngineers: [],
       dataTechnicals: [],
+      dataManagers: [],
       dialog: false,
       dialogEngineers: false,
       dialogTechnicals: false,
+      dialogManagers: false,
       from: date.formatDate(Date.now(), 'YYYY-MM-DD HH:mm:ss'),
       to: date.formatDate(Date.now(), 'YYYY-MM-DD HH:mm:ss'),
       graphics: []
@@ -280,6 +340,20 @@ export default {
     this.getVarInfo()
   },
   methods: {
+    async updateRow (row) {
+      try {
+        row.token = localStorage.getItem('token')
+        this.activateLoading('Cargando')
+        const p = await VariablesProjectsService.updateVariablesProjects(row)
+        if (p.status === 200) {
+          this.getVarInfo()
+          this.alert('positive', 'Variable actualizada')
+        }
+      } catch (error) {
+        this.alert('negative', 'Se ha presentado un error al actualizar')
+      }
+      this.disableLoading()
+    },
     getChartOptions (params) {
       return this.getChar(params)
     },
@@ -320,6 +394,8 @@ export default {
         this.dataEngineers = r.data.engineerProject
         const s = await EngineersPojectsService.getTechnicalsByProject({ id: this.id, token: localStorage.getItem('token') })
         this.dataTechnicals = s.data.engineerProject
+        const t = await EngineersPojectsService.getManagersByProject({ id: this.id, token: localStorage.getItem('token') })
+        this.dataManagers = t.data.engineerProject
       } catch (error) {
         console.log(error)
       }
@@ -333,6 +409,9 @@ export default {
     },
     assocTechnical () {
       this.dialogTechnicals = true
+    },
+    assocManager () {
+      this.dialogManagers = true
     },
     async add (params) {
       this.dialog = false
@@ -380,6 +459,24 @@ export default {
     },
     async addtechnical (params) {
       this.dialogTechnicals = false
+      const data = {}
+      data.token = localStorage.getItem('token')
+      data.idproyecto = this.id
+      data.idingeniero = params.id
+      try {
+        this.activateLoading('Cargando')
+        const p = await EngineersPojectsService.newEngineerProject(data)
+        if (p.status === 201) {
+          this.getVarInfo()
+          this.alert('positive', 'Técnico agregado exitosamente')
+        }
+      } catch (error) {
+        this.alert('negative', 'Se ha presentado un error al agregar el técnico')
+      }
+      this.disableLoading()
+    },
+    async addmanager (params) {
+      this.dialogManagers = false
       const data = {}
       data.token = localStorage.getItem('token')
       data.idproyecto = this.id

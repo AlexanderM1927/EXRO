@@ -7,6 +7,9 @@ export default {
   getTechnicalsByProject (params) {
     return Api().get('technicalsProjects/' + params.id, { headers: { Authorization: params.token } })
   },
+  getManagersByProject (params) {
+    return Api().get('managersProjects/' + params.id, { headers: { Authorization: params.token } })
+  },
   newEngineerProject (params) {
     return Api().post('engineersProjects', params, { headers: { Authorization: params.token } })
   },
