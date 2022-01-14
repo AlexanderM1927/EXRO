@@ -25,8 +25,9 @@
                     row-key="type"
                     :filter="filter"
                     @request="onRequest"
-                    v-model="pagination"
+                    :pagination="pagination"
                     :loading="loading"
+                    :key="reload"
                 >
                     <template v-slot:body="props">
                         <q-tr :props="props">
@@ -77,16 +78,15 @@ export default {
       ],
       data: [],
       pagination: {
-        sortBy: 'desc',
-        descending: false,
         page: 1,
-        rowsPerPage: 3,
+        rowsPerPage: 5,
         rowsNumber: 10
       },
-      loading: false
+      loading: false,
+      reload: 0
     }
   },
-  mounted () {
+  created () {
     this.getLogs()
   },
   methods: {
@@ -94,19 +94,24 @@ export default {
       this.activateLoading('Cargando')
       const p = await LogService.getLogs({ page: 0, rowsPerPage: 5, filter: '', token: localStorage.getItem('token') })
       this.data = p.data
+      if (this.data[0]) {
+        this.pagination.rowsNumber = this.data[0].total
+        this.reload++
+      }
       this.disableLoading()
     },
     async truncateLogs () {
       console.log('truncating')
     },
     async onRequest (props) {
-      const { page, rowsPerPage, sortBy, descending } = props.pagination
+      const { page, rowsPerPage } = props.pagination
       const filter = props.filter
-      console.log(sortBy)
-      console.log(descending)
-      this.loading.value = true
-      const p = await LogService.getLogs({ page: page, rowsPerPage: rowsPerPage, filter: filter, token: localStorage.getItem('token') })
+      this.loading = true
+      const p = await LogService.getLogs({ page: (page - 1), rowsPerPage: rowsPerPage, filter: filter, token: localStorage.getItem('token') })
       this.data = p.data
+      this.pagination.page = page
+      this.reload++
+      this.loading = false
     }
   }
 }

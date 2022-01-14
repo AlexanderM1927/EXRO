@@ -32,7 +32,7 @@
               <q-table
                 :dense="$q.screen.lt.md"
                 class="table"
-                :data="data"
+                :data="dataVars"
                 :columns="columns"
                 row-key="name"
               >
@@ -220,11 +220,21 @@
                   <q-btn color="primary" class="full-width" label="Generar grafica" @click="generarGraficas" />
                 </div>
               </div>
-              <div v-for="(value, key) in graphics" v-bind:key="value.id">
-                <highcharts :options="getChartOptions(key)"></highcharts><br>
+              <div v-for="(value, key) in graphics" v-bind:key="key">
+                <highcharts :options="getChartOptions(key, value)"></highcharts><br>
                 <analisis-grafica-component :values="value"></analisis-grafica-component>
                 <br>
                 <q-separator />
+              </div>
+              <div v-if="verGrilla">
+                <q-table
+                  :dense="$q.screen.lt.md"
+                  class="table"
+                  :data="dataGrilla"
+                  :columns="columnsGrilla"
+                  row-key="date"
+                >
+                </q-table>
               </div>
               <q-dialog
                 v-model="dialog"
@@ -323,7 +333,7 @@ export default {
         { name: 'name', align: 'center', label: 'Nombre', field: 'name', sortable: true },
         { name: 'ops', align: 'center', label: 'Opciones', field: 'ops', sortable: true }
       ],
-      data: [],
+      dataVars: [],
       dataEngineers: [],
       dataTechnicals: [],
       dataManagers: [],
@@ -333,7 +343,10 @@ export default {
       dialogManagers: false,
       from: date.formatDate(Date.now(), 'YYYY-MM-DD HH:mm:ss'),
       to: date.formatDate(Date.now(), 'YYYY-MM-DD HH:mm:ss'),
-      graphics: []
+      graphics: [],
+      verGrilla: false,
+      dataGrilla: [],
+      columnsGrilla: []
     }
   },
   mounted () {
@@ -354,11 +367,10 @@ export default {
       }
       this.disableLoading()
     },
-    getChartOptions (params) {
-      return this.getChar(params)
+    getChartOptions (params, value) {
+      return this.getChar(params, value)
     },
     async generarGraficas () {
-      this.generar = true
       const params = {}
       params.idproyecto = this.id
       params.token = localStorage.getItem('token')
@@ -371,17 +383,46 @@ export default {
       this.getVars(this.graphics)
     },
     async generarGrilla () {
-      this.generar = true
+      this.verGrilla = true
       const params = {}
       params.idproyecto = this.id
       params.token = localStorage.getItem('token')
       params.from = this.from
       params.to = this.to
       this.activateLoading('Cargando')
-      const p = await StaticsService.getStats(params)
+      const p = await StaticsService.getStatsGrilla(params)
       this.disableLoading()
-      this.graphics = p.data.statics
-      this.getVars(this.graphics)
+      const statistics = p.data.statics
+      this.columnsGrilla = [
+        { name: 'date', align: 'center', label: 'Fecha', field: 'date', sortable: true }
+      ]
+      for (let i = 0; i < this.dataVars.length; i++) {
+        this.columnsGrilla.push({
+          name: i,
+          align: 'center',
+          label: this.dataVars[i].name,
+          field: i,
+          sortable: true
+        })
+      }
+      console.log('this.columnsGrilla')
+      console.log(this.columnsGrilla)
+      const statisticsArray = Object.values(statistics)
+      for (let i = 0; i < statisticsArray.length; i++) {
+        this.dataGrilla[i] = {
+          date: statisticsArray[i][0].date
+        }
+        for (let y = 0; y < this.dataVars.length; y++) {
+          for (let j = 0; j < statisticsArray[i].length; j++) {
+            if (this.dataVars[y].id === statisticsArray[i][j].var_id) {
+              this.dataGrilla[i][y] = statisticsArray[i][j].value
+            }
+          }
+        }
+      }
+      this.dataGrilla = Object.values(this.dataGrilla)
+      console.log('this.dataGrilla')
+      console.log(this.dataGrilla)
     },
     async getVarInfo () {
       try {
@@ -389,7 +430,7 @@ export default {
         const p = await ProjectService.getProject({ id: this.id, token: localStorage.getItem('token') })
         this.project = p.data.project
         const q = await VariablesProjectsService.getVariablesByProject({ id: this.id, token: localStorage.getItem('token') })
-        this.data = q.data.variablesprojects
+        this.dataVars = q.data.variablesprojects
         const r = await EngineersPojectsService.getEngineersByProject({ id: this.id, token: localStorage.getItem('token') })
         this.dataEngineers = r.data.engineerProject
         const s = await EngineersPojectsService.getTechnicalsByProject({ id: this.id, token: localStorage.getItem('token') })

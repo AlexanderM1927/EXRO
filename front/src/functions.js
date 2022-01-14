@@ -98,7 +98,7 @@ export const functions = {
     hasAccess (ranks, user) {
       return ranks.includes(user.rank)
     },
-    getChar (params) {
+    getChar (params, value) {
       var chartOptions1 = {
         exporting: {
           buttons: {
@@ -122,7 +122,7 @@ export const functions = {
           type: 'line'
         },
         title: {
-          text: params
+          text: value[0].var_name
         },
         xAxis: {
           categories: this.getFechas(params)

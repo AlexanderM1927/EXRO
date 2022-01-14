@@ -70,6 +70,7 @@ $router->group(['middleware' => 'auth'], function () use ($router) {
 
     //statics
     $router->post('/getstats', "StatisticController@getStats");
+    $router->post('/getstatsgrilla', "StatisticController@getStatsGrilla");
 
     //chats
     $router->get('/chats', "ChatController@getChats");
