@@ -45,5 +45,8 @@ export default {
   },
   getManagers (params) {
     return Api().get('managers', { headers: { Authorization: params.token } })
+  },
+  getSupervisors (params) {
+    return Api().get('supervisors', { headers: { Authorization: params.token } })
   }
 }

@@ -131,6 +131,12 @@ class UserController extends Controller
         $managers = DB::table('users')->where('rank','=',6)->get();
         return response()->json(['users' => $managers]);
     }
+
+    public function getSupervisors () {
+        $user = Auth::user();
+        $supervisors = DB::table('users')->where('rank','=',4)->get();
+        return response()->json(['users' => $supervisors]);
+    }
     
     public function getUserById ($id) {
         $user = DB::table('users')

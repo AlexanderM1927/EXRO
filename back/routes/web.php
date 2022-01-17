@@ -30,6 +30,7 @@ $router->group(['middleware' => 'auth'], function () use ($router) {
     $router->get('/engineers', "UserController@getEngineers");
     $router->get('/technicals', "UserController@getTechnicals");
     $router->get('/managers', "UserController@getManagers");
+    $router->get('/supervisors', "UserController@getSupervisors");
     $router->post('/register', "UserController@register");
     $router->post('/register-children', "UserController@registerChildren");
 
@@ -59,6 +60,7 @@ $router->group(['middleware' => 'auth'], function () use ($router) {
     $router->get('/engineersProjects/{id}', "EngineersProjectsController@getEngineersByProject");
     $router->get('/technicalsProjects/{id}', "EngineersProjectsController@getTechnicalsByProject");
     $router->get('/managersProjects/{id}', "EngineersProjectsController@getManagersByProject");
+    $router->get('/supervisorsProjects/{id}', "EngineersProjectsController@getSupervisorsByProject");
     $router->delete('/engineersProjects/{id}', "EngineersProjectsController@deleteEngineerProjectById");
 
     //Reports routes
