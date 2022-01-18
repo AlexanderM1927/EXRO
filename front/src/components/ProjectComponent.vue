@@ -269,7 +269,6 @@
                   class="table"
                   :data="dataGrilla"
                   :columns="columnsGrilla"
-                  row-key="date"
                   title="Reportes"
                 >
                   <template v-slot:top-right>
@@ -479,7 +478,7 @@ export default {
         }
         for (let y = 0; y < this.dataVars.length; y++) {
           for (let j = 0; j < statisticsArray[i].length; j++) {
-            if (this.dataVars[y].id === statisticsArray[i][j].var_id) {
+            if (this.dataVars[y].idvariable === statisticsArray[i][j].var_id) {
               this.dataGrilla[i][y] = statisticsArray[i][j].value
             }
           }
