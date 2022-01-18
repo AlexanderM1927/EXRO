@@ -33,30 +33,42 @@
                       <q-td key="field" :props="props">
                           {{ props.row.field }}
                       </q-td>
-                      <q-td key="value" :props="props">
+                      <q-td key="value" :props="props" @click="openModal(props.row)">
                           {{ props.row.value }}
-                          <q-popup-edit v-model="props.row.value" title="Actualizar value">
-                            <q-input type="textarea" v-model="props.row.value" dense autofocus @keyup.enter="updateRow(props.row)" />
-                          </q-popup-edit>
                       </q-td>
                   </q-tr>
                 </template>
                 <template v-slot:top-right>
-                    <q-input dense color="grey-3" bg-color="white" label-color="primary" filled debounce="300" v-model="filter" placeholder="Buscar">
+                  <q-input dense color="grey-3" bg-color="white" label-color="primary" filled debounce="300" v-model="filter" placeholder="Buscar">
                     <template v-slot:append>
-                        <q-icon name="search" />
+                      <q-icon name="search" />
                     </template>
-                    </q-input>
+                  </q-input>
                 </template>
               </q-table><br>
             </div>
             <div class="col-1"></div>
+            <q-dialog
+              v-model="dialogEdit"
+              transition-show="slide-up"
+              transition-hide="slide-down"
+            >
+              <q-card style="width: 800px; max-width: 80vw;">
+                <q-card-section>
+                  <ckeditor :editor="editor" v-model="valueEditing.value" :config="editorConfig"></ckeditor>
+                  <q-btn color="primary" @click="updateRow(valueEditing)" >
+                    Guardar
+                  </q-btn>
+                </q-card-section>
+              </q-card>
+            </q-dialog>
         </div>
     </div>
 </template>
 
 <script>
 import SettingService from '../services/SettingService'
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
 import { functions } from '../functions.js'
 
 export default {
@@ -65,19 +77,29 @@ export default {
   props: ['mode'],
   data () {
     return {
+      editor: ClassicEditor,
+      editorConfig: {
+        // The configuration of the editor.
+      },
       filter: '',
       columns: [
         { name: 'id', align: 'center', label: 'id', field: 'id', sortable: true },
         { name: 'field', align: 'center', label: 'Campo', field: 'field', sortable: true },
         { name: 'value', align: 'center', label: 'Valor', field: 'value', sortable: true }
       ],
-      data: []
+      data: [],
+      dialogEdit: false,
+      valueEditing: {}
     }
   },
   mounted () {
     this.getSettings()
   },
   methods: {
+    openModal (value) {
+      this.valueEditing = value
+      this.dialogEdit = true
+    },
     async getSettings () {
       this.activateLoading('Cargando')
       const p = await SettingService.getSettings({ token: localStorage.getItem('token') })

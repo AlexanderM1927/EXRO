@@ -12,7 +12,7 @@
     </div>
     <div class="row">
       <div class="col-12">
-        <b>{{ configuration.messageCalculate }}</b>
+        <div style="text-align: justify;" v-html="configuration.messageCalculate"></div>
       </div>
     </div>
   </div>

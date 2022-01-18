@@ -29,10 +29,10 @@
         <div class="row">
           <div class="col-12">
             <br>
-            <center>
+            <div class="form__buttons">
               <q-btn color="primary" label="Ver productos sugeridos" @click="getProducts"></q-btn>
               <q-btn color="black" label="Exportar PDF" @click="printPDF"></q-btn>
-            </center>
+            </div>
             <br>
             <div v-if="showInterpretacion" class="container">
               <div class="text-h6">SECUESTRANTES DE OXIGENO</div>
@@ -60,7 +60,7 @@
         </div>
         <div class="row">
           <div class="col-12">
-            <b>{{ configuration.messageCalculate }}</b>
+            <div style="text-align: justify;" v-html="configuration.messageCalculate"></div>
           </div>
         </div>
     </div>
@@ -288,6 +288,7 @@ export default {
     },
     printPDF () {
       /** WITH CSS */
+      document.getElementsByClassName('form__buttons')[0].style.display = 'none'
       domtoimage.toPng(this.$refs.content).then(function (dataUrl) {
         var img = new Image()
         img.src = dataUrl
@@ -299,6 +300,7 @@ export default {
         doc.addImage(img, 'JPEG', 0, 0, width, height)
         const filename = 'form.pdf'
         doc.save(filename)
+        document.getElementsByClassName('form__buttons')[0].style.display = 'block'
       }).catch(function (error) {
         console.error('oops, something went wrong!', error)
       })
