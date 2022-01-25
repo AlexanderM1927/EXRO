@@ -41,7 +41,8 @@ class AppLogController extends Controller
     public function getAppLogs(Request $request, $numItemsPerPage, $page, $search = '')
     {
         return AppLog::select(
-            '*',
+            'logs.*',
+            'users.name',
             DB::raw("(SELECT COUNT(*) FROM logs) as total")
         )
         ->where(function ($query) use ($search) {

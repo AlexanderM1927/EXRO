@@ -34,6 +34,9 @@
                             <q-td key="id" :props="props">
                                 {{ props.row.id }}
                             </q-td>
+                            <q-td key="created_at" :props="props">
+                                {{ momentClass(props.row.created_at).format('YYYY-MM-DD') }}
+                            </q-td>
                             <q-td key="type" :props="props">
                                 {{ props.row.type }}
                             </q-td>
@@ -62,6 +65,7 @@
 <script>
 import LogService from '../services/LogService'
 import { functions } from '../functions.js'
+import moment from 'moment'
 
 export default {
   name: 'logs-component',
@@ -72,6 +76,7 @@ export default {
       filter: '',
       columns: [
         { name: 'id', align: 'center', label: 'id', field: 'id', sortable: true },
+        { name: 'created_at', align: 'center', label: 'Fecha', field: 'created_at', sortable: true },
         { name: 'type', align: 'center', label: 'Tipo', field: 'type', sortable: true },
         { name: 'action', align: 'center', label: 'Acción', field: 'action', sortable: true },
         { name: 'name', align: 'center', label: 'Usuario', field: 'name', sortable: true }
@@ -83,11 +88,13 @@ export default {
         rowsNumber: 10
       },
       loading: false,
-      reload: 0
+      reload: 0,
+      momentClass: null
     }
   },
   created () {
     this.getLogs()
+    this.momentClass = moment
   },
   methods: {
     async getLogs () {
