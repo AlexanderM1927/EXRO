@@ -35,7 +35,7 @@
                                 {{ props.row.id }}
                             </q-td>
                             <q-td key="created_at" :props="props">
-                                {{ momentClass(props.row.created_at).format('YYYY-MM-DD') }}
+                                {{ momentClass(props.row.created_at).format('YYYY-MM-DD h:mm:ss a') }}
                             </q-td>
                             <q-td key="type" :props="props">
                                 {{ props.row.type }}
