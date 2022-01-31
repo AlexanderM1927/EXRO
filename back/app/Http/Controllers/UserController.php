@@ -71,7 +71,7 @@ class UserController extends Controller
             try {
 
                 $log = new AppLogController;
-                $log->newAppLog($user->id, 'USUARIO', 'Ha creado al usuario '.$request->input('name'));
+                $log->newAppLog($myUser->id, 'USUARIO', 'Ha creado al usuario '.$request->input('name'));
 
                 $user = new User;
                 $user->name = $request->input('name');

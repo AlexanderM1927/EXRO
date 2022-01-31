@@ -46,18 +46,18 @@
                       </q-td>
                       <q-td key="max" :props="props">
                           {{ props.row.max }}
-                          <q-popup-edit v-model="props.row.max" title="Actualizar max">
+                          <q-popup-edit v-if="hasAccess([3], user)" v-model="props.row.max" title="Actualizar max">
                             <q-input type="number" v-model="props.row.max" dense autofocus @keyup.enter="updateRow(props.row)" />
                           </q-popup-edit>
                       </q-td>
                       <q-td key="min" :props="props">
                           {{ props.row.min }}
-                          <q-popup-edit v-model="props.row.min" title="Actualizar min">
+                          <q-popup-edit v-if="hasAccess([3], user)" v-model="props.row.min" title="Actualizar min">
                             <q-input type="number" v-model="props.row.min" dense autofocus @keyup.enter="updateRow(props.row)" />
                           </q-popup-edit>
                       </q-td>
                       <q-td key="ops" :props="props">
-                        <a v-if="[3].includes(user.rank)" class="text-red" style="cursor: pointer; padding: 5px;" @click="del(props.row.id)"> <q-icon size="md" name="delete"/>
+                        <a v-if="hasAccess([3], user)" class="text-red" style="cursor: pointer; padding: 5px;" @click="del(props.row.id)"> <q-icon size="md" name="delete"/>
                           <q-tooltip :delay="1000" :offset="[0, 10]">desasociar</q-tooltip>
                         </a>
                       </q-td>
