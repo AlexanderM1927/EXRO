@@ -137,7 +137,7 @@ const linksData = [
     title: 'Fórmulas',
     icon: 'calculate',
     link: 'calculate',
-    ranks: [2, 3, 4, 5, 6]
+    ranks: [1, 2, 3, 4, 5, 6, 7]
   },
   {
     title: 'Auditoria',
