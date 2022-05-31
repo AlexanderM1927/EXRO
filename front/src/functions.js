@@ -134,10 +134,10 @@ export const functions = {
         },
         plotOptions: {
           line: {
-            dataLabels: {
-              enabled: true
-            },
-            enableMouseTracking: false
+            // dataLabels: {
+            //   enabled: true
+            // },
+            // enableMouseTracking: false
           },
           area: {
             fillColor: {
@@ -166,17 +166,17 @@ export const functions = {
         series: [{
           name: 'Minimo',
           data: this.getMins(params),
-          color: '#21ba45'
+          color: '#DE0100'
         },
         {
           name: 'Maximo',
           data: this.getMaxs(params),
-          color: '#0080DD'
+          color: '#DE0100'
         },
         {
           name: 'Reportes',
           data: this.getValues(params),
-          color: '#E9BC36'
+          color: '#0080DD'
         }]
       }
       return chartOptions1

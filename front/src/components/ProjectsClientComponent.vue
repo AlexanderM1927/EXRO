@@ -22,15 +22,17 @@
                     <div v-for="item in projects" :key="item.id" class="col-md-6 col-xs-12">
                         <q-card class="my-card" style="margin: 5px;" flat bordered>
                             <q-card-section horizontal class="cards">
-                                <q-card-section style="width: 58.5%;">
+                                <q-card-section style="width: 100%;">
                                     <div class="text-h6">{{item.name}}</div>
                                     {{item.descripcion}}
                                 </q-card-section>
-
-                                <q-img
-                                class="col-5"
+                            </q-card-section>
+                            <q-card-section>
+                              <q-img
                                 :src="getImgUrl(item.urlimg)"
-                                />
+                                style="max-width: 300%; height: 150px;"
+                                :fit="'cover'"
+                              />
                             </q-card-section>
                             <q-separator/>
 

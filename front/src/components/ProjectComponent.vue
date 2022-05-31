@@ -9,7 +9,7 @@
               <q-separator />
               <br>
               <b>Descripción</b><br>
-              <pre>{{project.descripcion}}</pre>
+              <div v-html="project.descripcion"></div>
               <br><br>
               <q-separator />
               <div class="title">
