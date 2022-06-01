@@ -8,7 +8,7 @@
                     <div class="text-h4">
                         Clientes
                         <div class="right">
-                          <q-btn round color="positive" @click="createUser" size="md" icon="add">
+                          <q-btn round color="positive" @click="createUser" size="md" icon="add" v-if="user.rank === 3">
                             <q-tooltip>
                                 Agregar
                             </q-tooltip>
@@ -54,10 +54,10 @@
                                   <a class="text-yellow" style="cursor: pointer; padding: 5px;" @click="goTo('projects-client/' + props.row.id)"> <q-icon size="md" name="visibility"/>
                                     <q-tooltip :delay="1000" :offset="[0, 10]">ver</q-tooltip>
                                   </a>
-                                  <a class="text-blue" style="cursor: pointer; padding: 5px;" @click="goTo('user/' + props.row.id)"> <q-icon size="md" name="edit"/>
+                                  <a v-if="user.rank === 3" class="text-blue" style="cursor: pointer; padding: 5px;" @click="goTo('user/' + props.row.id)"> <q-icon size="md" name="edit"/>
                                     <q-tooltip :delay="1000" :offset="[0, 10]">editar</q-tooltip>
                                   </a>
-                                  <a class="text-red" style="cursor: pointer; padding: 5px;" @click="del(props.row.id)"> <q-icon size="md" name="delete"/>
+                                  <a v-if="user.rank === 3" class="text-red" style="cursor: pointer; padding: 5px;" @click="del(props.row.id)"> <q-icon size="md" name="delete"/>
                                     <q-tooltip :delay="1000" :offset="[0, 10]">eliminar</q-tooltip>
                                   </a>
                                 </q-td>
@@ -86,7 +86,7 @@ import { functions } from '../functions.js'
 export default {
   name: 'users-component',
   mixins: [functions],
-  props: ['mode'],
+  props: ['mode', 'user'],
   data () {
     return {
       filter: '',

@@ -44,7 +44,7 @@
       <home-component :user="user" v-if="view === 'home'" @tour="activateTour"></home-component>
       <users-component v-if="view === 'users'"></users-component>
       <user-component v-if="view === 'user'"></user-component>
-      <clients-component v-if="view === 'clients'"></clients-component>
+      <clients-component v-if="view === 'clients'" :user="user"></clients-component>
       <projects-component v-if="view === 'projects'"></projects-component>
       <projects-client-component v-if="view === 'projects-client'"></projects-client-component>
       <project-component v-if="view === 'project'" :user="user"></project-component>
