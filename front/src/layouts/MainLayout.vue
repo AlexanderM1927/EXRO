@@ -89,6 +89,8 @@ import SettingsComponent from 'components/SettingsComponent.vue'
 // import PqrsComponent from 'components/PQRSComponent.vue'
 // import ChatComponent from 'components/Chat/ChatComponent.vue'
 import { functions } from '../functions.js'
+import UserService from '../services/UserService'
+
 
 const linksData = [
   {
@@ -318,10 +320,25 @@ export default {
     }
   },
   props: ['view'],
+  async created () {
+    await this.getUser()
+  },
   methods: {
     activateTour () {
       if (this.leftDrawerOpen === false) this.leftDrawerOpen = true
       setTimeout(this.$tours.myTour.start, 1000)
+    },
+    async getUser () {
+      try {
+        const u = await UserService.getMyUser({ token: localStorage.getItem('token') })
+        if (u.status === 200) {
+          this.user = u.data.user
+        } else {
+          this.goTo('logout')
+        }
+      } catch (error) {
+        this.goTo('logout')
+      }
     }
   }
 }
