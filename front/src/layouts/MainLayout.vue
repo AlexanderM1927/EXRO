@@ -91,7 +91,6 @@ import SettingsComponent from 'components/SettingsComponent.vue'
 import { functions } from '../functions.js'
 import UserService from '../services/UserService'
 
-
 const linksData = [
   {
     title: 'Inicio',
@@ -332,7 +331,7 @@ export default {
       try {
         const u = await UserService.getMyUser({ token: localStorage.getItem('token') })
         if (u.status === 200) {
-          this.user = u.data.user
+          this.user = u.data
         } else {
           this.goTo('logout')
         }
