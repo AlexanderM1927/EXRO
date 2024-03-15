@@ -147,6 +147,12 @@ const linksData = [
     ranks: [3]
   },
   {
+    title: 'Calendario de Reportes',
+    icon: 'assignment',
+    link: 'reports',
+    ranks: [3]
+  },
+  {
     title: 'Configuracion',
     icon: 'settings',
     link: 'settings',

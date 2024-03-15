@@ -72,6 +72,7 @@ export default {
       }).onOk(async () => {
         try {
           this.activateLoading('Cargando')
+          localStorage.setItem('report-deleted-date', this.report.fecha)
           const p = await ReportService.deleteReport({ id: this.id, token: localStorage.getItem('token') })
           if (p.status === 200) {
             this.alert('positive', 'Eliminado correctamente')

@@ -414,6 +414,7 @@ export default {
     }
   },
   mounted () {
+    localStorage.setItem('last-project', this.$route.params.id)
     this.getVarInfo()
   },
   methods: {

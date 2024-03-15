@@ -3,11 +3,28 @@
         <div class="row">
             <div class="col-1"></div>
             <div class="col-10 container">
-                <FullCalendar ref="calendar" :events="events" :config="config" />
-                <br>
-                <center>
-                  <q-btn v-if="hasAccess([2, 3, 4, 5, 6], user)" label="Crear reporte" @click="newReport" color="primary"></q-btn>
-                </center>
+              <template  v-if="lastProjectSelected">
+                <q-btn color="primary" label="< Volver al último tratamiento" @click="goBackLastReport" />
+                <hr>
+              </template>
+              <FullCalendar
+                ref="fullCalendar"
+                :options="config"
+                :header="header"
+                :events="events"
+                :plugins="calendarPlugins"
+                :buttonText="{
+                  today: 'Hoy',
+                  month: 'Mes',
+                  week: 'Semana',
+                  day: 'Dia'
+                }"
+                @eventClick="eventClick"
+              />
+              <br>
+              <center>
+                <q-btn v-if="hasAccess([2, 3, 4, 5, 6], user)" label="Crear reporte" @click="newReport" color="primary"></q-btn>
+              </center>
               <q-dialog
                 v-model="dialogProjects"
                 transition-show="slide-up"
@@ -28,8 +45,12 @@
 <script>
 import ReportService from '../services/ReportService'
 import '../css/fullcalendar.scss'
+import '../css/fcmain.css'
 import ProjectsComponent from 'components/ProjectsComponent.vue'
-import { FullCalendar } from 'vue-full-calendar'
+import FullCalendar from '@fullcalendar/vue'
+import dayGridPlugin from '@fullcalendar/daygrid'
+import interactionPlugin from '@fullcalendar/interaction'
+import esLocale from '@fullcalendar/core/locales/es'
 import { functions } from '../functions.js'
 
 export default {
@@ -43,12 +64,25 @@ export default {
     return {
       events: [],
       config: {},
-      dialogProjects: false
+      header: {},
+      dialogProjects: false,
+      lastProjectSelected: 0,
+      calendarPlugins: [dayGridPlugin, interactionPlugin]
     }
   },
   created () {
+    this.lastProjectSelected = parseInt(localStorage.getItem('last-project'))
     this.getCalendarInfo()
     this.getReports()
+  },
+  mounted () {
+    const fullcalendar = this.$refs.fullCalendar
+    const fcApi = fullcalendar.getApi()
+    if (localStorage.getItem('report-deleted-date')) {
+      fcApi.gotoDate(localStorage.getItem('report-deleted-date'))
+      localStorage.removeItem('report-deleted-date')
+    }
+    fcApi.setOption('locale', 'es')
   },
   methods: {
     async getReports () {
@@ -66,52 +100,28 @@ export default {
       }
     },
     getCalendarInfo () {
-      const _this = this
-      const lang = {
-        months: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
-        monthsShort: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'],
-        daysLong: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
-        days: ['Do', 'Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa'],
-        today: 'Hoy',
-        month: 'Mes',
-        week: 'Semana',
-        day: 'Día',
-        list: 'Lista'
+      this.header = {
+        left: 'prev,today,next',
+        center: 'title',
+        right: 'dayGridMonth,dayGridWeek,dayGridDay'
       }
       this.config = {
-        defaultView: 'month',
-        editable: false,
-        displayEventTime: false,
-        header: {
-          left: 'prev,today,next',
-          right: 'month,listMonth,basicWeek,basicDay'
-        },
-        buttonText: {
-          today: lang.today,
-          month: lang.month,
-          week: lang.week,
-          day: lang.day,
-          listMonth: lang.list
-        },
-        allDayDefault: true,
-        height: 'auto',
-        monthNames: lang.months,
-        monthNamesShort: lang.monthsShort,
-        dayNames: lang.daysLong,
-        dayNamesShort: lang.days,
-        eventTextColor: 'white',
-        eventClick: function (event) {
-          _this.goTo('report/' + event._id)
-        },
-        eventMouseover: function (event, jsEvent, view) {},
-        eventMouseout: function (event, jsEvent, view) {}
+        locales: [esLocale],
+        initialView: 'listWeek',
+        eventTextColor: 'white'
       }
+    },
+    eventClick (info) {
+      this.goTo('report/' + info.event.extendedProps._id)
     },
     newReport () {
       this.dialogProjects = true
     },
     selectProject (idProject) {
       this.goTo('new-report/' + idProject)
+    },
+    goBackLastReport () {
+      this.goTo('project/' + parseInt(this.lastProjectSelected))
     }
   }
 }
