@@ -23,7 +23,7 @@ class ReportController extends Controller
     {
         $this->middleware('auth');
     }
-    
+
 
     public function createReport(Request $request)
     {
@@ -65,7 +65,7 @@ class ReportController extends Controller
 
             }
         }
-        
+
         if ($hasVariableOutRange) {
             $projects = DB::table('engineers_projects')
             ->select('users.name as name', 'projects.name as project_name', 'users.email as email')
@@ -95,7 +95,7 @@ class ReportController extends Controller
                 $body .= "<br>";
                 $body .= "<br>";
                 $body .= "<a href='".env('FRONT_URL')."report/".$report->id."'>Ver reporte</a>";
-                Mail::to($project->email)->send(new MessageSend($title,$body,$project->email));
+                // Mail::to($project->email)->send(new MessageSend($title,$body,$project->email));
             }
         }
         return response()->json(['report' => $report, 'message' => 'CREATED'], 201);
@@ -170,14 +170,14 @@ class ReportController extends Controller
         ]);
         $variables = $request->input('variables');
         foreach($variables as $variable) {
-            DB::table('values_variables')->where('idreport', '=', $variable['idreport'])->where('idvariablesprojects', '=', $variable['idvariablesprojects']) 
+            DB::table('values_variables')->where('idreport', '=', $variable['idreport'])->where('idvariablesprojects', '=', $variable['idvariablesprojects'])
             ->update([
                 'value' => $variable['value']
             ]);
         }
-       
+
     }
-    
+
     public function deleteReport ($id) {
         $report = DB::table('reports')->where('id', '=', $id)->delete();
         $valuevariable= DB::table('values_variables')->where('idreport', '=', $id)->delete();
