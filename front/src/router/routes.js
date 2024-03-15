@@ -7,9 +7,9 @@ const routes = [
     meta: {
       title: 'Control Programas Quimicos | Login'
     },
-    props: {
-      view: 'login'
-    }
+    children: [
+      { name: 'index', path: '', component: () => import('pages/Index.vue') }
+    ],
   },
   {
     name: 'changepassword',
@@ -18,9 +18,9 @@ const routes = [
     meta: {
       title: 'Control Programas Quimicos | Cambiar clave'
     },
-    props: {
-      view: 'changepassword'
-    }
+    children: [
+      { name: 'index', path: '', component: () => import('pages/ChangePassword.vue') }
+    ],
   },
   {
     name: 'recovery',
@@ -29,9 +29,9 @@ const routes = [
     meta: {
       title: 'Control Programas Quimicos | Recuperar clave'
     },
-    props: {
-      view: 'recovery'
-    }
+    children: [
+      { name: 'index', path: '', component: () => import('pages/Recovery.vue') }
+    ],
   },
   {
     path: '/login',

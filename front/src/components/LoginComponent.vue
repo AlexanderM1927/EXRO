@@ -1,39 +1,22 @@
 <template>
-  <q-layout view="lHh Lpr lFf">
-    <q-page-container>
-        <div class="row">
-          <div class="center col-md-4 col-sm-4 col-xs-10">
-            <q-img src="../assets/logo.png" style="width: 100%;" />
-          </div>
+    <q-form @submit="login">
+        <q-input color="grey-3" bg-color="white" label-color="primary" filled v-model="email" label="Correo" required :rules="[val => !!val || 'Este campo es necesario']">
+            <template v-slot:append>
+            <q-icon name="mail" color="primary" />
+            </template>
+        </q-input>
+        <br>
+        <q-input color="grey-3" bg-color="white" label-color="primary" v-model="password" filled :type="isPwd ? 'password' : 'text'" label="Clave" required :rules="[val => !!val || 'Este campo es necesario']">
+            <template v-slot:append>
+                <q-icon color="primary" :name="isPwd ? 'visibility_off' : 'visibility'" @click="isPwd = !isPwd"/>
+            </template>
+        </q-input>
+        <div class="right">
+        <a class="link" @click="goTo('recovery')">He olvidado mi clave</a>
         </div>
-        <div class="row">
-            <div class="login box col-md-4 col-sm-4 col-xs-10">
-                <div class="text-h6">
-                  Login
-                </div>
-                <q-separator />
-                <q-form @submit="login">
-                    <q-input color="grey-3" bg-color="white" label-color="primary" filled v-model="email" label="Correo" required :rules="[val => !!val || 'Este campo es necesario']">
-                        <template v-slot:append>
-                        <q-icon name="mail" color="primary" />
-                        </template>
-                    </q-input>
-                    <br>
-                    <q-input color="grey-3" bg-color="white" label-color="primary" v-model="password" filled :type="isPwd ? 'password' : 'text'" label="Clave" required :rules="[val => !!val || 'Este campo es necesario']">
-                        <template v-slot:append>
-                            <q-icon color="primary" :name="isPwd ? 'visibility_off' : 'visibility'" @click="isPwd = !isPwd"/>
-                        </template>
-                    </q-input>
-                    <div class="right">
-                      <a class="link" @click="goTo('recovery')">He olvidado mi clave</a>
-                    </div>
-                    <br>
-                    <q-btn color="primary" type="submit" class="full-width" label="Login"></q-btn>
-                </q-form>
-            </div>
-        </div>
-    </q-page-container>
-  </q-layout>
+        <br>
+        <q-btn color="primary" type="submit" class="full-width" label="Login"></q-btn>
+    </q-form>
 </template>
 
 <script>
