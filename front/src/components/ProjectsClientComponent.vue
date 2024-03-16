@@ -16,10 +16,10 @@
                   </div>
                 </div>
                 <div class="row">
-                    <div v-if="projects.length === 0">
+                    <div v-if="projects.data.length === 0">
                       Ningun tratamiento hasta el momento
                     </div>
-                    <div v-for="item in projects" :key="item.id" class="col-md-6 col-xs-12">
+                    <div v-for="item in projects.data" :key="item.id" class="col-md-6 col-xs-12">
                         <q-card class="my-card" style="margin: 5px;" flat bordered>
                             <q-card-section horizontal class="cards">
                                 <q-card-section style="width: 100%;">
@@ -55,6 +55,13 @@
                         </q-card>
                     </div>
                 </div>
+                <div class="row">
+                  <Paginator
+                    v-if="projects.data"
+                    @getAction="getProjects"
+                    :data="paginator"
+                  ></Paginator>
+                </div>
             </div>
             <div class="col-1"></div>
         </div>
@@ -66,15 +73,20 @@ import ProjectService from '../services/ProjectService'
 import AddProject from './Dialogs/AddProject.vue'
 import EditProject from './Dialogs/EditProject.vue'
 import { functions } from '../functions.js'
+import Paginator from './Paginator.vue'
 
 export default {
+  components: {
+    Paginator
+  },
   name: 'projects-component',
   mixins: [functions],
   props: ['mode'],
   data () {
     return {
       projects: [],
-      clientId: this.$route.params.id
+      clientId: this.$route.params.id,
+      paginator: {}
     }
   },
   mounted () {
@@ -95,10 +107,19 @@ export default {
         // document.getElementsByClassName('cards')[i].style.minWidth = widthSize + 'px'
       }
     },
-    async getProjects () {
+    async getProjects (newPage = 1) {
       try {
         this.activateLoading('Cargando')
-        const us = await ProjectService.getProjectsByClient({ clientId: this.clientId, token: localStorage.getItem('token') })
+        const us = await ProjectService.getProjectsByClient(newPage, {
+          clientId: this.clientId,
+          token: localStorage.getItem('token')
+        })
+        this.paginator = {
+          currentPage: us.data.projects.current_page,
+          lastPage: us.data.projects.last_page,
+          data: us.data.projects.data,
+          url: ''
+        }
         const projects = us.data.projects
         this.projects = projects
         this.organizarCards()

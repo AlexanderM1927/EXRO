@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Paginator;
 use Illuminate\Http\Request;
 use App\Project;
 use Illuminate\Support\Facades\Auth;
@@ -54,18 +55,19 @@ class ProjectController extends Controller
     public function getProjects () {
         $user = Auth::user();
         if ($user->rank == 3 || $user->rank == 4) {
-            $projects = DB::table('projects')->get();
+            $projects = DB::table('projects')
+            ->paginate(Paginator::PAGINATION_NUMBER);
         } elseif ($user->rank == 2 || $user->rank == 5 || $user->rank == 6 || $user->rank == 4) {
             $projects = DB::table('projects')
             ->join('engineers_projects', 'engineers_projects.idproyecto', '=', 'projects.id')
             ->where('engineers_projects.idingeniero', '=', $user->id)
             ->select('projects.*')
-            ->get();
+            ->paginate(Paginator::PAGINATION_NUMBER);
         } else {
             $projects = DB::table('projects')
             ->where('idcliente', '=', $user->id)
             ->orWhere('idcliente', '=', $user->parent_id)
-            ->get();
+            ->paginate(Paginator::PAGINATION_NUMBER);
         }
         return response()->json(['projects' => $projects]);
     }
@@ -78,11 +80,11 @@ class ProjectController extends Controller
             ->where('engineers_projects.idingeniero', '=', $user->id)
             ->where('idcliente', '=', $id)
             ->select('projects.*')
-            ->get();
+            ->paginate(Paginator::PAGINATION_NUMBER);
         } else {
             $projects = DB::table('projects')
             ->where('idcliente', '=', $id)
-            ->get();
+            ->paginate(Paginator::PAGINATION_NUMBER);
         }
         return response()->json(['projects' => $projects]);
     }

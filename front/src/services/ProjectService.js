@@ -4,11 +4,11 @@ export default {
   getProject (params) {
     return Api().get('project/' + params.id, { headers: { Authorization: params.token } })
   },
-  getProjects (params) {
-    return Api().get('projects', { headers: { Authorization: params.token } })
+  getProjects (page, params) {
+    return Api().get('projects?page=' + page, { headers: { Authorization: params.token } })
   },
-  getProjectsByClient (params) {
-    return Api().get('projects-client/' + params.clientId, { headers: { Authorization: params.token } })
+  getProjectsByClient (page, params) {
+    return Api().get('projects-client/' + params.clientId + '?page=' + page, { headers: { Authorization: params.token } })
   },
   newProject (params) {
     return Api().post('projects', params, { headers: { Authorization: params.token } })
