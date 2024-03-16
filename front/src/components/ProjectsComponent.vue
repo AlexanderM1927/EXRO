@@ -3,50 +3,72 @@
         <div class="row">
             <div class="col-1"></div>
             <div class="col-10 container">
-                <div class="title">
-                  <div class="text-h4">
-                      Tratamientos
+              <div class="row">
+                <div class="col-12">
+                  <div class="title">
+                    <div class="text-h4">
+                        Tratamientos
+                        <div class="right">
+                          <div class="projects--header">
+                            <q-input
+                              dense
+                              color="grey-3"
+                              bg-color="white"
+                              label-color="primary"
+                              filled
+                              debounce="300"
+                              v-model="filter"
+                              placeholder="Buscar"
+                            >
+                              <template v-slot:append>
+                                  <q-icon name="search" />
+                              </template>
+                            </q-input>
+                          </div>
+                        </div>
+                    </div>
                   </div>
                 </div>
-                <div class="row">
-                    <div v-if="projects.data.length === 0">
-                      Ningun tratamiento hasta el momento
-                    </div>
-                    <div v-for="item in projects.data" :key="item.id" class="col-md-6 col-xs-12">
-                        <q-card class="my-card" style="margin: 5px;" flat bordered>
-                            <q-card-section horizontal class="cards">
-                                <q-card-section style="width: 58.5%;">
-                                    <div class="text-h6">{{item.name}}</div>
-                                    {{item.descripcion}}
-                                </q-card-section>
+              </div>
+              <div class="row">
+                  <div v-if="projects.data.length === 0">
+                    Ningun tratamiento hasta el momento
+                  </div>
+                  <div v-for="item in projects.data" :key="item.id" class="col-md-6 col-xs-12">
+                      <q-card class="my-card" style="margin: 5px;" flat bordered>
+                          <q-card-section horizontal class="cards">
+                              <q-card-section style="width: 58.5%;">
+                                  <div class="text-h6">{{item.name}}</div>
+                                  {{item.descripcion}}
+                              </q-card-section>
 
-                                <q-img
-                                class="col-5"
-                                :src="getImgUrl(item.urlimg)"
-                                />
-                            </q-card-section>
-                            <q-separator/>
+                              <q-img
+                              class="col-5"
+                              :src="getImgUrl(item.urlimg)"
+                              />
+                          </q-card-section>
+                          <q-separator/>
 
-                            <q-card-actions v-if="mode === 'select'">
-                                <q-btn flat color="primary" @click="$emit('selectproject', item.id)">
-                                Seleccionar
-                                </q-btn>
-                            </q-card-actions>
-                            <q-card-actions v-else>
-                                <q-btn flat color="primary" @click="goTo('project/' + item.id)">
-                                Ver
-                                </q-btn>
-                            </q-card-actions>
-                        </q-card>
-                    </div>
-                </div>
-                <div class="row">
-                  <Paginator
-                    v-if="projects.data"
-                    @getAction="getProjects"
-                    :data="paginator"
-                  ></Paginator>
-                </div>
+                          <q-card-actions v-if="mode === 'select'">
+                              <q-btn flat color="primary" @click="$emit('selectproject', item.id)">
+                              Seleccionar
+                              </q-btn>
+                          </q-card-actions>
+                          <q-card-actions v-else>
+                              <q-btn flat color="primary" @click="goTo('project/' + item.id)">
+                              Ver
+                              </q-btn>
+                          </q-card-actions>
+                      </q-card>
+                  </div>
+              </div>
+              <div class="row">
+                <Paginator
+                  v-if="projects.data"
+                  @getAction="getProjects"
+                  :data="paginator"
+                ></Paginator>
+              </div>
             </div>
             <div class="col-1"></div>
         </div>
@@ -58,6 +80,7 @@ import ProjectService from '../services/ProjectService'
 import EditProject from './Dialogs/EditProject.vue'
 import { functions } from '../functions.js'
 import Paginator from './Paginator.vue'
+import { debounce } from 'quasar'
 
 export default {
   components: {
@@ -69,7 +92,13 @@ export default {
   data () {
     return {
       projects: [],
-      paginator: {}
+      paginator: {},
+      filter: ''
+    }
+  },
+  watch: {
+    filter () {
+      debounce(this.getProjects(), 1500)
     }
   },
   mounted () {
@@ -93,7 +122,10 @@ export default {
     async getProjects (newPage = 1) {
       try {
         this.activateLoading('Cargando')
-        const us = await ProjectService.getProjects(newPage, { token: localStorage.getItem('token') })
+        const us = await ProjectService.getProjects(newPage, {
+          name: this.filter,
+          token: localStorage.getItem('token')
+        })
         this.paginator = {
           currentPage: us.data.projects.current_page,
           lastPage: us.data.projects.last_page,

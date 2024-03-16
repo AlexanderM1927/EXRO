@@ -3,65 +3,85 @@
         <div class="row">
             <div class="col-1"></div>
             <div class="col-10 container">
-                <div class="title">
-                  <div class="text-h4">
-                      Tratamientos
-                      <div class="right">
-                        <q-btn round color="positive" @click="createProject" size="md" icon="add">
-                          <q-tooltip>
-                              Agregar
-                          </q-tooltip>
-                        </q-btn>
-                      </div>
+              <div class="row">
+                <div class="col-12">
+                  <div class="title">
+                    <div class="text-h4">
+                        Tratamientos
+                        <div class="right">
+                          <div class="projects--header">
+                            <q-input
+                              dense
+                              color="grey-3"
+                              bg-color="white"
+                              label-color="primary"
+                              filled
+                              debounce="300"
+                              v-model="filter"
+                              placeholder="Buscar"
+                            >
+                              <template v-slot:append>
+                                  <q-icon name="search" />
+                              </template>
+                            </q-input>
+                            <q-btn round color="positive" @click="createProject" size="md" icon="add">
+                              <q-tooltip>
+                                  Agregar
+                              </q-tooltip>
+                            </q-btn>
+                          </div>
+                        </div>
+                    </div>
                   </div>
                 </div>
-                <div class="row">
-                    <div v-if="projects.data.length === 0">
-                      Ningun tratamiento hasta el momento
-                    </div>
-                    <div v-for="item in projects.data" :key="item.id" class="col-md-6 col-xs-12">
-                        <q-card class="my-card" style="margin: 5px;" flat bordered>
-                            <q-card-section horizontal class="cards">
-                                <q-card-section style="width: 100%;">
-                                    <div class="text-h6">{{item.name}}</div>
-                                    {{item.descripcion}}
-                                </q-card-section>
-                            </q-card-section>
-                            <q-card-section>
-                              <q-img
-                                :src="getImgUrl(item.urlimg)"
-                                style="max-width: 300%; height: 150px;"
-                                :fit="'cover'"
-                              />
-                            </q-card-section>
-                            <q-separator/>
+              </div>
+              <div class="row">
+                  <div v-if="projects.data.length === 0">
+                    Ningun tratamiento hasta el momento
+                  </div>
+                  <div v-for="item in projects.data" :key="item.id" class="col-md-6 col-xs-12">
+                      <q-card class="my-card" style="margin: 5px;" flat bordered>
+                          <q-card-section horizontal class="cards">
+                              <q-card-section style="width: 100%;">
+                                  <div class="text-h6">{{item.name}}</div>
+                                  {{item.descripcion}}
+                              </q-card-section>
+                          </q-card-section>
+                          <q-card-section>
+                            <q-img
+                              :src="getImgUrl(item.urlimg)"
+                              style="max-width: 300%; height: 150px;"
+                              :fit="'cover'"
+                            />
+                          </q-card-section>
+                          <q-separator/>
 
-                            <q-card-actions v-if="mode === 'select'">
-                                <q-btn flat color="primary" @click="$emit('selectproject', item.id)">
-                                Seleccionar
-                                </q-btn>
-                            </q-card-actions>
-                            <q-card-actions v-else>
-                                <q-btn flat color="primary" @click="goTo('project/' + item.id)">
-                                Ver
-                                </q-btn>
-                                <q-btn flat color="primary" @click="editProject(item)">
-                                Editar
-                                </q-btn>
-                                <q-btn flat color="negative" @click="eliminar(item.id)">
-                                Eliminar
-                                </q-btn>
-                            </q-card-actions>
-                        </q-card>
-                    </div>
-                </div>
-                <div class="row">
-                  <Paginator
-                    v-if="projects.data"
-                    @getAction="getProjects"
-                    :data="paginator"
-                  ></Paginator>
-                </div>
+                          <q-card-actions v-if="mode === 'select'">
+                              <q-btn flat color="primary" @click="$emit('selectproject', item.id)">
+                              Seleccionar
+                              </q-btn>
+                          </q-card-actions>
+                          <q-card-actions v-else>
+                              <q-btn flat color="primary" @click="goTo('project/' + item.id)">
+                              Ver
+                              </q-btn>
+                              <q-btn flat color="primary" @click="editProject(item)">
+                              Editar
+                              </q-btn>
+                              <q-btn flat color="negative" @click="eliminar(item.id)">
+                              Eliminar
+                              </q-btn>
+                          </q-card-actions>
+                      </q-card>
+                  </div>
+              </div>
+              <div class="row">
+                <Paginator
+                  v-if="projects.data"
+                  @getAction="getProjects"
+                  :data="paginator"
+                ></Paginator>
+              </div>
             </div>
             <div class="col-1"></div>
         </div>
@@ -74,6 +94,7 @@ import AddProject from './Dialogs/AddProject.vue'
 import EditProject from './Dialogs/EditProject.vue'
 import { functions } from '../functions.js'
 import Paginator from './Paginator.vue'
+import { debounce } from 'quasar'
 
 export default {
   components: {
@@ -86,7 +107,13 @@ export default {
     return {
       projects: [],
       clientId: this.$route.params.id,
-      paginator: {}
+      paginator: {},
+      filter: ''
+    }
+  },
+  watch: {
+    filter () {
+      debounce(this.getProjects(), 1500)
     }
   },
   mounted () {
@@ -112,6 +139,7 @@ export default {
         this.activateLoading('Cargando')
         const us = await ProjectService.getProjectsByClient(newPage, {
           clientId: this.clientId,
+          name: this.filter,
           token: localStorage.getItem('token')
         })
         this.paginator = {
@@ -206,5 +234,8 @@ export default {
 <style lang="scss" scoped>
 .right {
   float: right;
+}
+.projects--header {
+  display: flex;
 }
 </style>

@@ -52,38 +52,43 @@ class ProjectController extends Controller
         }
     }
 
-    public function getProjects () {
+    public function getProjects (Request $request) {
         $user = Auth::user();
         if ($user->rank == 3 || $user->rank == 4) {
             $projects = DB::table('projects')
+            ->where('projects.name', 'LIKE', '%'. $request->get('name') .'%')
             ->paginate(Paginator::PAGINATION_NUMBER);
         } elseif ($user->rank == 2 || $user->rank == 5 || $user->rank == 6 || $user->rank == 4) {
             $projects = DB::table('projects')
             ->join('engineers_projects', 'engineers_projects.idproyecto', '=', 'projects.id')
             ->where('engineers_projects.idingeniero', '=', $user->id)
             ->select('projects.*')
+            ->where('projects.name', 'LIKE', '%'. $request->get('name') .'%')
             ->paginate(Paginator::PAGINATION_NUMBER);
         } else {
             $projects = DB::table('projects')
             ->where('idcliente', '=', $user->id)
             ->orWhere('idcliente', '=', $user->parent_id)
+            ->where('projects.name', 'LIKE', '%'. $request->get('name') .'%')
             ->paginate(Paginator::PAGINATION_NUMBER);
         }
         return response()->json(['projects' => $projects]);
     }
 
-    public function getProjectsByClientId ($id) {
+    public function getProjectsByClientId (Request $request, $id) {
         $user = Auth::user();
         if ($user->rank == 2 || $user->rank == 5 || $user->rank == 6 || $user->rank == 4) {
             $projects = DB::table('projects')
             ->join('engineers_projects', 'engineers_projects.idproyecto', '=', 'projects.id')
             ->where('engineers_projects.idingeniero', '=', $user->id)
             ->where('idcliente', '=', $id)
+            ->where('projects.name', 'LIKE', '%'. $request->get('name') .'%')
             ->select('projects.*')
             ->paginate(Paginator::PAGINATION_NUMBER);
         } else {
             $projects = DB::table('projects')
             ->where('idcliente', '=', $id)
+            ->where('projects.name', 'LIKE', '%'. $request->get('name') .'%')
             ->paginate(Paginator::PAGINATION_NUMBER);
         }
         return response()->json(['projects' => $projects]);
