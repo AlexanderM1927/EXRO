@@ -95,12 +95,12 @@ export default {
           name: 'Calidad agua de Recirculacion',
           fields: [
             { id: 1, name: 'pH', value: '', color: 'background-color:#A2CCFA', conditions: { min: 0, max: 14 } },
-            { id: 2, name: 'Dureza ppm', value: '', color: 'background-color:#A2CCFA' },
-            { id: 3, name: 'Alcalinidad Total ppm', value: '', color: 'background-color:#A2CCFA' },
-            { id: 4, name: 'Silice ppm', value: '', color: 'background-color:#A2CCFA' },
-            { id: 5, name: 'Solidos disueltos ppm', value: '', color: 'background-color:#A2CCFA' },
-            { id: 6, name: 'conductividad uS/cm', value: '', color: 'background-color:#A2CCFA' },
-            { id: 7, name: 'Hierro ppm', value: '', color: 'background-color:#A2CCFA' },
+            { id: 2, name: 'Dureza ppm', value: '', color: 'background-color:yellow' },
+            { id: 3, name: 'Alcalinidad Total ppm', value: '', color: 'background-color:yellow' },
+            { id: 4, name: 'Silice ppm', value: '', color: 'background-color:yellow' },
+            { id: 5, name: 'Solidos disueltos ppm', value: '', color: 'background-color:yellow' },
+            { id: 6, name: 'conductividad uS/cm', value: '', color: 'background-color:yellow' },
+            { id: 7, name: 'Hierro ppm', value: '', color: 'background-color:yellow' },
             { id: 8, name: 'Cloruros ppm Cl', value: '', color: 'background-color:#A2CCFA' },
             { id: 9, name: 'RESIDUAL DE PRODUCTO', value: '', color: 'background-color:#A2CCFA' }
           ]
@@ -127,7 +127,7 @@ export default {
         },
         {
           id: 4,
-          name: 'BALANCES HIDRICOS ACTUALES A 2 CICLOS',
+          name: 'BALANCES HIDRICOS ACTUALES',
           fields: [
             { id: 1, name: 'volumen del sistema m3', value: '', color: 'background-color:#A2CCFA' },
             { id: 2, name: 'Caudal de Recirculación (m3/h)', value: '', color: 'background-color:#A2CCFA' },
@@ -136,12 +136,12 @@ export default {
             { id: 5, name: 'delta °T °F', value: '', color: 'background-color:yellow' },
             { id: 6, name: '% de evaporación', value: '', color: 'background-color:yellow' },
             { id: 7, name: 'Horas de trabajo dia', value: '', color: 'background-color:#A2CCFA', conditions: { min: 0, max: 24 } },
-            { id: 9, name: 'Dias de trabajo al mes', value: '', color: 'background-color:#A2CCFA', conditions: { min: 1, max: 30 } },
-            { id: 10, name: 'Ciclos de concentración', value: '', color: 'background-color:yellow' },
-            { id: 11, name: 'Caudal de evaporación (m3/h)', value: '', color: 'background-color:yellow' },
-            { id: 12, name: 'Caudal de purga (m3/h)', value: '', color: 'background-color:yellow' },
-            { id: 13, name: 'Caudal de reposición (m3/h)', value: '', color: 'background-color:yellow' },
-            { id: 14, name: 'Metalografia total del sistema', value: '', color: 'background-color:#A2CCFA' }
+            { id: 8, name: 'Dias de trabajo al mes', value: '', color: 'background-color:#A2CCFA', conditions: { min: 1, max: 30 } },
+            { id: 9, name: 'Ciclos de concentración', value: '', color: 'background-color:#A2CCFA' },
+            { id: 10, name: 'Caudal de evaporación (m3/h)', value: '', color: 'background-color:yellow' },
+            { id: 11, name: 'Caudal de purga (m3/h)', value: '', color: 'background-color:yellow' },
+            { id: 12, name: 'Caudal de reposición (m3/h)', value: '', color: 'background-color:yellow' },
+            { id: 13, name: 'Metalografia total del sistema', value: '', color: 'background-color:#A2CCFA' }
           ]
         },
         {
@@ -169,12 +169,14 @@ export default {
   },
   // operaciones
   updated () {
+    this.recirculacion()
     this.ryznar()
     this.balances()
     this.calculosProducto()
     this.calculosAjuste()
   },
   mounted () {
+    this.recirculacion()
     this.ryznar()
     this.balances()
     this.calculosProducto()
@@ -199,15 +201,23 @@ export default {
         }
       }
     },
+    recirculacion () {
+      this.tables[1].fields[1].value = Math.round(this.tables[0].fields[1].value * this.tables[3].fields[8].value * 10) / 10
+      this.tables[1].fields[2].value = Math.round((this.tables[0].fields[2].value * this.tables[3].fields[8].value) * 10) / 10
+      this.tables[1].fields[3].value = Math.round((this.tables[0].fields[3].value * this.tables[3].fields[8].value) * 10) / 10
+      this.tables[1].fields[4].value = Math.round(this.tables[0].fields[4].value * this.tables[3].fields[8].value * 10) / 10
+      this.tables[1].fields[5].value = Math.round(this.tables[0].fields[5].value * this.tables[3].fields[8].value * 10) / 10
+      this.tables[1].fields[6].value = Math.round(this.tables[0].fields[6].value * this.tables[3].fields[8].value * 10) / 10
+    },
     ryznar () {
       this.tables[2].fields[5].value = this.tables[1].fields[4].value
       this.tables[2].fields[7].value = this.tables[1].fields[1].value
       this.tables[2].fields[8].value = this.tables[1].fields[2].value
       this.tables[2].fields[11].value = this.tables[1].fields[0].value
       this.tables[2].fields[0].value = Math.round(((Math.log10(this.tables[2].fields[5].value) - 1) / 10) * 1000) / 1000
-      this.tables[2].fields[6].value = Math.round((((Number(this.tables[3].fields[2].value) - 32) * 5) / 9) * 1000) / 1000
-      this.tables[2].fields[1].value = Math.round((-13.12 * Math.log10(Number(this.tables[2].fields[6].value) + 273) + 34.55) * 1000) / 1000
-      this.tables[2].fields[2].value = Math.round(Math.log10(this.tables[2].fields[7].value) * 1000) / 1000
+      // this.tables[2].fields[6].value = Math.round((((Number(this.tables[3].fields[2].value) - 32) * 5) / 9) * 1000) / 1000
+      this.tables[2].fields[1].value = Math.round((34.55 - (13.12 * Math.log10(Number(this.tables[2].fields[6].value) + 273))) * 1000) / 1000
+      this.tables[2].fields[2].value = Math.round((Math.log10(this.tables[2].fields[7].value) - 0.4) * 1000) / 1000
       this.tables[2].fields[3].value = Math.round(Math.log10(this.tables[2].fields[8].value) * 1000) / 1000
       this.tables[2].fields[10].value = Math.round(((9.3 + this.tables[2].fields[0].value + this.tables[2].fields[1].value) - (this.tables[2].fields[2].value + this.tables[2].fields[3].value)) * 1000) / 1000
       this.tables[2].fields[13].value = Math.round((2 * this.tables[2].fields[10].value - this.tables[2].fields[11].value) * 1000) / 1000
@@ -216,7 +226,7 @@ export default {
       this.tables[3].fields[4].value = this.tables[3].fields[2].value - this.tables[3].fields[3].value
       const porcentaje = (this.tables[3].fields[4].value * 0.01) / 10
       this.tables[3].fields[5].value = (this.tables[3].fields[4].value / 10) + ' %'
-      this.tables[3].fields[8].value = Math.round((this.tables[1].fields[3].value / this.tables[0].fields[3].value) * 1000000000) / 1000000000
+      // this.tables[3].fields[8].value = Math.round((this.tables[1].fields[3].value / this.tables[0].fields[3].value) * 1000000000) / 1000000000
       this.tables[3].fields[9].value = Math.round((this.tables[3].fields[1].value * porcentaje) * 1000000000) / 1000000000
       this.tables[3].fields[10].value = Math.round((this.tables[3].fields[9].value / (this.tables[3].fields[8].value - 1)) * 1000000000) / 1000000000
       this.tables[3].fields[11].value = Math.round((Number(this.tables[3].fields[9].value) + Number(this.tables[3].fields[10].value)) * 1000000000) / 1000000000
