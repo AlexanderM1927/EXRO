@@ -16,7 +16,11 @@
                         <div v-for="field in table.fields" :key="field.id" class="row">
                             <div class="col-6">{{field.name}}</div>
                             <div class="col-6">
-                                <input v-if="field.name !== ''" type="text" v-model="field.value" class="full-width full-height" :style="`${field.color}; text-align: center`"
+                              <select class="full-width full-height" :style="`${field.color}; text-align: center`" v-model="field.value" v-if="field.name === 'Suavizador'">
+                                  <option value="0">No</option>
+                                  <option value="1">Si</option>
+                                </select>
+                                <input v-else-if="field.name !== ''" type="text" v-model="field.value" class="full-width full-height" :style="`${field.color}; text-align: center`"
                                 :readonly="field.color==='background-color:yellow'" @keypress="validar(field.value, field.conditions, $event)" />
                                 <br v-else>
                             </div>
