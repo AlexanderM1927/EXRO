@@ -102,13 +102,12 @@ export default {
           name: 'Calidad agua de purga ',
           fields: [
             { id: 1, name: 'pH', value: '', color: 'background-color:#A2CCFA', conditions: { min: 0, max: 14 } },
-            { id: 2, name: 'Dureza ppm', value: '', color: 'background-color:#A2CCFA' },
-            { id: 3, name: 'Alcalinidad P ppm', value: '', color: 'background-color:#A2CCFA' },
-            { id: 4, name: 'Alcalinidad M ppm', value: '', color: 'background-color:#A2CCFA' },
-            { id: 5, name: 'Silice ppm', value: '', color: 'background-color:#A2CCFA' },
-            { id: 6, name: 'Solidos disueltos ppm', value: '', color: 'background-color:#A2CCFA' },
-            { id: 7, name: 'conductividad uS/cm', value: '', color: 'background-color:#A2CCFA' },
-            { id: 8, name: 'Hierro ppm', value: '', color: 'background-color:#A2CCFA' }
+            { id: 2, name: 'Alcalinidad P ppm', value: '', color: 'background-color:#A2CCFA' },
+            { id: 3, name: 'Alcalinidad M ppm', value: '', color: 'background-color:#A2CCFA' },
+            { id: 4, name: 'Silice ppm', value: '', color: 'background-color:#A2CCFA' },
+            { id: 5, name: 'Solidos disueltos ppm', value: '', color: 'background-color:#A2CCFA' },
+            { id: 6, name: 'conductividad uS/cm', value: '', color: 'background-color:#A2CCFA' },
+            { id: 7, name: 'Hierro ppm', value: '', color: 'background-color:#A2CCFA' }
           ]
         },
         {
@@ -213,7 +212,7 @@ export default {
       }
     },
     BHCO () {
-      this.tables[4].fields[5].value = Math.round((this.tables[1].fields[3].value / this.tables[0].fields[3].value) * 1000000000) / 1000000000
+      this.tables[4].fields[5].value = Math.round((this.tables[1].fields[2].value / this.tables[0].fields[3].value) * 1000000000) / 1000000000
       this.tables[4].fields[6].value = Math.round(((((this.tables[4].fields[1].value / 100) * 34.5 * (this.tables[4].fields[2].value) / 100) / 2.2) / 1000) * 1000000000) / 1000000
       this.tables[4].fields[7].value = Math.round((this.tables[4].fields[6].value * (this.tables[4].fields[2].value / 100)) * 1000000000) / 1000000000
       this.tables[4].fields[11].value = Math.round((this.tables[4].fields[6].value / (this.tables[4].fields[5].value - 1)) * 1000000000) / 1000000000
