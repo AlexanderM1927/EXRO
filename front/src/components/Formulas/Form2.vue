@@ -217,20 +217,20 @@ export default {
     },
     BHCO () {
       this.tables[4].fields[5].value = Math.round((this.tables[1].fields[2].value / this.tables[0].fields[3].value) * 1000000000) / 1000000000
-      this.tables[4].fields[6].value = Math.round(((((this.tables[4].fields[1].value / 100) * 34.5 * (this.tables[4].fields[2].value) / 100) / 2.2) / 1000) * 1000000000) / 1000000
-      this.tables[4].fields[7].value = Math.round((this.tables[4].fields[6].value * (this.tables[4].fields[2].value / 100)) * 1000000000) / 1000000000
+      this.tables[4].fields[6].value = Math.round(((((this.tables[4].fields[1].value / 100) * 34.5 * (this.tables[4].fields[2].value) / 100) / 2.2) / 1000) * 1000000000) / 100000
+      this.tables[4].fields[7].value = Math.round((this.tables[4].fields[6].value * (this.tables[4].fields[2].value)))
       this.tables[4].fields[11].value = Math.round((this.tables[4].fields[6].value / (this.tables[4].fields[5].value - 1)) * 1000000000) / 1000000000
       this.tables[4].fields[12].value = Math.round((this.tables[4].fields[6].value + this.tables[4].fields[11].value) * 1000000000) / 1000000000
-      this.tables[4].fields[13].value = Math.round((this.tables[4].fields[12].value - this.tables[4].fields[7].value) * 1000000000) / 1000000000
+      this.tables[4].fields[13].value = Math.round((this.tables[4].fields[12].value - this.tables[4].fields[7].value) * 100) / 100
     },
     CDSO () {
-      this.tables[5].fields[1].value = ((this.tables[4].fields[12].value * this.tables[5].fields[0].value) / 1000000) * this.tables[4].fields[8].value
+      this.tables[5].fields[1].value = ((this.tables[4].fields[12].value * this.tables[5].fields[0].value) / 1000) * this.tables[4].fields[8].value
     },
     CDAD () {
-      this.tables[6].fields[1].value = ((this.tables[4].fields[12].value * this.tables[6].fields[0].value) / 1000000) * this.tables[4].fields[8].value
+      this.tables[6].fields[1].value = ((this.tables[4].fields[12].value * this.tables[6].fields[0].value) / 1000) * this.tables[4].fields[8].value
     },
     CDAN () {
-      this.tables[7].fields[1].value = ((this.tables[4].fields[12].value * this.tables[7].fields[0].value) / 1000000) * this.tables[4].fields[8].value
+      this.tables[7].fields[1].value = ((this.tables[4].fields[13].value * this.tables[7].fields[0].value) / 1000) * this.tables[4].fields[8].value
     },
     getProducts () {
       this.showInterpretacion = true
