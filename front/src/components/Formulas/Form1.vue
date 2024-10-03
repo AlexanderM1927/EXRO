@@ -202,12 +202,12 @@ export default {
       }
     },
     recirculacion () {
-      this.tables[1].fields[1].value = Math.round(this.tables[0].fields[1].value * this.tables[3].fields[8].value * 10) / 10
-      this.tables[1].fields[2].value = Math.round((this.tables[0].fields[2].value * this.tables[3].fields[8].value) * 10) / 10
-      this.tables[1].fields[3].value = Math.round((this.tables[0].fields[3].value * this.tables[3].fields[8].value) * 10) / 10
-      this.tables[1].fields[4].value = Math.round(this.tables[0].fields[4].value * this.tables[3].fields[8].value * 10) / 10
-      this.tables[1].fields[5].value = Math.round(this.tables[0].fields[5].value * this.tables[3].fields[8].value * 10) / 10
-      this.tables[1].fields[6].value = Math.round(this.tables[0].fields[6].value * this.tables[3].fields[8].value * 10) / 10
+      // this.tables[1].fields[1].value = Math.round(this.tables[0].fields[1].value * this.tables[3].fields[8].value * 10) / 10
+      // this.tables[1].fields[2].value = Math.round((this.tables[0].fields[2].value * this.tables[3].fields[8].value) * 10) / 10
+      // this.tables[1].fields[3].value = Math.round((this.tables[0].fields[3].value * this.tables[3].fields[8].value) * 10) / 10
+      // this.tables[1].fields[4].value = Math.round(this.tables[0].fields[4].value * this.tables[3].fields[8].value * 10) / 10
+      // this.tables[1].fields[5].value = Math.round(this.tables[0].fields[5].value * this.tables[3].fields[8].value * 10) / 10
+      // this.tables[1].fields[6].value = Math.round(this.tables[0].fields[6].value * this.tables[3].fields[8].value * 10) / 10
     },
     ryznar () {
       this.tables[2].fields[5].value = this.tables[1].fields[4].value
