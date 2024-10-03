@@ -95,12 +95,12 @@ export default {
           name: 'Calidad agua de Recirculacion',
           fields: [
             { id: 1, name: 'pH', value: '', color: 'background-color:#A2CCFA', conditions: { min: 0, max: 14 } },
-            { id: 2, name: 'Dureza ppm', value: '', color: 'background-color:yellow' },
-            { id: 3, name: 'Alcalinidad Total ppm', value: '', color: 'background-color:yellow' },
-            { id: 4, name: 'Silice ppm', value: '', color: 'background-color:yellow' },
-            { id: 5, name: 'Solidos disueltos ppm', value: '', color: 'background-color:yellow' },
-            { id: 6, name: 'conductividad uS/cm', value: '', color: 'background-color:yellow' },
-            { id: 7, name: 'Hierro ppm', value: '', color: 'background-color:yellow' },
+            { id: 2, name: 'Dureza ppm', value: '', color: 'background-color:#A2CCFA' },
+            { id: 3, name: 'Alcalinidad Total ppm', value: '', color: 'background-color:#A2CCFA' },
+            { id: 4, name: 'Silice ppm', value: '', color: 'background-color:#A2CCFA' },
+            { id: 5, name: 'Solidos disueltos ppm', value: '', color: 'background-color:#A2CCFA' },
+            { id: 6, name: 'conductividad uS/cm', value: '', color: 'background-color:#A2CCFA' },
+            { id: 7, name: 'Hierro ppm', value: '', color: 'background-color:#A2CCFA' },
             { id: 8, name: 'Cloruros ppm Cl', value: '', color: 'background-color:#A2CCFA' },
             { id: 9, name: 'RESIDUAL DE PRODUCTO', value: '', color: 'background-color:#A2CCFA' }
           ]
