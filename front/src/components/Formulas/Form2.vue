@@ -146,10 +146,9 @@ export default {
             { id: 8, name: 'Caudal retorno de condensado ', value: '', color: 'background-color:yellow' },
             { id: 9, name: 'Horas de trabajo dia', value: '', color: 'background-color:#A2CCFA' },
             { id: 10, name: 'Dias de trabajo al mes', value: '', color: 'background-color:#A2CCFA' },
-            { id: 11, name: 'Suavizador', value: '', color: 'background-color:#A2CCFA' },
-            { id: 12, name: 'Caudal de purga (m3/h)', value: '', color: 'background-color:yellow' },
-            { id: 13, name: 'Caudal de Alimentacion  (m3/h)', value: '', color: 'background-color:yellow' },
-            { id: 14, name: 'Caudal de reposición (m3/h)', value: '', color: 'background-color:yellow' }
+            { id: 11, name: 'Caudal de purga (m3/h)', value: '', color: 'background-color:yellow' },
+            { id: 12, name: 'Caudal de Alimentacion  (m3/h)', value: '', color: 'background-color:yellow' },
+            { id: 13, name: 'Caudal de reposición (m3/h)', value: '', color: 'background-color:yellow' }
           ]
         },
         {
@@ -215,18 +214,18 @@ export default {
       this.tables[4].fields[5].value = Math.round((this.tables[1].fields[2].value / this.tables[0].fields[3].value) * 1000000000) / 1000000000
       this.tables[4].fields[6].value = Math.round(((((this.tables[4].fields[1].value / 100) * 34.5 * (this.tables[4].fields[2].value) / 100) / 2.2) / 1000) * 1000000000) / 1000000
       this.tables[4].fields[7].value = Math.round((this.tables[4].fields[6].value * (this.tables[4].fields[2].value / 100)) * 1000000000) / 1000000000
-      this.tables[4].fields[11].value = Math.round((this.tables[4].fields[6].value / (this.tables[4].fields[5].value - 1)) * 1000000000) / 1000000000
-      this.tables[4].fields[12].value = Math.round((this.tables[4].fields[6].value + this.tables[4].fields[11].value) * 1000000000) / 1000000000
-      this.tables[4].fields[13].value = Math.round((this.tables[4].fields[12].value - this.tables[4].fields[7].value) * 1000000000) / 1000000000
+      this.tables[4].fields[10].value = Math.round((this.tables[4].fields[6].value / (this.tables[4].fields[5].value - 1)) * 1000000000) / 1000000000
+      this.tables[4].fields[11].value = Math.round((this.tables[4].fields[6].value + this.tables[4].fields[10].value) * 1000000000) / 1000000000
+      this.tables[4].fields[12].value = Math.round((this.tables[4].fields[11].value - this.tables[4].fields[7].value) * 1000000000) / 1000000000
     },
     CDSO () {
-      this.tables[5].fields[1].value = ((this.tables[4].fields[12].value * this.tables[5].fields[0].value) / 1000000) * this.tables[4].fields[8].value
+      this.tables[5].fields[1].value = ((this.tables[4].fields[11].value * this.tables[5].fields[0].value) / 1000000) * this.tables[4].fields[8].value
     },
     CDAD () {
-      this.tables[6].fields[1].value = ((this.tables[4].fields[12].value * this.tables[6].fields[0].value) / 1000000) * this.tables[4].fields[8].value
+      this.tables[6].fields[1].value = ((this.tables[4].fields[11].value * this.tables[6].fields[0].value) / 1000000) * this.tables[4].fields[8].value
     },
     CDAN () {
-      this.tables[7].fields[1].value = ((this.tables[4].fields[12].value * this.tables[7].fields[0].value) / 1000000) * this.tables[4].fields[8].value
+      this.tables[7].fields[1].value = ((this.tables[4].fields[11].value * this.tables[7].fields[0].value) / 1000000) * this.tables[4].fields[8].value
     },
     getProducts () {
       this.showInterpretacion = true
