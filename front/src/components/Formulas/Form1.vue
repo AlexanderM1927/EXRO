@@ -232,7 +232,7 @@ export default {
       this.tables[3].fields[11].value = Math.round((Number(this.tables[3].fields[9].value) + Number(this.tables[3].fields[10].value)) * 1000000000) / 1000000000
     },
     calculosProducto () {
-      this.tables[5].fields[1].value = (this.tables[3].fields[11].value * this.tables[5].fields[0].value * this.tables[3].fields[6].value) / 1000000
+      this.tables[5].fields[1].value = (this.tables[3].fields[11].value * this.tables[5].fields[0].value * this.tables[3].fields[6].value) / 1000
     },
     calculosAjuste () {
       this.tables[4].fields[2].value = Math.round((this.tables[1].fields[8].value / this.tables[3].fields[8].value) * 1000) / 1000
