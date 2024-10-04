@@ -94,7 +94,7 @@ class ReportController extends Controller
                 $body .= "</ul>";
                 $body .= "<br>";
                 $body .= "<br>";
-                $body .= "<a href='".env('FRONT_URL')."report/".$report->id."'>Ver reporte</a>";
+                $body .= "<a href='".env('FRONT_URL')."/report/".$report->id."'>Ver reporte</a>";
                 // Mail::to($project->email)->send(new MessageSend($title,$body,$project->email));
             }
         }

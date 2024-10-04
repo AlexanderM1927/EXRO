@@ -29,7 +29,7 @@ class AuthController extends Controller
         ]);
 
         $credentials = $request->only(['email', 'password']);
-            
+
         if (! $token = auth()->setTTL(7200)->attempt($credentials)) {
             return response()->json(['message' => 'Unauthorized'], 401);
         } else {
@@ -60,7 +60,7 @@ class AuthController extends Controller
                 $body .= "<br>";
                 $body .= "Si has solicitado cambiar tu clave, entra al siguiente enlace, de lo contrario ignora este email";
                 $body .= "<br>";
-                $body .= "<a href='".env('FRONT_URL')."changepassword/".$token."'>Cambiar clave</a>";
+                $body .= "<a href='".env('FRONT_URL')."/changepassword/".$token."'>Cambiar clave</a>";
                 Mail::to($user->email)->send(new MessageSend($title,$body,$user->email));
                 $user = DB::table('users')->where('email', '=', $request->input('email'))->update([
                     'token_recovery' => $token

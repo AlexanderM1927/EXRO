@@ -216,11 +216,11 @@ export default {
       }
     },
     BHCO () {
-      this.tables[4].fields[5].value = Math.round((this.tables[1].fields[2].value / this.tables[0].fields[3].value) * 1000000000) / 1000000000
-      this.tables[4].fields[6].value = Math.round(((((this.tables[4].fields[1].value / 100) * 34.5 * (this.tables[4].fields[2].value) / 100) / 2.2) / 1000) * 1000000000) / 100000
-      this.tables[4].fields[7].value = Math.round((this.tables[4].fields[6].value * (this.tables[4].fields[2].value)))
-      this.tables[4].fields[11].value = Math.round((this.tables[4].fields[6].value / (this.tables[4].fields[5].value - 1)) * 1000000000) / 1000000000
-      this.tables[4].fields[12].value = Math.round((this.tables[4].fields[6].value + this.tables[4].fields[11].value) * 1000000000) / 1000000000
+      this.tables[4].fields[5].value = Math.round((this.tables[1].fields[3].value / this.tables[0].fields[3].value) * 100) / 100
+      this.tables[4].fields[6].value = Math.round(((((this.tables[4].fields[0].value) * ((this.tables[4].fields[1].value / 100) * 34.5)) / 2.2) / 1000) * 100) / 100
+      this.tables[4].fields[7].value = Math.round((this.tables[4].fields[6].value * (this.tables[4].fields[2].value / 100)) * 100) / 100
+      this.tables[4].fields[11].value = Math.round((this.tables[4].fields[6].value / (this.tables[4].fields[5].value - 1)) * 100) / 100
+      this.tables[4].fields[12].value = Math.round((this.tables[4].fields[6].value + this.tables[4].fields[11].value) * 100) / 100
       this.tables[4].fields[13].value = Math.round((this.tables[4].fields[12].value - this.tables[4].fields[7].value) * 100) / 100
     },
     CDSO () {
